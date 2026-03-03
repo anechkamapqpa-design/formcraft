@@ -1,25 +1,51 @@
+import { useEffect } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Index from "./pages/Index";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { LangProvider } from "@/lib/i18n";
+import Home from "./pages/Home";
+import TemplateDetail from "./pages/TemplateDetail";
+import About from "./pages/About";
+import LuxuryArt from "./pages/demos/LuxuryArt";
+import SaaSClean from "./pages/demos/SaaSClean";
+import EcomDrop from "./pages/demos/EcomDrop";
+import PersonalBrand from "./pages/demos/PersonalBrand";
+import ExperimentalNeon from "./pages/demos/ExperimentalNeon";
+import ProductInteractive from "./pages/demos/ProductInteractive";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
+function ScrollToTop() {
+  const { pathname } = useLocation();
+  useEffect(() => { window.scrollTo(0, 0); }, [pathname]);
+  return null;
+}
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
+      <LangProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <ScrollToTop />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/template/:id" element={<TemplateDetail />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/demo/luxury-art" element={<LuxuryArt />} />
+            <Route path="/demo/saas-clean" element={<SaaSClean />} />
+            <Route path="/demo/ecom-drop" element={<EcomDrop />} />
+            <Route path="/demo/personal-brand" element={<PersonalBrand />} />
+            <Route path="/demo/experimental-neon" element={<ExperimentalNeon />} />
+            <Route path="/demo/product-interactive" element={<ProductInteractive />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </BrowserRouter>
+      </LangProvider>
     </TooltipProvider>
   </QueryClientProvider>
 );
