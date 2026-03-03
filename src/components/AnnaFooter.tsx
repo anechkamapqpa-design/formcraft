@@ -1,0 +1,106 @@
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { ArrowRight, Globe } from "lucide-react";
+import { SiTelegram } from "react-icons/si";
+import { Mail } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { useLang } from "@/lib/i18n";
+
+export function AnnaFooter() {
+  const { t } = useLang();
+  const [selectedType, setSelectedType] = useState(0);
+  const [selectedTimeline, setSelectedTimeline] = useState(0);
+
+  const contactCards = [
+    { icon: SiTelegram, label: t.footer.contacts.telegram, desc: t.footer.contacts.telegramDesc, href: "#", color: "group-hover:text-[hsl(200,80%,60%)]", glow: "group-hover:shadow-[0_0_20px_hsl(200,80%,60%,0.1)]" },
+    { icon: Mail, label: t.footer.contacts.email, desc: t.footer.contacts.emailDesc, href: "#", color: "group-hover:text-primary", glow: "group-hover:shadow-[0_0_20px_hsl(150,60%,50%,0.1)]" },
+  ];
+
+  return (
+    <footer id="contact" className="relative min-h-screen flex flex-col" style={{ backgroundColor: "#0b0f14" }}>
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute top-0 left-1/3 w-[500px] h-[500px] bg-primary/[0.03] rounded-full blur-[120px]" />
+      </div>
+
+      <div className="relative flex-1 flex flex-col justify-center max-w-6xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+        <div className="text-center mb-6 sm:mb-8">
+          <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-foreground">{t.footer.title}</h2>
+          <p className="mt-2 text-sm sm:text-base text-muted-foreground max-w-xl mx-auto leading-relaxed">{t.footer.subtitle}</p>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 lg:gap-8">
+          <div className="lg:col-span-3 rounded-2xl border border-border/40 bg-[hsl(220,20%,6%)] p-5 sm:p-6">
+            <div className="space-y-3.5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                <div>
+                  <label className="block text-[11px] font-medium text-muted-foreground uppercase tracking-wider mb-1.5">{t.footer.form.name}</label>
+                  <input type="text" placeholder={t.footer.form.namePlaceholder} className="w-full px-3 py-2.5 bg-background/60 border border-border/50 rounded-lg text-sm text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:border-primary/50 transition-colors" />
+                </div>
+                <div>
+                  <label className="block text-[11px] font-medium text-muted-foreground uppercase tracking-wider mb-1.5">{t.footer.form.contact}</label>
+                  <input type="text" placeholder={t.footer.form.contactPlaceholder} className="w-full px-3 py-2.5 bg-background/60 border border-border/50 rounded-lg text-sm text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:border-primary/50 transition-colors" />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-[11px] font-medium text-muted-foreground uppercase tracking-wider mb-1.5">{t.footer.form.projectType}</label>
+                <div className="flex flex-wrap gap-1.5">
+                  {t.footer.form.projectTypes.map((type, i) => (
+                    <Button key={type} variant={selectedType === i ? "default" : "outline"} size="sm" onClick={() => setSelectedType(i)} className={`h-8 text-xs ${selectedType === i ? "" : "border-border/50 text-muted-foreground"}`}>{type}</Button>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-[11px] font-medium text-muted-foreground uppercase tracking-wider mb-1.5">{t.footer.form.timeline}</label>
+                <div className="flex flex-wrap gap-1.5">
+                  {t.footer.form.timelines.map((tl, i) => (
+                    <Button key={tl} variant={selectedTimeline === i ? "default" : "outline"} size="sm" onClick={() => setSelectedTimeline(i)} className={`h-8 text-xs ${selectedTimeline === i ? "" : "border-border/50 text-muted-foreground"}`}>{tl}</Button>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-[11px] font-medium text-muted-foreground uppercase tracking-wider mb-1.5">{t.footer.form.description}</label>
+                <textarea rows={2} placeholder={t.footer.form.descriptionPlaceholder} className="w-full px-3 py-2.5 bg-background/60 border border-border/50 rounded-lg text-sm text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:border-primary/50 transition-colors resize-none" />
+              </div>
+
+              <Button className="w-full py-5 text-sm font-semibold">
+                {t.footer.form.submit}
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </Button>
+            </div>
+          </div>
+
+          <div className="lg:col-span-2 flex flex-col gap-3">
+            {contactCards.map(({ icon: Icon, label, desc, href, color, glow }) => (
+              <a key={label} href={href} className={`group flex items-center gap-4 p-4 rounded-xl border border-border/30 bg-[hsl(220,20%,6%)] transition-all duration-300 hover:border-border/60 ${glow}`}>
+                <div className={`w-10 h-10 rounded-lg bg-border/10 flex items-center justify-center text-muted-foreground transition-colors duration-300 ${color}`}>
+                  <Icon className="w-5 h-5" />
+                </div>
+                <div className="flex-1">
+                  <p className="font-display font-semibold text-foreground text-sm">{label}</p>
+                  <p className="text-xs text-muted-foreground mt-0.5">{desc}</p>
+                </div>
+                <ArrowRight className="w-4 h-4 text-muted-foreground/40 group-hover:text-muted-foreground transition-colors duration-300 group-hover:translate-x-1 transform" />
+              </a>
+            ))}
+            <div className="flex items-center justify-center gap-2 mt-2 px-4 py-2">
+              <Globe className="w-3.5 h-3.5 text-muted-foreground/60" />
+              <span className="text-xs text-muted-foreground/60 tracking-wide">{t.footer.remote}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="relative border-t border-border/20">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col sm:flex-row items-center justify-between gap-2">
+          <Link to="/" className="font-display text-lg font-bold tracking-tight text-foreground/80">
+            ANNA<span className="text-gradient">STUDIO</span>
+          </Link>
+          <p className="text-xs text-muted-foreground/50">{new Date().getFullYear()} {t.footer.rights}</p>
+        </div>
+      </div>
+    </footer>
+  );
+}
