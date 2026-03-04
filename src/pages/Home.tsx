@@ -55,7 +55,7 @@ export default function Home() {
     <div className="min-h-screen flex flex-col bg-background">
       <AnnaNavbar />
       <main className="flex-1">
-        <section className="relative min-h-screen flex flex-col justify-center overflow-x-hidden">
+        <section className="relative min-h-screen flex flex-col justify-center overflow-x-hidden items-start">
           <div className="absolute inset-0 pointer-events-none">
             <div className="absolute top-1/4 left-1/4 w-64 sm:w-96 h-64 sm:h-96 bg-primary/5 rounded-full blur-3xl" />
             <div className="absolute bottom-1/4 right-1/4 w-64 sm:w-96 h-64 sm:h-96 bg-primary/[0.03] rounded-full blur-3xl" />
