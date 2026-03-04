@@ -61,10 +61,6 @@ export default function Home() {
             <div className="absolute bottom-1/4 right-1/4 w-64 sm:w-96 h-64 sm:h-96 bg-primary/[0.03] rounded-full blur-3xl" />
           </div>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative pt-20 sm:pt-24 flex-1 min-h-0 flex flex-col justify-center overflow-hidden">
-            <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.5 }} className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-primary/10 border border-primary/20 mb-6 sm:mb-8 w-fit">
-              <Sparkles className="w-3 sm:w-3.5 h-3 sm:h-3.5 text-primary" />
-              <span className="text-[10px] sm:text-xs font-semibold text-primary uppercase tracking-wider">{t.hero.badge}</span>
-            </motion.div>
             <h1 className="font-display text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-bold tracking-tighter leading-[1.05] sm:leading-[0.95] text-left">
               <AnimatedText text={t.hero.line1} /><br />
               <AnimatedText text={t.hero.line2} className="text-gradient" /><br />
