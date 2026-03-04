@@ -72,7 +72,7 @@ export default function Home() {
                 <a href="#templates">{t.hero.explore}<ArrowRight className="w-4 h-4" /></a>
               </Button>
             </motion.div>
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.2, duration: 0.8 }} className="mt-10 sm:mt-16 flex flex-wrap items-start gap-4 sm:gap-6 text-xs sm:text-sm text-muted-foreground">
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.2, duration: 0.8 }} className="mt-6 sm:mt-10 flex flex-wrap items-start gap-4 sm:gap-6 text-xs sm:text-sm text-muted-foreground">
               <div className="flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-primary animate-pulse" /><span>{t.hero.templateCount}</span></div>
               <div className="w-px h-4 bg-border" /><span>{t.hero.responsive}</span>
               <div className="w-px h-4 bg-border" /><span>{t.hero.updates}</span>
