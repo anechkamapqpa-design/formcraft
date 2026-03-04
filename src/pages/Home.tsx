@@ -55,13 +55,13 @@ export default function Home() {
     <div className="min-h-screen flex flex-col bg-background">
       <AnnaNavbar />
       <main className="flex-1">
-        <section className="relative min-h-screen flex flex-col justify-center overflow-x-hidden items-start">
+        <section className="relative min-h-screen flex flex-col justify-between overflow-x-hidden items-start">
           <div className="absolute inset-0 pointer-events-none">
             <div className="absolute top-1/4 left-1/4 w-64 sm:w-96 h-64 sm:h-96 bg-primary/5 rounded-full blur-3xl" />
             <div className="absolute bottom-1/4 right-1/4 w-64 sm:w-96 h-64 sm:h-96 bg-primary/[0.03] rounded-full blur-3xl" />
           </div>
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative pt-20 sm:pt-24">
-            <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.5 }} className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-primary/10 border border-primary/20 mb-6 sm:mb-8">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative pt-20 sm:pt-24 flex-1 flex flex-col justify-center">
+            <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.5 }} className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-primary/10 border border-primary/20 mb-6 sm:mb-8 w-fit">
               <Sparkles className="w-3 sm:w-3.5 h-3 sm:h-3.5 text-primary" />
               <span className="text-[10px] sm:text-xs font-semibold text-primary uppercase tracking-wider">{t.hero.badge}</span>
             </motion.div>
@@ -82,8 +82,10 @@ export default function Home() {
               <div className="w-px h-4 bg-border" /><span>{t.hero.updates}</span>
             </motion.div>
           </div>
+          <div className="w-full pb-6">
+            <MarqueeStrip />
+          </div>
         </section>
-        <MarqueeStrip />
         <section id="templates" className="sm:min-h-screen sm:flex sm:flex-col sm:justify-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-4 sm:mb-5">
             <h2 className="font-display text-xl sm:text-2xl md:text-3xl font-bold text-foreground">{t.collection.title}</h2>
