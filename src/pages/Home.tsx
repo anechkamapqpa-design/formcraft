@@ -65,18 +65,18 @@ export default function Home() {
               <Sparkles className="w-3 sm:w-3.5 h-3 sm:h-3.5 text-primary" />
               <span className="text-[10px] sm:text-xs font-semibold text-primary uppercase tracking-wider">{t.hero.badge}</span>
             </motion.div>
-            <h1 className="font-display text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-bold tracking-tighter leading-[1.05] sm:leading-[0.95]">
+            <h1 className="font-display text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-bold tracking-tighter leading-[1.05] sm:leading-[0.95] text-left">
               <AnimatedText text={t.hero.line1} /><br />
               <AnimatedText text={t.hero.line2} className="text-gradient" /><br />
               <AnimatedText text={t.hero.line3} />
             </h1>
-            <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.8, duration: 0.6 }} className="mt-6 sm:mt-8 text-base sm:text-lg md:text-xl text-muted-foreground max-w-lg leading-relaxed">{t.hero.subtitle}</motion.p>
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1, duration: 0.6 }} className="mt-8 sm:mt-10 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4">
+            <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.8, duration: 0.6 }} className="mt-6 sm:mt-8 text-base sm:text-lg md:text-xl text-muted-foreground max-w-lg leading-relaxed text-left">{t.hero.subtitle}</motion.p>
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1, duration: 0.6 }} className="mt-8 sm:mt-10 flex flex-col sm:flex-row items-start gap-3 sm:gap-4">
               <Button size="lg" className="rounded-xl w-full sm:w-auto" asChild>
                 <a href="#templates">{t.hero.explore}<ArrowRight className="w-4 h-4" /></a>
               </Button>
             </motion.div>
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.2, duration: 0.8 }} className="mt-10 sm:mt-16 flex flex-wrap items-center gap-4 sm:gap-6 text-xs sm:text-sm text-muted-foreground">
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.2, duration: 0.8 }} className="mt-10 sm:mt-16 flex flex-wrap items-start gap-4 sm:gap-6 text-xs sm:text-sm text-muted-foreground">
               <div className="flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-primary animate-pulse" /><span>{t.hero.templateCount}</span></div>
               <div className="w-px h-4 bg-border" /><span>{t.hero.responsive}</span>
               <div className="w-px h-4 bg-border" /><span>{t.hero.updates}</span>
