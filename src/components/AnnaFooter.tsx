@@ -74,7 +74,7 @@ export function AnnaFooter() {
 
           <div className="lg:col-span-2 flex flex-col gap-3">
             {contactCards.map(({ icon: Icon, label, desc, href, color, glow }) => (
-              <a key={label} href={href} className={`group flex items-center gap-4 p-4 rounded-xl border border-border/30 bg-[hsl(220,20%,6%)] transition-all duration-300 hover:border-border/60 ${glow}`}>
+              <a key={label} href={href} target="_blank" rel="noopener noreferrer" className={`group flex items-center gap-4 p-4 rounded-xl border border-border/30 bg-[hsl(220,20%,6%)] transition-all duration-300 hover:border-border/60 ${glow}`}>
                 <div className={`w-10 h-10 rounded-lg bg-border/10 flex items-center justify-center text-muted-foreground transition-colors duration-300 ${color}`}>
                   <Icon className="w-5 h-5" />
                 </div>
