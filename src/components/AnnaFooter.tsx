@@ -1,20 +1,57 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, Globe } from "lucide-react";
+import { ArrowRight, Globe, Loader2 } from "lucide-react";
 import { SiTelegram } from "react-icons/si";
 import { Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLang } from "@/lib/i18n";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 
 export function AnnaFooter() {
   const { t } = useLang();
   const [selectedType, setSelectedType] = useState(0);
   const [selectedTimeline, setSelectedTimeline] = useState(0);
+  const [name, setName] = useState("");
+  const [contact, setContact] = useState("");
+  const [description, setDescription] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const contactCards = [
     { icon: SiTelegram, label: t.footer.contacts.telegram, desc: t.footer.contacts.telegramDesc, href: "https://t.me/formcrafttech", color: "group-hover:text-[hsl(200,80%,60%)]", glow: "group-hover:shadow-[0_0_20px_hsl(200,80%,60%,0.1)]" },
     { icon: Mail, label: t.footer.contacts.email, desc: t.footer.contacts.emailDesc, href: "mailto:launch.flow@yandex.ru", color: "group-hover:text-primary", glow: "group-hover:shadow-[0_0_20px_hsl(150,60%,50%,0.1)]" },
   ];
+
+  const handleSubmit = async () => {
+    if (!name.trim() || !contact.trim()) {
+      toast.error("Заполните имя и контакт");
+      return;
+    }
+    setIsSubmitting(true);
+    try {
+      const { data, error } = await supabase.functions.invoke("send-contact-form", {
+        body: {
+          name: name.trim(),
+          contact: contact.trim(),
+          projectType: t.footer.form.projectTypes[selectedType],
+          timeline: t.footer.form.timelines[selectedTimeline],
+          description: description.trim(),
+        },
+      });
+      if (error) throw error;
+      toast.success("Заявка отправлена!");
+      setName("");
+      setContact("");
+      setDescription("");
+      setSelectedType(0);
+      setSelectedTimeline(0);
+    } catch (err) {
+      console.error(err);
+      toast.error("Ошибка отправки. Попробуйте позже.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <footer id="contact" className="relative min-h-screen flex flex-col" style={{ backgroundColor: "#0b0f14" }}>
@@ -34,11 +71,11 @@ export function AnnaFooter() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                 <div>
                   <label className="block text-[11px] font-medium text-muted-foreground uppercase tracking-wider mb-1.5">{t.footer.form.name}</label>
-                  <input type="text" placeholder={t.footer.form.namePlaceholder} className="w-full px-3 py-2.5 bg-background/60 border border-border/50 rounded-lg text-sm text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:border-primary/50 transition-colors" />
+                  <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder={t.footer.form.namePlaceholder} className="w-full px-3 py-2.5 bg-background/60 border border-border/50 rounded-lg text-sm text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:border-primary/50 transition-colors" />
                 </div>
                 <div>
                   <label className="block text-[11px] font-medium text-muted-foreground uppercase tracking-wider mb-1.5">{t.footer.form.contact}</label>
-                  <input type="text" placeholder={t.footer.form.contactPlaceholder} className="w-full px-3 py-2.5 bg-background/60 border border-border/50 rounded-lg text-sm text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:border-primary/50 transition-colors" />
+                  <input type="text" value={contact} onChange={(e) => setContact(e.target.value)} placeholder={t.footer.form.contactPlaceholder} className="w-full px-3 py-2.5 bg-background/60 border border-border/50 rounded-lg text-sm text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:border-primary/50 transition-colors" />
                 </div>
               </div>
 
@@ -62,12 +99,13 @@ export function AnnaFooter() {
 
               <div>
                 <label className="block text-[11px] font-medium text-muted-foreground uppercase tracking-wider mb-1.5">{t.footer.form.description}</label>
-                <textarea rows={2} placeholder={t.footer.form.descriptionPlaceholder} className="w-full px-3 py-2.5 bg-background/60 border border-border/50 rounded-lg text-sm text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:border-primary/50 transition-colors resize-none" />
+                <textarea rows={2} value={description} onChange={(e) => setDescription(e.target.value)} placeholder={t.footer.form.descriptionPlaceholder} className="w-full px-3 py-2.5 bg-background/60 border border-border/50 rounded-lg text-sm text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:border-primary/50 transition-colors resize-none" />
               </div>
 
-              <Button className="w-full py-5 text-sm font-semibold">
+              <Button className="w-full py-5 text-sm font-semibold" onClick={handleSubmit} disabled={isSubmitting}>
+                {isSubmitting ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : null}
                 {t.footer.form.submit}
-                <ArrowRight className="w-4 h-4 ml-2" />
+                {!isSubmitting && <ArrowRight className="w-4 h-4 ml-2" />}
               </Button>
             </div>
           </div>
