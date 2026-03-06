@@ -1,4 +1,5 @@
 import { useState, useCallback } from "react";
+import logoImg from "@/assets/logo.png";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Search, X, ArrowRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
