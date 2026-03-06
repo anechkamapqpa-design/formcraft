@@ -45,7 +45,7 @@ export function AnnaNavbar() {
         <div className="mx-2 sm:mx-4 mt-2 sm:mt-4">
           <div className="max-w-7xl mx-auto bg-card/60 backdrop-blur-2xl border border-border/50 rounded-xl sm:rounded-2xl px-3 sm:px-6 py-2.5 sm:py-3">
             <div className="flex items-center justify-between gap-2 sm:gap-4">
-              <Link to="/" className="shrink-0 font-display text-lg sm:text-xl font-bold tracking-tight text-foreground">
+              <Link to="/" className="shrink-0 font-display text-2xl sm:text-3xl font-bold tracking-tight text-foreground">
                 Form<span className="text-gradient">Craft</span>
               </Link>
 
