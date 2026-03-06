@@ -46,7 +46,7 @@ export function AnnaNavbar() {
           <div className="max-w-7xl mx-auto bg-card/60 backdrop-blur-2xl border border-border/50 rounded-xl sm:rounded-2xl px-3 sm:px-6 py-2.5 sm:py-3">
             <div className="flex items-center justify-between gap-2 sm:gap-4">
               <Link to="/" className="shrink-0">
-                <img src={logoImg} alt="FormCraft" className="h-8 sm:h-10 w-auto" />
+                <img src={logoImg} alt="FormCraft" className="h-10 sm:h-14 w-auto" />
               </Link>
 
               <nav className="hidden md:flex items-center gap-1">
