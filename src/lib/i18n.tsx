@@ -84,7 +84,7 @@ const translations = {
         emailDesc: "For official inquiries",
       },
       remote: "Remote worldwide · RU / EN",
-      rights: "Anna Landing Studio. All rights reserved.",
+      rights: "FormCraft. All rights reserved.",
     },
     about: {
       title: "About Project",
