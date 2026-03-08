@@ -1,68 +1,53 @@
-import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
+import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers":
-    "authorization, x-client-info, apikey, content-type",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+  "Access-Control-Allow-Methods": "POST, OPTIONS",
 };
 
-function escapeHtml(value: string) {
-  return value
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;");
-}
-
-serve(async (req) => {
+serve(async (req: Request): Promise<Response> => {
   if (req.method === "OPTIONS") {
-    return new Response(null, { headers: corsHeaders });
+    return new Response("ok", { headers: corsHeaders });
   }
 
   try {
-    const { name, contact, projectType, timeline, description } = await req.json();
-
-    if (!name || !contact) {
-      return new Response(
-        JSON.stringify({ error: "Name and contact are required" }),
-        {
-          status: 400,
-          headers: { ...corsHeaders, "Content-Type": "application/json" },
-        }
-      );
-    }
-
     const TELEGRAM_BOT_TOKEN = Deno.env.get("TELEGRAM_BOT_TOKEN");
     const TELEGRAM_CHAT_ID = Deno.env.get("TELEGRAM_CHAT_ID");
 
     if (!TELEGRAM_BOT_TOKEN || !TELEGRAM_CHAT_ID) {
       return new Response(
         JSON.stringify({
-          error: "Telegram is not configured. Missing TELEGRAM_BOT_TOKEN or TELEGRAM_CHAT_ID.",
+          success: false,
+          error: "Missing TELEGRAM_BOT_TOKEN or TELEGRAM_CHAT_ID",
         }),
         {
           status: 500,
-          headers: { ...corsHeaders, "Content-Type": "application/json" },
+          headers: {
+            ...corsHeaders,
+            "Content-Type": "application/json",
+          },
         }
       );
     }
 
-    const safeName = escapeHtml(String(name).trim());
-    const safeContact = escapeHtml(String(contact).trim());
-    const safeProjectType = escapeHtml(String(projectType || "—"));
-    const safeTimeline = escapeHtml(String(timeline || "—"));
-    const safeDescription = escapeHtml(String(description || "—"));
+    const body = await req.json();
 
-    const message = `
-<b>Новая заявка с сайта FormCraft</b>
+    const name = body?.name ?? "";
+    const contact = body?.contact ?? "";
+    const projectType = body?.projectType ?? "";
+    const timeline = body?.timeline ?? "";
+    const description = body?.description ?? "";
 
-<b>Имя:</b> ${safeName}
-<b>Контакт:</b> ${safeContact}
-<b>Тип проекта:</b> ${safeProjectType}
-<b>Сроки:</b> ${safeTimeline}
-<b>Описание:</b> ${safeDescription}
-`.trim();
+    const message =
+      `🚀 Новая заявка с сайта Formcraft\n\n` +
+      `Имя: ${name}\n` +
+      `Контакт: ${contact}\n` +
+      `Тип проекта: ${projectType}\n` +
+      `Сроки: ${timeline}\n` +
+      `Описание: ${description}`;
 
-    const telegramRes = await fetch(
+    const telegramResponse = await fetch(
       `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`,
       {
         method: "POST",
@@ -72,38 +57,54 @@ serve(async (req) => {
         body: JSON.stringify({
           chat_id: TELEGRAM_CHAT_ID,
           text: message,
-          parse_mode: "HTML",
         }),
       }
     );
 
-    const telegramData = await telegramRes.json();
+    const telegramResult = await telegramResponse.json();
 
-    if (!telegramRes.ok) {
+    if (!telegramResponse.ok) {
       return new Response(
         JSON.stringify({
-          error: "Failed to send Telegram message",
-          details: telegramData,
+          success: false,
+          error: "Telegram API error",
+          details: telegramResult,
         }),
         {
           status: 500,
-          headers: { ...corsHeaders, "Content-Type": "application/json" },
+          headers: {
+            ...corsHeaders,
+            "Content-Type": "application/json",
+          },
         }
       );
     }
 
     return new Response(
-      JSON.stringify({ success: true }),
+      JSON.stringify({
+        success: true,
+        telegram: telegramResult,
+      }),
       {
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
+        status: 200,
+        headers: {
+          ...corsHeaders,
+          "Content-Type": "application/json",
+        },
       }
     );
   } catch (error) {
     return new Response(
-      JSON.stringify({ error: "Internal server error" }),
+      JSON.stringify({
+        success: false,
+        error: error instanceof Error ? error.message : "Unknown error",
+      }),
       {
         status: 500,
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
+        headers: {
+          ...corsHeaders,
+          "Content-Type": "application/json",
+        },
       }
     );
   }
