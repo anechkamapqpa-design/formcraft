@@ -80,8 +80,6 @@ serve(async (req) => {
     const telegramData = await telegramRes.json();
 
     if (!telegramRes.ok) {
-      console.error("Telegram API error:", telegramData);
-
       return new Response(
         JSON.stringify({
           error: "Failed to send Telegram message",
@@ -101,8 +99,6 @@ serve(async (req) => {
       }
     );
   } catch (error) {
-    console.error("Function error:", error);
-
     return new Response(
       JSON.stringify({ error: "Internal server error" }),
       {
