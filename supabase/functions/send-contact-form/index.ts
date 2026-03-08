@@ -6,7 +6,12 @@ const corsHeaders = {
     "authorization, x-client-info, apikey, content-type",
 };
 
-const RECIPIENT_EMAIL = "launch.flow@yandex.ru";
+function escapeHtml(value: string) {
+  return value
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;");
+}
 
 serve(async (req) => {
   if (req.method === "OPTIONS") {
@@ -19,62 +24,91 @@ serve(async (req) => {
     if (!name || !contact) {
       return new Response(
         JSON.stringify({ error: "Name and contact are required" }),
-        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+        {
+          status: 400,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        }
       );
     }
 
-    const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
-    if (!RESEND_API_KEY) {
+    const TELEGRAM_BOT_TOKEN = Deno.env.get("TELEGRAM_BOT_TOKEN");
+    const TELEGRAM_CHAT_ID = Deno.env.get("TELEGRAM_CHAT_ID");
+
+    if (!TELEGRAM_BOT_TOKEN || !TELEGRAM_CHAT_ID) {
       return new Response(
-        JSON.stringify({ error: "Email service not configured" }),
-        { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+        JSON.stringify({
+          error: "Telegram is not configured. Missing TELEGRAM_BOT_TOKEN or TELEGRAM_CHAT_ID.",
+        }),
+        {
+          status: 500,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        }
       );
     }
 
-    const emailHtml = `
-      <h2>Новая заявка с сайта FormCraft</h2>
-      <table style="border-collapse:collapse;width:100%;max-width:500px;">
-        <tr><td style="padding:8px;font-weight:bold;">Имя:</td><td style="padding:8px;">${name}</td></tr>
-        <tr><td style="padding:8px;font-weight:bold;">Контакт:</td><td style="padding:8px;">${contact}</td></tr>
-        <tr><td style="padding:8px;font-weight:bold;">Тип проекта:</td><td style="padding:8px;">${projectType || "—"}</td></tr>
-        <tr><td style="padding:8px;font-weight:bold;">Сроки:</td><td style="padding:8px;">${timeline || "—"}</td></tr>
-        <tr><td style="padding:8px;font-weight:bold;">Описание:</td><td style="padding:8px;">${description || "—"}</td></tr>
-      </table>
-    `;
+    const safeName = escapeHtml(String(name).trim());
+    const safeContact = escapeHtml(String(contact).trim());
+    const safeProjectType = escapeHtml(String(projectType || "—"));
+    const safeTimeline = escapeHtml(String(timeline || "—"));
+    const safeDescription = escapeHtml(String(description || "—"));
 
-    const res = await fetch("https://api.resend.com/emails", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${RESEND_API_KEY}`,
-      },
-      body: JSON.stringify({
-        from: "FormCraft <onboarding@resend.dev>",
-        to: [RECIPIENT_EMAIL],
-        subject: `Новая заявка: ${name}`,
-        html: emailHtml,
-      }),
-    });
+    const message = `
+<b>Новая заявка с сайта FormCraft</b>
 
-    const data = await res.json();
+<b>Имя:</b> ${safeName}
+<b>Контакт:</b> ${safeContact}
+<b>Тип проекта:</b> ${safeProjectType}
+<b>Сроки:</b> ${safeTimeline}
+<b>Описание:</b> ${safeDescription}
+`.trim();
 
-    if (!res.ok) {
-      console.error("Resend error:", data);
+    const telegramRes = await fetch(
+      `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          chat_id: TELEGRAM_CHAT_ID,
+          text: message,
+          parse_mode: "HTML",
+        }),
+      }
+    );
+
+    const telegramData = await telegramRes.json();
+
+    if (!telegramRes.ok) {
+      console.error("Telegram API error:", telegramData);
+
       return new Response(
-        JSON.stringify({ error: "Failed to send email", details: data }),
-        { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+        JSON.stringify({
+          error: "Failed to send Telegram message",
+          details: telegramData,
+        }),
+        {
+          status: 500,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        }
       );
     }
 
     return new Response(
       JSON.stringify({ success: true }),
-      { headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      {
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      }
     );
   } catch (error) {
-    console.error("Error:", error);
+    console.error("Function error:", error);
+
     return new Response(
       JSON.stringify({ error: "Internal server error" }),
-      { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      {
+        status: 500,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      }
     );
   }
 });
