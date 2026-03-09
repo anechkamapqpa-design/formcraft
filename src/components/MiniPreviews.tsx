@@ -399,6 +399,30 @@ export function MiniGlassWave() {
   );
 }
 
+export function MiniBrutalistLab() {
+  return (
+    <ScaledPreview>
+      <div className="w-[1280px] h-[800px] bg-[hsl(60,5%,96%)] text-[hsl(0,0%,8%)] relative overflow-hidden">
+        <div className="absolute top-16 right-0 w-72 h-72 bg-[hsl(50,100%,50%)] -rotate-12 opacity-60" />
+        <div className="absolute bottom-0 left-20 w-48 h-48 bg-[hsl(0,80%,50%)] rotate-6 opacity-40" />
+        <nav className="flex items-center justify-between px-12 py-4 border-b-4 border-[hsl(0,0%,0%)] relative z-10">
+          <span className="text-sm font-bold uppercase tracking-wider">← Back</span>
+          <span className="text-2xl font-black uppercase tracking-tight">Brutalist<span style={{ color: "hsl(0,80%,50%)" }}>Lab</span></span>
+          <span className="text-xs font-bold uppercase tracking-widest border-2 border-[hsl(0,0%,0%)] px-3 py-1.5">Get Started</span>
+        </nav>
+        <div className="relative z-10 px-12 pt-16">
+          <span className="inline-block text-xs font-black uppercase tracking-[0.3em] bg-[hsl(50,100%,50%)] text-[hsl(0,0%,0%)] px-4 py-2 border-2 border-[hsl(0,0%,0%)] mb-4">Web3 · AI · Digital</span>
+          <h1 className="text-[8rem] font-black leading-[0.85] uppercase tracking-tighter">
+            Break<br />
+            <span style={{ color: "hsl(0,80%,50%)" }}>The</span><br />
+            Rules
+          </h1>
+        </div>
+      </div>
+    </ScaledPreview>
+  );
+}
+
 export const miniPreviewMap: Record<string, () => JSX.Element> = {
   "Luxury Art": MiniLuxuryArt,
   "SaaS Clean": MiniSaaSClean,
@@ -413,4 +437,5 @@ export const miniPreviewMap: Record<string, () => JSX.Element> = {
   "Atelier": MiniAtelier,
   "NeuroFlow": MiniNeuroFlow,
   "GlassWave": MiniGlassWave,
+  "BrutalistLab": MiniBrutalistLab,
 };

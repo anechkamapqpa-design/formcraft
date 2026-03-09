@@ -10,7 +10,7 @@ const fadeUp = {
 
 export default function BrutalistLab() {
   const { t } = useLang();
-  const d = t.demos.brutalistLab;
+  const d = (t.demos as any).brutalistLab;
 
   return (
     <div className="min-h-screen bg-[hsl(60,5%,96%)] text-[hsl(0,0%,8%)] font-sans selection:bg-[hsl(50,100%,50%)] selection:text-[hsl(0,0%,0%)]">

@@ -37,6 +37,7 @@ export const demoSlugMap: Record<string, string> = {
   "Atelier": "/demo/atelier",
   "NeuroFlow": "/demo/neuro-flow",
   "GlassWave": "/demo/glass-wave",
+  "BrutalistLab": "/demo/brutalist-lab",
 };
 
 export function getTemplate(id: number): Template | undefined {
