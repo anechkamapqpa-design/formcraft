@@ -17,6 +17,7 @@ export const templates: Template[] = [
   { id: 8, title: "AppMotion", description: "A mobile app landing page with interactive mockups and download CTAs.", imageUrl: "/images/appmotion.png", category: "Product" },
   { id: 9, title: "EchoPress", description: "A modern editorial magazine template for media portals and content platforms.", imageUrl: "/images/echopress.png", category: "Creative" },
   { id: 10, title: "MarketSphere", description: "A marketplace platform template for e-commerce, SaaS, and freelance services.", imageUrl: "/images/marketsphere.png", category: "E-commerce" },
+  { id: 11, title: "Atelier", description: "A stylish portfolio template for design studios with an emphasis on projects and visual storytelling.", imageUrl: "/images/atelier.png", category: "Creative" },
 ];
 
 export const demoSlugMap: Record<string, string> = {
