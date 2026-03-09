@@ -121,6 +121,7 @@ const translations = {
       "AppMotion": { title: "AppMotion", description: "A mobile app landing page with interactive mockups and download CTAs." },
       "EchoPress": { title: "EchoPress", description: "A modern editorial magazine template for media portals and content platforms." },
       "MarketSphere": { title: "MarketSphere", description: "A marketplace platform template for e-commerce, SaaS, and freelance services." },
+      "Atelier": { title: "Atelier", description: "A stylish portfolio template for design studios with emphasis on projects and visual storytelling." },
     } as Record<string, { title: string; description: string }>,
     demos: {
       luxuryArt: {
