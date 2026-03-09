@@ -815,6 +815,7 @@ const translations = {
       "GlassWave": { title: "GlassWave", description: "Современный SaaS-шаблон в стиле glassmorphism с прозрачными панелями и градиентными фонами." },
       "BrutalistLab": { title: "BrutalistLab", description: "Смелый нео-брутальный шаблон для технологических стартапов, digital-агентств и Web3-проектов." },
       "CommunityGrid": { title: "CommunityGrid", description: "Яркий шаблон для онлайн-сообществ, стартап-клубов, конференций и networking-платформ." },
+      "MonoJournal": { title: "MonoJournal", description: "Минималистичный журнальный шаблон с крупной типографикой, редакционной сеткой и фокусом на контент." },
     } as Record<string, { title: string; description: string }>,
     demos: {
       luxuryArt: {
