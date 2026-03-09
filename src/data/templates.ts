@@ -7,12 +7,6 @@ export interface Template {
 }
 
 export const templates: Template[] = [
-  { id: 1, title: "Ecom Drop", description: "A high-conversion landing page tailored for e-commerce dropshipping.", imageUrl: "/images/ecom-drop.png", category: "E-commerce" },
-  { id: 2, title: "Experimental Neon", description: "A bold, futuristic landing page for creative agencies and artists.", imageUrl: "/images/experimental-neon.png", category: "Creative" },
-  { id: 3, title: "Luxury Art", description: "An elegant, minimalist design perfect for luxury brands and galleries.", imageUrl: "/images/luxury-art.png", category: "Luxury" },
-  { id: 4, title: "Personal Brand", description: "A clean, professional page to showcase your portfolio and services.", imageUrl: "/images/personal-brand.png", category: "Personal" },
-  { id: 5, title: "Product Interactive", description: "An engaging, interactive landing page to showcase digital products.", imageUrl: "/images/product-interactive.png", category: "Product" },
-  { id: 6, title: "SaaS Clean", description: "A modern, converting landing page designed specifically for SaaS products.", imageUrl: "/images/saas-clean.png", category: "SaaS" },
   { id: 7, title: "LuxeAura", description: "A premium brand website for luxury fashion, jewelry, and lifestyle brands.", imageUrl: "/images/luxeaura.png", category: "Luxury" },
   { id: 8, title: "AppMotion", description: "A mobile app landing page with interactive mockups and download CTAs.", imageUrl: "/images/appmotion.png", category: "Product" },
   { id: 9, title: "EchoPress", description: "A modern editorial magazine template for media portals and content platforms.", imageUrl: "/images/echopress.png", category: "Creative" },
@@ -25,6 +19,12 @@ export const templates: Template[] = [
   { id: 16, title: "MonoJournal", description: "A minimalist editorial magazine template with bold typography, editorial grids and content-first design.", imageUrl: "/images/monojournal.png", category: "Creative" },
   { id: 17, title: "Voxel3D", description: "A futuristic 3D product landing page with interactive scenes and immersive visuals.", imageUrl: "/images/voxel3d.png", category: "Product" },
   { id: 18, title: "StoryBrand", description: "A cinematic storytelling template for fashion, lifestyle and luxury brands with immersive scroll.", imageUrl: "/images/storybrand.png", category: "Luxury" },
+  { id: 1, title: "Ecom Drop", description: "A high-conversion landing page tailored for e-commerce dropshipping.", imageUrl: "/images/ecom-drop.png", category: "E-commerce" },
+  { id: 2, title: "Experimental Neon", description: "A bold, futuristic landing page for creative agencies and artists.", imageUrl: "/images/experimental-neon.png", category: "Creative" },
+  { id: 3, title: "Luxury Art", description: "An elegant, minimalist design perfect for luxury brands and galleries.", imageUrl: "/images/luxury-art.png", category: "Luxury" },
+  { id: 4, title: "Personal Brand", description: "A clean, professional page to showcase your portfolio and services.", imageUrl: "/images/personal-brand.png", category: "Personal" },
+  { id: 5, title: "Product Interactive", description: "An engaging, interactive landing page to showcase digital products.", imageUrl: "/images/product-interactive.png", category: "Product" },
+  { id: 6, title: "SaaS Clean", description: "A modern, converting landing page designed specifically for SaaS products.", imageUrl: "/images/saas-clean.png", category: "SaaS" },
 ];
 
 export const demoSlugMap: Record<string, string> = {
