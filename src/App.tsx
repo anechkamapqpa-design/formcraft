@@ -22,6 +22,7 @@ import Atelier from "./pages/demos/Atelier";
 import NeuroFlow from "./pages/demos/NeuroFlow";
 import GlassWave from "./pages/demos/GlassWave";
 import BrutalistLab from "./pages/demos/BrutalistLab";
+import CommunityGrid from "./pages/demos/CommunityGrid";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
