@@ -230,6 +230,7 @@ const translations = {
         ] as readonly { title: string; desc: string }[],
         dashboardLabels: { revenue: "Revenue", users: "Users", conversion: "Conversion", growth: "Growth" },
         footer: "© 2026 Data360. All rights reserved.",
+      },
       luxeAura: {
         back: "← Back",
         since: "Est. 2018",
