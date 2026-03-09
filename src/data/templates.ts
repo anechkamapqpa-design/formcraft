@@ -22,6 +22,7 @@ export const templates: Template[] = [
   { id: 13, title: "GlassWave", description: "A modern SaaS template with glassmorphism design, frosted panels and gradient backgrounds.", imageUrl: "/images/glasswave.png", category: "SaaS" },
   { id: 14, title: "BrutalistLab", description: "A bold neo-brutalist template for tech startups, digital agencies and Web3 projects.", imageUrl: "/images/brutalistlab.png", category: "Creative" },
   { id: 15, title: "CommunityGrid", description: "A vibrant template for online communities, startup clubs, conferences and networking platforms.", imageUrl: "/images/communitygrid.png", category: "Product" },
+  { id: 16, title: "MonoJournal", description: "A minimalist editorial magazine template with bold typography, editorial grids and content-first design.", imageUrl: "/images/monojournal.png", category: "Creative" },
 ];
 
 export const demoSlugMap: Record<string, string> = {
@@ -40,6 +41,7 @@ export const demoSlugMap: Record<string, string> = {
   "GlassWave": "/demo/glass-wave",
   "BrutalistLab": "/demo/brutalist-lab",
   "CommunityGrid": "/demo/community-grid",
+  "MonoJournal": "/demo/mono-journal",
 };
 
 export function getTemplate(id: number): Template | undefined {

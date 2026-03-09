@@ -23,6 +23,7 @@ import NeuroFlow from "./pages/demos/NeuroFlow";
 import GlassWave from "./pages/demos/GlassWave";
 import BrutalistLab from "./pages/demos/BrutalistLab";
 import CommunityGrid from "./pages/demos/CommunityGrid";
+import MonoJournal from "./pages/demos/MonoJournal";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -60,6 +61,7 @@ const App = () => (
             <Route path="/demo/glass-wave" element={<GlassWave />} />
             <Route path="/demo/brutalist-lab" element={<BrutalistLab />} />
             <Route path="/demo/community-grid" element={<CommunityGrid />} />
+            <Route path="/demo/mono-journal" element={<MonoJournal />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
