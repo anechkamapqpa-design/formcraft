@@ -24,6 +24,7 @@ import GlassWave from "./pages/demos/GlassWave";
 import BrutalistLab from "./pages/demos/BrutalistLab";
 import CommunityGrid from "./pages/demos/CommunityGrid";
 import MonoJournal from "./pages/demos/MonoJournal";
+import Voxel3D from "./pages/demos/Voxel3D";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -62,6 +63,7 @@ const App = () => (
             <Route path="/demo/brutalist-lab" element={<BrutalistLab />} />
             <Route path="/demo/community-grid" element={<CommunityGrid />} />
             <Route path="/demo/mono-journal" element={<MonoJournal />} />
+            <Route path="/demo/voxel-3d" element={<Voxel3D />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
