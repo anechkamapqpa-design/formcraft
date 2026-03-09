@@ -17,6 +17,7 @@ import ProductInteractive from "./pages/demos/ProductInteractive";
 import LuxeAura from "./pages/demos/LuxeAura";
 import AppMotion from "./pages/demos/AppMotion";
 import EchoPress from "./pages/demos/EchoPress";
+import MarketSphere from "./pages/demos/MarketSphere";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
