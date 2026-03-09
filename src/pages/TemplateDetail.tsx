@@ -1,5 +1,6 @@
-import { useParams, useNavigate, Link } from "react-router-dom";
+import { useParams, useNavigate, Link, useSearchParams } from "react-router-dom";
 import { motion } from "framer-motion";
+import { useCallback } from "react";
 import { ArrowLeft, ArrowUpRight, Eye, MonitorSmartphone, Code2, Zap, Palette, Globe, Shield } from "lucide-react";
 import { getTemplate, demoSlugMap } from "@/data/templates";
 import { AnnaNavbar } from "@/components/AnnaNavbar";
