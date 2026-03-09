@@ -15,6 +15,7 @@ export const templates: Template[] = [
   { id: 6, title: "SaaS Clean", description: "A modern, converting landing page designed specifically for SaaS products.", imageUrl: "/images/saas-clean.png", category: "SaaS" },
   { id: 7, title: "LuxeAura", description: "A premium brand website for luxury fashion, jewelry, and lifestyle brands.", imageUrl: "/images/luxeaura.png", category: "Luxury" },
   { id: 8, title: "AppMotion", description: "A mobile app landing page with interactive mockups and download CTAs.", imageUrl: "/images/appmotion.png", category: "Product" },
+  { id: 9, title: "EchoPress", description: "A modern editorial magazine template for media portals and content platforms.", imageUrl: "/images/echopress.png", category: "Creative" },
 ];
 
 export const demoSlugMap: Record<string, string> = {
