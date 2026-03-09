@@ -376,6 +376,7 @@ const translations = {
       "Personal": "Персональный",
       "Product": "Продукт",
       "SaaS": "SaaS",
+      "Premium": "Премиум",
     } as Record<string, string>,
     templateData: {
       "Ecom Drop": { title: "Ecom Drop", description: "Высококонверсионный лендинг для дропшиппинга и интернет-магазинов." },
@@ -384,6 +385,7 @@ const translations = {
       "Personal Brand": { title: "Personal Brand", description: "Чистая профессиональная страница для демонстрации портфолио и услуг." },
       "Product Interactive": { title: "Product Interactive", description: "Вовлекающий интерактивный лендинг для демонстрации цифровых продуктов." },
       "SaaS Clean": { title: "SaaS Clean", description: "Современный конверсионный лендинг для SaaS-продуктов." },
+      "LuxeAura": { title: "LuxeAura", description: "Премиальный сайт для люксовых fashion-, ювелирных и lifestyle-брендов." },
     } as Record<string, { title: string; description: string }>,
     demos: {
       luxuryArt: {
