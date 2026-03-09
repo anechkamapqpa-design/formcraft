@@ -47,6 +47,7 @@ const App = () => (
             <Route path="/demo/product-interactive" element={<ProductInteractive />} />
             <Route path="/demo/luxe-aura" element={<LuxeAura />} />
             <Route path="/demo/app-motion" element={<AppMotion />} />
+            <Route path="/demo/echo-press" element={<EchoPress />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>

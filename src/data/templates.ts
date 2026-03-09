@@ -27,6 +27,7 @@ export const demoSlugMap: Record<string, string> = {
   "Product Interactive": "/demo/product-interactive",
   "LuxeAura": "/demo/luxe-aura",
   "AppMotion": "/demo/app-motion",
+  "EchoPress": "/demo/echo-press",
 };
 
 export function getTemplate(id: number): Template | undefined {
