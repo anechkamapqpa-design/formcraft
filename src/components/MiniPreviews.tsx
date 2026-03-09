@@ -446,6 +446,37 @@ export function MiniCommunityGrid() {
   );
 }
 
+export function MiniMonoJournal() {
+  return (
+    <ScaledPreview>
+      <div className="w-[1280px] h-[800px] bg-[hsl(40,20%,97%)] text-[hsl(20,10%,12%)] overflow-hidden">
+        <div className="flex items-center justify-between px-10 py-4 border-b border-[hsl(20,10%,88%)]">
+          <span className="text-sm text-[hsl(20,10%,45%)]">← Back</span>
+          <span className="text-3xl font-black tracking-tight uppercase" style={{ fontFamily: "'Playfair Display', serif" }}>Mono<span style={{ color: "hsl(0,75%,45%)" }}>Journal</span></span>
+          <span className="text-xs font-semibold uppercase tracking-widest" style={{ color: "hsl(0,75%,45%)" }}>Subscribe</span>
+        </div>
+        <div className="flex gap-6 text-[10px] font-semibold uppercase tracking-wider px-10 py-3 border-b border-[hsl(20,10%,90%)]">
+          {["All", "Culture", "Design", "Tech", "Travel"].map((c, i) => (
+            <span key={c} style={{ color: i === 0 ? "hsl(0,75%,45%)" : "hsl(20,10%,50%)" }}>{c}</span>
+          ))}
+        </div>
+        <div className="px-10 pt-8">
+          <div className="grid grid-cols-2 gap-0 border border-[hsl(20,10%,88%)]">
+            <div className="aspect-[4/3] bg-gradient-to-br from-[hsl(20,10%,25%)] to-[hsl(0,0%,40%)] relative">
+              <span className="absolute top-4 left-4 px-3 py-1 bg-[hsl(0,75%,45%)] text-white text-[9px] font-bold uppercase tracking-wider">Featured</span>
+            </div>
+            <div className="p-10 bg-white flex flex-col justify-center">
+              <span className="text-[9px] font-bold uppercase tracking-wider" style={{ color: "hsl(0,75%,45%)" }}>Culture</span>
+              <h2 className="text-4xl font-black leading-[1.1] mt-2 tracking-tight" style={{ fontFamily: "'Playfair Display', serif" }}>The Art of Minimalism in Modern Publishing</h2>
+              <p className="text-sm text-[hsl(20,10%,50%)] mt-4 leading-relaxed">How digital magazines are redefining editorial design with bold typography and white space.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ScaledPreview>
+  );
+}
+
 export const miniPreviewMap: Record<string, () => JSX.Element> = {
   "Luxury Art": MiniLuxuryArt,
   "SaaS Clean": MiniSaaSClean,
@@ -462,4 +493,5 @@ export const miniPreviewMap: Record<string, () => JSX.Element> = {
   "GlassWave": MiniGlassWave,
   "BrutalistLab": MiniBrutalistLab,
   "CommunityGrid": MiniCommunityGrid,
+  "MonoJournal": MiniMonoJournal,
 };
