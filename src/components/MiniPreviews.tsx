@@ -323,6 +323,47 @@ export function MiniAtelier() {
   );
 }
 
+export function MiniNeuroFlow() {
+  return (
+    <ScaledPreview>
+      <div className="w-[1280px] h-[800px] bg-[hsl(250,25%,6%)] text-[hsl(0,0%,95%)] relative overflow-hidden">
+        <div className="absolute top-[-20%] left-1/2 -translate-x-1/2 w-[900px] h-[900px] bg-[hsl(270,80%,50%)] rounded-full blur-[200px] opacity-15" />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[600px] h-[600px] bg-[hsl(200,90%,50%)] rounded-full blur-[180px] opacity-10" />
+        <div className="relative z-10 grid grid-cols-2 gap-16 items-center px-16 pt-28">
+          <div>
+            <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-[hsl(270,60%,50%)]/15 text-[hsl(270,80%,70%)] text-xs font-semibold rounded-full mb-6 border border-[hsl(270,60%,50%)]/30">⚡ AI-Powered Platform</span>
+            <h1 className="text-7xl font-extrabold leading-[1.05] tracking-tight mb-6">
+              Automate.<br />
+              <span style={{ background: "linear-gradient(to right, hsl(270,80%,65%), hsl(200,90%,60%))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Analyze.</span><br />
+              Accelerate.
+            </h1>
+            <p className="text-lg text-[hsl(250,15%,55%)] max-w-lg">The next-generation AI platform for intelligent decisions.</p>
+          </div>
+          <div className="bg-[hsl(250,20%,10%)] rounded-2xl border border-[hsl(270,30%,18%)] p-6">
+            <div className="grid grid-cols-3 gap-3 mb-4">
+              {[
+                { label: "Accuracy", val: "99.2%", color: "hsl(270,80%,65%)" },
+                { label: "Processed", val: "2.4M", color: "hsl(200,90%,60%)" },
+                { label: "Speed", val: "0.3s", color: "hsl(160,70%,55%)" },
+              ].map((s) => (
+                <div key={s.label} className="bg-[hsl(250,20%,13%)] rounded-xl p-3 border border-[hsl(270,20%,16%)]">
+                  <p className="text-[9px] text-[hsl(250,15%,45%)] uppercase">{s.label}</p>
+                  <p className="text-lg font-bold" style={{ color: s.color }}>{s.val}</p>
+                </div>
+              ))}
+            </div>
+            <div className="bg-[hsl(250,20%,13%)] rounded-xl p-4 border border-[hsl(270,20%,16%)] h-24 flex items-end gap-1">
+              {[40, 65, 45, 80, 55, 90, 70, 85, 60, 95, 75, 88].map((h, i) => (
+                <div key={i} className="flex-1 rounded-t" style={{ height: `${h}%`, background: "linear-gradient(to top, hsl(270,80%,55%), hsl(200,90%,55%))", opacity: 0.7 }} />
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </ScaledPreview>
+  );
+}
+
 export const miniPreviewMap: Record<string, () => JSX.Element> = {
   "Luxury Art": MiniLuxuryArt,
   "SaaS Clean": MiniSaaSClean,
@@ -335,4 +376,5 @@ export const miniPreviewMap: Record<string, () => JSX.Element> = {
   "EchoPress": MiniEchoPress,
   "MarketSphere": MiniMarketSphere,
   "Atelier": MiniAtelier,
+  "NeuroFlow": MiniNeuroFlow,
 };
