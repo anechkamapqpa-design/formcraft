@@ -16,6 +16,7 @@ import ExperimentalNeon from "./pages/demos/ExperimentalNeon";
 import ProductInteractive from "./pages/demos/ProductInteractive";
 import LuxeAura from "./pages/demos/LuxeAura";
 import AppMotion from "./pages/demos/AppMotion";
+import EchoPress from "./pages/demos/EchoPress";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
