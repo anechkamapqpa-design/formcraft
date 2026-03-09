@@ -39,6 +39,7 @@ const translations = {
     detail: {
       back: "Back to Templates",
       getTemplate: "Get this Template",
+      orderPrefix: "I would like to order a website based on the template",
       livePreview: "Live Preview",
       included: "What's Included",
       creators: "200+ creators",
