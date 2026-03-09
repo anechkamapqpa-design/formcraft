@@ -24,6 +24,7 @@ export const templates: Template[] = [
   { id: 15, title: "CommunityGrid", description: "A vibrant template for online communities, startup clubs, conferences and networking platforms.", imageUrl: "/images/communitygrid.png", category: "Product" },
   { id: 16, title: "MonoJournal", description: "A minimalist editorial magazine template with bold typography, editorial grids and content-first design.", imageUrl: "/images/monojournal.png", category: "Creative" },
   { id: 17, title: "Voxel3D", description: "A futuristic 3D product landing page with interactive scenes and immersive visuals.", imageUrl: "/images/voxel3d.png", category: "Product" },
+  { id: 18, title: "StoryBrand", description: "A cinematic storytelling template for fashion, lifestyle and luxury brands with immersive scroll.", imageUrl: "/images/storybrand.png", category: "Luxury" },
 ];
 
 export const demoSlugMap: Record<string, string> = {
@@ -44,6 +45,7 @@ export const demoSlugMap: Record<string, string> = {
   "CommunityGrid": "/demo/community-grid",
   "MonoJournal": "/demo/mono-journal",
   "Voxel3D": "/demo/voxel-3d",
+  "StoryBrand": "/demo/story-brand",
 };
 
 export function getTemplate(id: number): Template | undefined {
