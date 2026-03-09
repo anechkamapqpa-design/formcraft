@@ -5,7 +5,7 @@ export type Lang = "en" | "ru";
 const translations = {
   en: {
     nav: { templates: "Templates", showcase: "Showcase", about: "About Project", getStarted: "Get Started", searchPlaceholder: "Search templates..." },
-    hero: { badge: "Premium Templates", line1: "Crafting", line2: "Digital", line3: "Excellence.", subtitle: "High-converting landing page templates built with precision. Designed to elevate your brand.", explore: "Explore Templates", viewShowcase: "View Showcase", templateCount: "24 Templates", responsive: "Fully Responsive", updates: "Free Updates" },
+    hero: { badge: "Premium Templates", line1: "Crafting", line2: "Digital", line3: "Excellence.", subtitle: "High-converting landing page templates built with precision. Designed to elevate your brand.", explore: "Explore Templates", viewShowcase: "View Showcase", templateCount: "25 Templates", responsive: "Fully Responsive", updates: "Free Updates" },
     featured: { label: "Featured", title: "Top Picks" },
     collection: { label: "Collection", title: "All Templates", all: "All", noResults: "No templates found", noResultsHint: "Try selecting a different category.", clearFilters: "Clear Filters", preview: "Preview" },
     detail: {
