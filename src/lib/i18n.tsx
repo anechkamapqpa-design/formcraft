@@ -125,6 +125,7 @@ const translations = {
       "Freelance Hub": { title: "Freelance Hub", description: "Практичный шаблон для фрилансеров. Портфолио, список услуг и форма заказа проекта." },
       "Quantum": { title: "Quantum", description: "Футуристичный шаблон для AI-стартапов и deep-tech проектов. Светящиеся градиенты и технологичный дизайн." },
       "Infinity Grid": { title: "Infinity Grid", description: "Экспериментальный шаблон для креативных брендов. Нестандартная сетка и интерактивная навигация." },
+      "LuxeAura": { title: "LuxeAura", description: "Минималистичный шаблон для премиум-брендов с элегантной типографикой и тёмной кинематографичной эстетикой." },
     } as Record<string, { title: string; description: string }>,
     demos: {
       minimalPortfolio: { back: "← Назад", brand: "STUDIO", contact: "Контакты", heroTitle: "Дизайн с целью", heroSubtitle: "Минимализм. Осознанность. Красота.", projects: [{ title: "Айдентика бренда", type: "Брендинг" }, { title: "Веб-дизайн", type: "Диджитал" }, { title: "Фотография", type: "Арт-дирекшн" }] as any[], testimonialsTitle: "Отзывы", testimonials: [{ text: "Исключительное внимание к деталям.", name: "Сара К.", role: "CEO, TechCo" }, { text: "Полностью преобразили наш бренд.", name: "Марк Л.", role: "Основатель, StudioX" }] as any[], footer: "© 2026 Studio. Все права защищены." },
