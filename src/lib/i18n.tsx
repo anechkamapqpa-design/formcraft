@@ -462,7 +462,6 @@ const translations = {
       },
     },
   },
-  },
   ru: {
     nav: {
       templates: "Шаблоны",
