@@ -164,6 +164,27 @@ export function MiniProductInteractive() {
   );
 }
 
+export function MiniLuxeAura() {
+  return (
+    <ScaledPreview>
+      <div className="w-[1280px] h-[800px] bg-[hsl(30,8%,4%)] text-[hsl(40,25%,88%)] relative overflow-hidden">
+        <div className="w-full h-full flex items-center justify-center relative">
+          <img src="/images/demos/luxeaura-hero.jpg" alt="" className="absolute inset-0 w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[hsl(30,8%,4%)]/40 via-[hsl(30,8%,4%)]/20 to-[hsl(30,8%,4%)]" />
+          <div className="relative z-10 text-center">
+            <p className="text-xs tracking-[0.6em] uppercase text-[hsl(40,60%,65%)] mb-4">Premium Brand</p>
+            <h2 className="text-8xl font-light tracking-wider leading-[0.95]" style={{ fontFamily: "'Georgia', serif" }}>
+              Timeless<br /><em className="font-normal italic text-[hsl(40,60%,72%)]">Elegance</em>
+            </h2>
+            <div className="w-24 h-px bg-gradient-to-r from-transparent via-[hsl(40,60%,55%)] to-transparent mx-auto mt-6 mb-4" />
+            <p className="text-[hsl(40,15%,55%)] text-lg">Where luxury meets artistry</p>
+          </div>
+        </div>
+      </div>
+    </ScaledPreview>
+  );
+}
+
 export const miniPreviewMap: Record<string, () => JSX.Element> = {
   "Luxury Art": MiniLuxuryArt,
   "SaaS Clean": MiniSaaSClean,
@@ -171,4 +192,5 @@ export const miniPreviewMap: Record<string, () => JSX.Element> = {
   "Personal Brand": MiniPersonalBrand,
   "Experimental Neon": MiniExperimentalNeon,
   "Product Interactive": MiniProductInteractive,
+  "LuxeAura": MiniLuxeAura,
 };
