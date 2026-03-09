@@ -580,6 +580,7 @@ const translations = {
       "AppMotion": { title: "AppMotion", description: "Лендинг для мобильных приложений с интерактивными мокапами и кнопками загрузки." },
       "EchoPress": { title: "EchoPress", description: "Современный редакционный шаблон для медиа-порталов и контент-платформ." },
       "MarketSphere": { title: "MarketSphere", description: "Шаблон платформы-маркетплейса для e-commerce, SaaS и фриланс-сервисов." },
+      "Atelier": { title: "Atelier", description: "Стильный портфолио-шаблон для дизайнерских студий с акцентом на проектах и визуальном сторителлинге." },
     } as Record<string, { title: string; description: string }>,
     demos: {
       luxuryArt: {
