@@ -1,7 +1,7 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Link } from "react-router-dom";
 import { useLang } from "@/lib/i18n";
-import { useRef } from "react";
+import { useRef, useEffect, useCallback } from "react";
 
 const projects = [
   { id: 1, title: "Lumina", category: "Brand Identity", img: "/images/demos/atelier-project1.jpg", size: "large" },
@@ -10,12 +10,155 @@ const projects = [
   { id: 4, title: "Volume 04", category: "Editorial", img: "/images/demos/atelier-project4.jpg", size: "large" },
 ];
 
+function AbstractCanvas() {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const mouseRef = useRef({ x: 0.5, y: 0.5 });
+  const animRef = useRef<number>(0);
+
+  const draw = useCallback((time: number) => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+    const W = canvas.width;
+    const H = canvas.height;
+    const mx = mouseRef.current.x;
+    const my = mouseRef.current.y;
+
+    ctx.clearRect(0, 0, W, H);
+
+    // Organic blob shapes
+    const blobs = [
+      { cx: W * (0.25 + mx * 0.1), cy: H * (0.35 + my * 0.1), r: 220, color: "hsla(0,0%,15%,0.08)", phase: 0 },
+      { cx: W * (0.7 - mx * 0.08), cy: H * (0.55 - my * 0.08), r: 180, color: "hsla(0,0%,20%,0.06)", phase: 2 },
+      { cx: W * (0.5 + mx * 0.05), cy: H * (0.7 + my * 0.05), r: 150, color: "hsla(0,0%,10%,0.05)", phase: 4 },
+    ];
+
+    for (const blob of blobs) {
+      ctx.beginPath();
+      const points = 8;
+      for (let j = 0; j <= points; j++) {
+        const angle = (j / points) * Math.PI * 2;
+        const wobble = Math.sin(time * 0.0008 + blob.phase + angle * 3) * 30 + Math.cos(time * 0.0006 + angle * 2) * 20;
+        const x = blob.cx + Math.cos(angle) * (blob.r + wobble);
+        const y = blob.cy + Math.sin(angle) * (blob.r + wobble);
+        if (j === 0) ctx.moveTo(x, y);
+        else {
+          const prevAngle = ((j - 1) / points) * Math.PI * 2;
+          const prevWobble = Math.sin(time * 0.0008 + blob.phase + prevAngle * 3) * 30 + Math.cos(time * 0.0006 + prevAngle * 2) * 20;
+          const cpx = blob.cx + Math.cos((angle + prevAngle) / 2) * (blob.r + (wobble + prevWobble) / 2) * 1.15;
+          const cpy = blob.cy + Math.sin((angle + prevAngle) / 2) * (blob.r + (wobble + prevWobble) / 2) * 1.15;
+          ctx.quadraticCurveTo(cpx, cpy, x, y);
+        }
+      }
+      ctx.closePath();
+      ctx.fillStyle = blob.color;
+      ctx.fill();
+    }
+
+    // Flowing lines
+    for (let l = 0; l < 5; l++) {
+      ctx.beginPath();
+      ctx.strokeStyle = `hsla(0,0%,${20 + l * 8}%,${0.12 - l * 0.015})`;
+      ctx.lineWidth = 1.5;
+      const yBase = H * (0.2 + l * 0.15);
+      for (let x = 0; x < W; x += 4) {
+        const xn = x / W;
+        const wave = Math.sin(xn * 6 + time * 0.001 + l) * 40
+          + Math.sin(xn * 3 - time * 0.0007 + l * 2) * 25
+          + Math.cos(xn * 10 + time * 0.0005) * 10;
+        const y = yBase + wave + (my - 0.5) * 30;
+        if (x === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
+      ctx.stroke();
+    }
+
+    // Geometric accents
+    const t = time * 0.001;
+    ctx.save();
+    ctx.translate(W * 0.72, H * 0.28);
+    ctx.rotate(t * 0.3);
+    ctx.strokeStyle = "hsla(0,0%,25%,0.12)";
+    ctx.lineWidth = 1;
+    ctx.strokeRect(-40, -40, 80, 80);
+    ctx.restore();
+
+    ctx.save();
+    ctx.translate(W * 0.2, H * 0.7);
+    ctx.rotate(-t * 0.2);
+    ctx.beginPath();
+    ctx.arc(0, 0, 50, 0, Math.PI * 2);
+    ctx.strokeStyle = "hsla(0,0%,20%,0.1)";
+    ctx.lineWidth = 1;
+    ctx.stroke();
+    ctx.restore();
+
+    ctx.save();
+    ctx.translate(W * 0.85, H * 0.65);
+    ctx.rotate(t * 0.15);
+    const triSize = 35;
+    ctx.beginPath();
+    ctx.moveTo(0, -triSize);
+    ctx.lineTo(triSize * 0.866, triSize * 0.5);
+    ctx.lineTo(-triSize * 0.866, triSize * 0.5);
+    ctx.closePath();
+    ctx.strokeStyle = "hsla(0,0%,22%,0.1)";
+    ctx.lineWidth = 1;
+    ctx.stroke();
+    ctx.restore();
+
+    // Scattered dots
+    for (let i = 0; i < 12; i++) {
+      const dx = ((i * 137.5) % W);
+      const dy = ((i * 83.7 + Math.sin(t + i) * 20) % H);
+      ctx.beginPath();
+      ctx.arc(dx, dy, 2, 0, Math.PI * 2);
+      ctx.fillStyle = "hsla(0,0%,30%,0.15)";
+      ctx.fill();
+    }
+
+    animRef.current = requestAnimationFrame(draw);
+  }, []);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const resize = () => {
+      canvas.width = canvas.offsetWidth * window.devicePixelRatio;
+      canvas.height = canvas.offsetHeight * window.devicePixelRatio;
+      const ctx = canvas.getContext("2d");
+      if (ctx) ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+    };
+    resize();
+    window.addEventListener("resize", resize);
+
+    const move = (e: MouseEvent) => {
+      mouseRef.current = { x: e.clientX / window.innerWidth, y: e.clientY / window.innerHeight };
+    };
+    window.addEventListener("mousemove", move);
+
+    animRef.current = requestAnimationFrame(draw);
+    return () => {
+      window.removeEventListener("resize", resize);
+      window.removeEventListener("mousemove", move);
+      cancelAnimationFrame(animRef.current);
+    };
+  }, [draw]);
+
+  return <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />;
+}
+
 export default function Atelier() {
   const { t } = useLang();
   const d = t.demos.atelier;
 
   const containerRef = useRef<HTMLDivElement>(null);
-  
+  const heroRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
+  const heroY = useTransform(scrollYProgress, [0, 1], [0, 150]);
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
+
   return (
     <div className="min-h-screen bg-[hsl(0,0%,98%)] text-[hsl(0,0%,10%)] selection:bg-[hsl(0,0%,10%)] selection:text-[hsl(0,0%,98%)] font-sans" ref={containerRef}>
       <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-8 py-6 mix-blend-difference text-white">
@@ -24,9 +167,44 @@ export default function Atelier() {
         <span className="text-xs tracking-[0.2em] uppercase font-medium hidden sm:block">Creative Studio</span>
       </nav>
 
-      {/* Hero */}
-      <section className="h-screen relative overflow-hidden bg-black">
-        <img src="/images/demos/atelier-hero.jpg" alt="Studio workspace" className="absolute inset-0 w-full h-full object-cover scale-105 opacity-80" />
+      {/* Hero — Abstract Creative */}
+      <section ref={heroRef} className="h-screen relative overflow-hidden bg-[hsl(0,0%,96%)]">
+        <AbstractCanvas />
+        <motion.div
+          style={{ y: heroY, opacity: heroOpacity }}
+          className="relative z-10 flex flex-col items-center justify-center h-full text-center px-6"
+        >
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="text-[10px] tracking-[0.5em] uppercase text-[hsl(0,0%,45%)] mb-8"
+          >
+            Creative Studio
+          </motion.p>
+          <motion.h1
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.5 }}
+            className="text-6xl md:text-8xl lg:text-[9rem] font-bold tracking-[-0.04em] leading-[0.9] mb-8"
+          >
+            Atelier
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 1 }}
+            className="text-lg text-[hsl(0,0%,40%)] max-w-md leading-relaxed"
+          >
+            {d.manifestoSubtitle}
+          </motion.p>
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.5 }}
+            className="mt-12 w-px h-16 bg-[hsl(0,0%,70%)] mx-auto animate-pulse"
+          />
+        </motion.div>
       </section>
 
       {/* Manifesto */}

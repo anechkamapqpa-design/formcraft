@@ -304,19 +304,28 @@ export function MiniMarketSphere() {
 export function MiniAtelier() {
   return (
     <ScaledPreview>
-      <div className="w-[1280px] h-[800px] bg-[hsl(0,0%,98%)] text-[hsl(0,0%,10%)] relative overflow-hidden font-sans">
-        <nav className="absolute top-0 left-0 right-0 z-50 flex items-center justify-between px-12 py-8 mix-blend-difference text-white">
+      <div className="w-[1280px] h-[800px] bg-[hsl(0,0%,96%)] text-[hsl(0,0%,10%)] relative overflow-hidden font-sans">
+        {/* Abstract shapes */}
+        <div className="absolute top-[15%] left-[20%] w-[300px] h-[300px] rounded-full bg-[hsl(0,0%,15%)] opacity-[0.06] blur-[2px]" />
+        <div className="absolute top-[40%] right-[15%] w-[220px] h-[220px] rounded-full bg-[hsl(0,0%,20%)] opacity-[0.05] blur-[2px]" />
+        <div className="absolute bottom-[20%] left-[15%] w-[180px] h-[180px] rounded-full bg-[hsl(0,0%,10%)] opacity-[0.04] blur-[2px]" />
+        {/* Flowing lines */}
+        <svg className="absolute inset-0 w-full h-full opacity-[0.08]" viewBox="0 0 1280 800">
+          <path d="M0 300 Q320 250 640 320 Q960 390 1280 280" fill="none" stroke="hsl(0,0%,25%)" strokeWidth="1.5" />
+          <path d="M0 450 Q320 400 640 470 Q960 540 1280 430" fill="none" stroke="hsl(0,0%,30%)" strokeWidth="1.5" />
+          <path d="M0 600 Q320 550 640 620 Q960 690 1280 580" fill="none" stroke="hsl(0,0%,35%)" strokeWidth="1.5" />
+        </svg>
+        {/* Geometric accents */}
+        <div className="absolute top-[22%] right-[25%] w-[60px] h-[60px] border border-[hsl(0,0%,25%)] opacity-[0.1] rotate-45" />
+        <div className="absolute bottom-[30%] right-[35%] w-[40px] h-[40px] rounded-full border border-[hsl(0,0%,20%)] opacity-[0.08]" />
+        <nav className="absolute top-0 left-0 right-0 z-50 flex items-center justify-between px-12 py-8">
           <span className="text-xl tracking-[0.2em] uppercase font-bold">Atelier</span>
-          <span className="text-xs tracking-[0.2em] uppercase">Creative Studio</span>
+          <span className="text-xs tracking-[0.2em] uppercase text-[hsl(0,0%,45%)]">Creative Studio</span>
         </nav>
-        <div className="absolute top-0 left-0 right-0 h-[600px]">
-          <img src="/images/demos/atelier-hero.jpg" alt="" className="w-full h-full object-cover" />
-        </div>
-        <div className="absolute top-[520px] left-1/2 -translate-x-1/2 w-full max-w-5xl bg-[hsl(0,0%,98%)] p-12">
-          <h1 className="text-6xl font-bold tracking-tight leading-[1.1] mb-6">
-            We don't just design.<br />We create digital culture.
-          </h1>
-          <p className="text-xl text-[hsl(0,0%,40%)]">Multidisciplinary creative studio focused on brand identity.</p>
+        <div className="absolute inset-0 flex flex-col items-center justify-center text-center z-10">
+          <p className="text-[10px] tracking-[0.5em] uppercase text-[hsl(0,0%,45%)] mb-6">Creative Studio</p>
+          <h1 className="text-[9rem] font-bold tracking-[-0.04em] leading-[0.9] mb-6">Atelier</h1>
+          <p className="text-xl text-[hsl(0,0%,40%)] max-w-md">Multidisciplinary creative studio focused on brand identity.</p>
         </div>
       </div>
     </ScaledPreview>
