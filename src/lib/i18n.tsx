@@ -559,6 +559,7 @@ const translations = {
       "LuxeAura": { title: "LuxeAura", description: "Премиальный сайт для люксовых fashion-, ювелирных и lifestyle-брендов." },
       "AppMotion": { title: "AppMotion", description: "Лендинг для мобильных приложений с интерактивными мокапами и кнопками загрузки." },
       "EchoPress": { title: "EchoPress", description: "Современный редакционный шаблон для медиа-порталов и контент-платформ." },
+      "MarketSphere": { title: "MarketSphere", description: "Шаблон платформы-маркетплейса для e-commerce, SaaS и фриланс-сервисов." },
     } as Record<string, { title: string; description: string }>,
     demos: {
       luxuryArt: {
