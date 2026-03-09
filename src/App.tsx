@@ -25,6 +25,7 @@ import BrutalistLab from "./pages/demos/BrutalistLab";
 import CommunityGrid from "./pages/demos/CommunityGrid";
 import MonoJournal from "./pages/demos/MonoJournal";
 import Voxel3D from "./pages/demos/Voxel3D";
+import StoryBrand from "./pages/demos/StoryBrand";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
