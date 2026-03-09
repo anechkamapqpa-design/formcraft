@@ -423,6 +423,29 @@ export function MiniBrutalistLab() {
   );
 }
 
+export function MiniCommunityGrid() {
+  return (
+    <ScaledPreview>
+      <div className="w-[1280px] h-[800px] bg-[hsl(250,30%,98%)] text-[hsl(250,20%,15%)] relative overflow-hidden">
+        <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[700px] h-[700px] bg-gradient-to-br from-[hsl(270,80%,85%)] via-[hsl(30,90%,85%)] to-[hsl(200,80%,85%)] rounded-full blur-[120px] opacity-40" />
+        <nav className="flex items-center justify-between px-10 py-4 relative z-10 border-b border-[hsl(250,15%,90%)]">
+          <span className="text-sm font-medium text-[hsl(250,15%,50%)]">← Back</span>
+          <span className="text-xl font-extrabold tracking-tight">Community<span style={{ color: "hsl(270,80%,55%)" }}>Grid</span></span>
+          <span className="bg-[hsl(270,80%,55%)] text-white px-5 py-2 rounded-full text-sm font-semibold">Join Now</span>
+        </nav>
+        <div className="relative z-10 text-center pt-20 px-16">
+          <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-[hsl(270,80%,95%)] text-[hsl(270,80%,45%)] text-xs font-semibold rounded-full mb-6 border border-[hsl(270,80%,88%)]">👥 2,500+ Members</span>
+          <h1 className="text-7xl font-extrabold leading-[1.05] tracking-tight mb-4">
+            Where Ideas<br />
+            <span className="bg-gradient-to-r from-[hsl(270,80%,55%)] to-[hsl(30,90%,55%)] bg-clip-text" style={{ WebkitTextFillColor: "transparent" }}>Connect & Grow</span>
+          </h1>
+          <p className="text-lg text-[hsl(250,10%,45%)] max-w-2xl mx-auto">The ultimate platform for startup communities and tech networking.</p>
+        </div>
+      </div>
+    </ScaledPreview>
+  );
+}
+
 export const miniPreviewMap: Record<string, () => JSX.Element> = {
   "Luxury Art": MiniLuxuryArt,
   "SaaS Clean": MiniSaaSClean,
@@ -438,4 +461,5 @@ export const miniPreviewMap: Record<string, () => JSX.Element> = {
   "NeuroFlow": MiniNeuroFlow,
   "GlassWave": MiniGlassWave,
   "BrutalistLab": MiniBrutalistLab,
+  "CommunityGrid": MiniCommunityGrid,
 };
