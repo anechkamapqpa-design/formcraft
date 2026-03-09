@@ -18,6 +18,7 @@ export const templates: Template[] = [
   { id: 9, title: "EchoPress", description: "A modern editorial magazine template for media portals and content platforms.", imageUrl: "/images/echopress.png", category: "Creative" },
   { id: 10, title: "MarketSphere", description: "A marketplace platform template for e-commerce, SaaS, and freelance services.", imageUrl: "/images/marketsphere.png", category: "E-commerce" },
   { id: 11, title: "Atelier", description: "A stylish portfolio template for design studios with an emphasis on projects and visual storytelling.", imageUrl: "/images/atelier.png", category: "Creative" },
+  { id: 12, title: "NeuroFlow", description: "A futuristic template for AI startups and SaaS platforms with dark theme and glowing gradients.", imageUrl: "/images/neuroflow.png", category: "SaaS" },
 ];
 
 export const demoSlugMap: Record<string, string> = {
