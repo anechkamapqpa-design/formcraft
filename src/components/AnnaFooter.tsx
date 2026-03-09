@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useSearchParams } from "react-router-dom";
 import { ArrowRight, Globe, Loader2 } from "lucide-react";
 import { SiTelegram } from "react-icons/si";
 import { Mail } from "lucide-react";
@@ -10,12 +10,21 @@ import { toast } from "sonner";
 
 export function AnnaFooter() {
   const { t } = useLang();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [selectedType, setSelectedType] = useState(0);
   const [selectedTimeline, setSelectedTimeline] = useState(0);
   const [name, setName] = useState("");
   const [contact, setContact] = useState("");
   const [description, setDescription] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  useEffect(() => {
+    const prefill = searchParams.get("prefill");
+    if (prefill) {
+      setDescription(prefill);
+      setSearchParams({}, { replace: true });
+    }
+  }, [searchParams, setSearchParams]);
 
   const contactCards = [
     { icon: SiTelegram, label: t.footer.contacts.telegram, desc: t.footer.contacts.telegramDesc, href: "https://t.me/formcrafttech", color: "group-hover:text-[hsl(200,80%,60%)]", glow: "group-hover:shadow-[0_0_20px_hsl(200,80%,60%,0.1)]" },
