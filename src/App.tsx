@@ -45,6 +45,7 @@ const App = () => (
             <Route path="/demo/experimental-neon" element={<ExperimentalNeon />} />
             <Route path="/demo/product-interactive" element={<ProductInteractive />} />
             <Route path="/demo/luxe-aura" element={<LuxeAura />} />
+            <Route path="/demo/app-motion" element={<AppMotion />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
