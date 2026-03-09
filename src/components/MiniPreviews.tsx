@@ -252,6 +252,55 @@ export function MiniEchoPress() {
   );
 }
 
+export function MiniMarketSphere() {
+  return (
+    <ScaledPreview>
+      <div className="w-[1280px] h-[800px] bg-[hsl(210,20%,98%)] text-[hsl(210,20%,15%)] overflow-hidden">
+        <header className="h-14 bg-white border-b border-[hsl(210,15%,90%)] flex items-center px-6 gap-4">
+          <div className="flex items-center gap-2">
+            <div className="w-7 h-7 rounded-lg bg-[hsl(168,76%,36%)] flex items-center justify-center text-white text-xs font-bold">M</div>
+            <span className="font-black text-sm">Market<span style={{ color: "hsl(168,76%,36%)" }}>Sphere</span></span>
+          </div>
+          <div className="flex-1 max-w-md h-9 bg-[hsl(210,15%,96%)] rounded-xl border border-[hsl(210,15%,88%)]" />
+          <div className="flex gap-2">
+            <div className="w-8 h-8 rounded-lg bg-[hsl(210,15%,96%)]" />
+            <div className="px-3 h-8 rounded-xl bg-[hsl(168,76%,36%)] text-white text-xs font-bold flex items-center">Cart</div>
+          </div>
+        </header>
+        <div className="p-6 flex gap-6">
+          <aside className="w-48 bg-white rounded-2xl border border-[hsl(210,15%,90%)] p-4 h-fit">
+            <p className="text-xs font-bold mb-3">Filters</p>
+            <div className="space-y-2">
+              {["Electronics", "Fashion", "Home"].map((c) => (
+                <div key={c} className="flex items-center gap-2 text-xs">
+                  <div className="w-3.5 h-3.5 rounded bg-[hsl(168,76%,36%)]" />
+                  <span>{c}</span>
+                </div>
+              ))}
+            </div>
+          </aside>
+          <div className="flex-1 grid grid-cols-3 gap-4">
+            {[1, 2, 3, 4, 5, 6].map((i) => (
+              <div key={i} className="bg-white rounded-2xl border border-[hsl(210,15%,90%)] overflow-hidden">
+                <div className="aspect-square bg-[hsl(210,15%,96%)]">
+                  <img src={`/images/demos/marketsphere-product${((i - 1) % 6) + 1}.jpg`} alt="" className="w-full h-full object-cover" />
+                </div>
+                <div className="p-3">
+                  <div className="h-3 w-2/3 bg-[hsl(210,15%,92%)] rounded mb-2" />
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm font-black">${[89, 249, 45, 129, 65, 39][i - 1]}</span>
+                    <div className="px-2 py-1 rounded text-[10px] font-bold text-white bg-[hsl(168,76%,36%)]">Add</div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </ScaledPreview>
+  );
+}
+
 export const miniPreviewMap: Record<string, () => JSX.Element> = {
   "Luxury Art": MiniLuxuryArt,
   "SaaS Clean": MiniSaaSClean,
@@ -262,4 +311,5 @@ export const miniPreviewMap: Record<string, () => JSX.Element> = {
   "LuxeAura": MiniLuxeAura,
   "AppMotion": MiniAppMotion,
   "EchoPress": MiniEchoPress,
+  "MarketSphere": MiniMarketSphere,
 };
