@@ -125,6 +125,7 @@ const translations = {
       "NeuroFlow": { title: "NeuroFlow", description: "A futuristic template for AI startups and SaaS platforms with dark theme and glowing gradients." },
       "GlassWave": { title: "GlassWave", description: "A modern SaaS template with glassmorphism design, frosted panels and gradient backgrounds." },
       "BrutalistLab": { title: "BrutalistLab", description: "A bold neo-brutalist template for tech startups, digital agencies and Web3 projects." },
+      "CommunityGrid": { title: "CommunityGrid", description: "A vibrant template for online communities, startup clubs, conferences and networking platforms." },
     } as Record<string, { title: string; description: string }>,
     demos: {
       luxuryArt: {
