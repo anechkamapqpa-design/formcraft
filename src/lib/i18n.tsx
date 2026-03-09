@@ -108,6 +108,7 @@ const translations = {
       "Personal": "Personal",
       "Product": "Product",
       "SaaS": "SaaS",
+      "Premium": "Premium",
     } as Record<string, string>,
     templateData: {
       "Ecom Drop": { title: "Ecom Drop", description: "A high-conversion landing page tailored for e-commerce dropshipping." },
