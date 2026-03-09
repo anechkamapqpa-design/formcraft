@@ -721,6 +721,7 @@ const translations = {
       "Atelier": { title: "Atelier", description: "Стильный портфолио-шаблон для дизайнерских студий с акцентом на проектах и визуальном сторителлинге." },
       "NeuroFlow": { title: "NeuroFlow", description: "Футуристичный шаблон для AI-стартапов и SaaS-платформ с тёмной темой и светящимися градиентами." },
       "GlassWave": { title: "GlassWave", description: "Современный SaaS-шаблон в стиле glassmorphism с прозрачными панелями и градиентными фонами." },
+      "BrutalistLab": { title: "BrutalistLab", description: "Смелый нео-брутальный шаблон для технологических стартапов, digital-агентств и Web3-проектов." },
     } as Record<string, { title: string; description: string }>,
     demos: {
       luxuryArt: {
