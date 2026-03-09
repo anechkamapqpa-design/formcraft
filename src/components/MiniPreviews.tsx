@@ -214,6 +214,44 @@ export function MiniAppMotion() {
   );
 }
 
+export function MiniEchoPress() {
+  return (
+    <ScaledPreview>
+      <div className="w-[1280px] h-[800px] bg-[hsl(40,20%,97%)] text-[hsl(20,10%,12%)] overflow-hidden">
+        <div className="flex items-center justify-between px-12 py-5 border-b border-[hsl(20,10%,88%)]">
+          <span className="text-2xl font-black tracking-tight uppercase" style={{ fontFamily: "'Georgia', serif" }}>Echo<span style={{ color: "hsl(0,85%,45%)" }}>Press</span></span>
+          <div className="flex gap-8 text-sm font-medium text-[hsl(20,10%,40%)]">
+            <span>Culture</span><span>Design</span><span>Tech</span><span>Travel</span>
+          </div>
+        </div>
+        <div className="grid grid-cols-2 gap-0 h-[700px]">
+          <div className="relative overflow-hidden">
+            <img src="/images/demos/echopress-hero.jpg" alt="" className="w-full h-full object-cover" />
+            <div className="absolute bottom-8 left-8 right-8">
+              <span className="px-3 py-1 bg-[hsl(0,85%,45%)] text-white text-xs font-bold tracking-wider uppercase">Featured</span>
+              <h2 className="text-4xl font-black leading-tight mt-3 text-white drop-shadow-lg" style={{ fontFamily: "'Georgia', serif" }}>The Future of Editorial Design</h2>
+            </div>
+          </div>
+          <div className="grid grid-rows-2 gap-0">
+            <div className="relative overflow-hidden border-b border-[hsl(20,10%,90%)]">
+              <img src="/images/demos/echopress-article1.jpg" alt="" className="w-full h-full object-cover" />
+              <div className="absolute bottom-4 left-4">
+                <h3 className="text-xl font-bold text-white drop-shadow-lg" style={{ fontFamily: "'Georgia', serif" }}>Architecture Today</h3>
+              </div>
+            </div>
+            <div className="relative overflow-hidden">
+              <img src="/images/demos/echopress-article3.jpg" alt="" className="w-full h-full object-cover" />
+              <div className="absolute bottom-4 left-4">
+                <h3 className="text-xl font-bold text-white drop-shadow-lg" style={{ fontFamily: "'Georgia', serif" }}>Tokyo After Dark</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ScaledPreview>
+  );
+}
+
 export const miniPreviewMap: Record<string, () => JSX.Element> = {
   "Luxury Art": MiniLuxuryArt,
   "SaaS Clean": MiniSaaSClean,
@@ -223,4 +261,5 @@ export const miniPreviewMap: Record<string, () => JSX.Element> = {
   "Product Interactive": MiniProductInteractive,
   "LuxeAura": MiniLuxeAura,
   "AppMotion": MiniAppMotion,
+  "EchoPress": MiniEchoPress,
 };
