@@ -627,6 +627,7 @@ const translations = {
       "MarketSphere": { title: "MarketSphere", description: "Шаблон платформы-маркетплейса для e-commerce, SaaS и фриланс-сервисов." },
       "Atelier": { title: "Atelier", description: "Стильный портфолио-шаблон для дизайнерских студий с акцентом на проектах и визуальном сторителлинге." },
       "NeuroFlow": { title: "NeuroFlow", description: "Футуристичный шаблон для AI-стартапов и SaaS-платформ с тёмной темой и светящимися градиентами." },
+      "GlassWave": { title: "GlassWave", description: "Современный SaaS-шаблон в стиле glassmorphism с прозрачными панелями и градиентными фонами." },
     } as Record<string, { title: string; description: string }>,
     demos: {
       luxuryArt: {
