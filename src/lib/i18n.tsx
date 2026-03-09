@@ -476,6 +476,7 @@ const translations = {
       "SaaS Clean": { title: "SaaS Clean", description: "Современный конверсионный лендинг для SaaS-продуктов." },
       "LuxeAura": { title: "LuxeAura", description: "Премиальный сайт для люксовых fashion-, ювелирных и lifestyle-брендов." },
       "AppMotion": { title: "AppMotion", description: "Лендинг для мобильных приложений с интерактивными мокапами и кнопками загрузки." },
+      "EchoPress": { title: "EchoPress", description: "Современный редакционный шаблон для медиа-порталов и контент-платформ." },
     } as Record<string, { title: string; description: string }>,
     demos: {
       luxuryArt: {
