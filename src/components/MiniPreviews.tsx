@@ -477,6 +477,42 @@ export function MiniMonoJournal() {
   );
 }
 
+export function MiniVoxel3D() {
+  return (
+    <ScaledPreview>
+      <div className="w-[1280px] h-[800px] bg-[hsl(240,20%,4%)] text-white relative overflow-hidden">
+        <div className="absolute top-[-20%] left-[-10%] w-[600px] h-[600px] bg-[hsl(260,80%,50%)] rounded-full blur-[250px] opacity-15" />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-[hsl(200,90%,50%)] rounded-full blur-[200px] opacity-10" />
+        <nav className="flex items-center justify-between px-12 py-5 border-b border-white/[0.06] relative z-10">
+          <span className="text-sm text-white/50">← Back</span>
+          <span className="text-xl font-black">Voxel<span style={{ background: "linear-gradient(to right, hsl(260,80%,65%), hsl(200,90%,60%))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>3D</span></span>
+          <span className="bg-gradient-to-r from-[hsl(260,80%,55%)] to-[hsl(200,90%,55%)] text-white px-5 py-2 rounded-full text-sm font-semibold">Get Started</span>
+        </nav>
+        <div className="relative z-10 grid grid-cols-2 gap-16 items-center px-16 pt-24">
+          <div>
+            <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-[hsl(260,80%,55%)]/10 text-[hsl(260,80%,70%)] text-xs font-semibold rounded-full mb-6 border border-[hsl(260,80%,55%)]/20">⚡ 3D Product Platform</span>
+            <h1 className="text-7xl font-black leading-[0.95] tracking-tight mb-6">
+              Build.<br />
+              <span style={{ background: "linear-gradient(to right, hsl(260,80%,65%), hsl(200,90%,60%), hsl(170,80%,55%))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Visualize.</span><br />
+              Launch.
+            </h1>
+            <p className="text-lg text-white/40 max-w-lg">Next-gen 3D product experiences that captivate and convert.</p>
+          </div>
+          <div className="flex justify-center">
+            <div className="w-48 h-48 relative" style={{ perspective: "600px" }}>
+              <div style={{ transformStyle: "preserve-3d", transform: "rotateX(-20deg) rotateY(35deg)" }} className="w-full h-full relative">
+                <div className="absolute inset-[15%] rounded-2xl border border-white/20" style={{ transform: "translateZ(60px)", background: "linear-gradient(135deg, hsl(260,80%,55%), hsl(200,90%,55%))", opacity: 0.75 }} />
+                <div className="absolute inset-[15%] rounded-2xl border border-white/20" style={{ transform: "rotateY(90deg) translateZ(60px)", background: "linear-gradient(135deg, hsl(320,80%,55%), hsl(260,80%,55%))", opacity: 0.75 }} />
+                <div className="absolute inset-[15%] rounded-2xl border border-white/20" style={{ transform: "rotateX(90deg) translateZ(60px)", background: "linear-gradient(135deg, hsl(260,80%,60%), hsl(320,80%,55%))", opacity: 0.75 }} />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ScaledPreview>
+  );
+}
+
 export const miniPreviewMap: Record<string, () => JSX.Element> = {
   "Luxury Art": MiniLuxuryArt,
   "SaaS Clean": MiniSaaSClean,
