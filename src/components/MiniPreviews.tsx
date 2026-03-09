@@ -414,13 +414,3 @@ export const miniPreviewMap: Record<string, () => JSX.Element> = {
   "NeuroFlow": MiniNeuroFlow,
   "GlassWave": MiniGlassWave,
 };
-  "Personal Brand": MiniPersonalBrand,
-  "Experimental Neon": MiniExperimentalNeon,
-  "Product Interactive": MiniProductInteractive,
-  "LuxeAura": MiniLuxeAura,
-  "AppMotion": MiniAppMotion,
-  "EchoPress": MiniEchoPress,
-  "MarketSphere": MiniMarketSphere,
-  "Atelier": MiniAtelier,
-  "NeuroFlow": MiniNeuroFlow,
-};
