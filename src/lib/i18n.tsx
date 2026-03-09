@@ -433,6 +433,7 @@ const translations = {
       "Product Interactive": { title: "Product Interactive", description: "Вовлекающий интерактивный лендинг для демонстрации цифровых продуктов." },
       "SaaS Clean": { title: "SaaS Clean", description: "Современный конверсионный лендинг для SaaS-продуктов." },
       "LuxeAura": { title: "LuxeAura", description: "Премиальный сайт для люксовых fashion-, ювелирных и lifestyle-брендов." },
+      "AppMotion": { title: "AppMotion", description: "Лендинг для мобильных приложений с интерактивными мокапами и кнопками загрузки." },
     } as Record<string, { title: string; description: string }>,
     demos: {
       luxuryArt: {
