@@ -49,6 +49,7 @@ const translations = {
       "Freelance Hub": { title: "Freelance Hub", description: "Practical template for freelancers. Portfolio, service list and project order form." },
       "Quantum": { title: "Quantum", description: "Futuristic template for AI startups and deep-tech projects. Glowing gradients and tech design." },
       "Infinity Grid": { title: "Infinity Grid", description: "Experimental template for creative brands. Non-standard grid and interactive navigation." },
+      "LuxeAura": { title: "LuxeAura", description: "A minimal luxury brand website template with elegant typography and dark cinematic aesthetic." },
     } as Record<string, { title: string; description: string }>,
     demos: {
       minimalPortfolio: { back: "← Back", brand: "STUDIO", contact: "Contact", heroTitle: "Design with Purpose", heroSubtitle: "Minimal. Intentional. Beautiful.", projects: [{ title: "Brand Identity", type: "Branding" }, { title: "Web Design", type: "Digital" }, { title: "Photography", type: "Art Direction" }] as any[], testimonialsTitle: "Testimonials", testimonials: [{ text: "Exceptional attention to detail.", name: "Sarah K.", role: "CEO, TechCo" }, { text: "Transformed our brand completely.", name: "Mark L.", role: "Founder, StudioX" }] as any[], footer: "© 2026 Studio. All rights reserved." },
