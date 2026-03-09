@@ -38,6 +38,7 @@ export const templates: Template[] = [
   { id: 22, title: "Freelance Hub", description: "Practical template for freelancers. Portfolio, service list and project order form.", imageUrl: "/images/restaurant-website.png", category: "Personal", style: "minimal", niche: "portfolio", mood: "clean" },
   { id: 23, title: "Quantum", description: "Futuristic template for AI startups and deep-tech projects. Glowing gradients and tech design.", imageUrl: "/images/ai-product-landing.png", category: "SaaS", style: "futuristic", niche: "SaaS", mood: "cinematic" },
   { id: 24, title: "Infinity Grid", description: "Experimental template for creative brands. Non-standard grid and interactive navigation.", imageUrl: "/images/creative-startup.png", category: "Creative", style: "brutalist", niche: "SaaS", mood: "playful" },
+  { id: 25, title: "LuxeAura", description: "A minimal luxury brand website template with elegant typography and dark cinematic aesthetic.", imageUrl: "/images/luxe-aura-brand.png", category: "Luxury", style: "luxury", niche: "portfolio", mood: "cinematic" },
 ];
 
 export const demoSlugMap: Record<string, string> = {
@@ -65,6 +66,7 @@ export const demoSlugMap: Record<string, string> = {
   "Freelance Hub": "/demo/restaurant-website",
   "Quantum": "/demo/ai-product-landing",
   "Infinity Grid": "/demo/creative-startup",
+  "LuxeAura": "/demo/luxe-aura-brand",
 };
 
 export function getTemplate(id: number): Template | undefined {

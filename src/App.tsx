@@ -34,6 +34,7 @@ const FitnessBrand = lazy(() => import("./pages/demos/FitnessBrand"));
 const RestaurantWebsite = lazy(() => import("./pages/demos/RestaurantWebsite"));
 const AIProductLanding = lazy(() => import("./pages/demos/AIProductLanding"));
 const CreativeStartup = lazy(() => import("./pages/demos/CreativeStartup"));
+const LuxeAuraBrand = lazy(() => import("./pages/demos/LuxeAuraBrand"));
 
 const queryClient = new QueryClient();
 
@@ -82,6 +83,7 @@ const App = () => (
               <Route path="/demo/restaurant-website" element={<RestaurantWebsite />} />
               <Route path="/demo/ai-product-landing" element={<AIProductLanding />} />
               <Route path="/demo/creative-startup" element={<CreativeStartup />} />
+              <Route path="/demo/luxe-aura-brand" element={<LuxeAuraBrand />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>

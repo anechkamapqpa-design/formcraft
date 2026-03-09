@@ -373,6 +373,19 @@ export function MiniCreativeStartup() {
   </div></ScaledPreview>);
 }
 
+export function MiniLuxeAuraBrand() {
+  return (<ScaledPreview><div className="w-[1280px] h-[800px] bg-[hsl(240,10%,7%)] text-[hsl(0,0%,100%)] overflow-hidden relative">
+    <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[700px] bg-[hsl(270,60%,40%)]/8 rounded-full blur-[200px]" />
+    <div className="relative z-10 flex items-center justify-center h-full text-center">
+      <div>
+        <p className="text-xs tracking-[0.4em] uppercase text-[hsl(270,40%,65%)] mb-6">Premium Brand Template</p>
+        <h1 className="text-8xl font-bold leading-[0.9] mb-8">LuxeAura</h1>
+        <p className="text-lg text-[hsl(240,5%,50%)] max-w-lg mx-auto">Elegant design meets dark aesthetics</p>
+      </div>
+    </div>
+  </div></ScaledPreview>);
+}
+
 export const miniPreviewMap: Record<string, () => JSX.Element> = {
   "Nova Studio": MiniMinimalPortfolio,
   "DarkMatter": MiniDarkStudio,
@@ -398,4 +411,5 @@ export const miniPreviewMap: Record<string, () => JSX.Element> = {
   "Freelance Hub": MiniRestaurantWebsite,
   "Quantum": MiniAIProductLanding,
   "Infinity Grid": MiniCreativeStartup,
+  "LuxeAura": MiniLuxeAuraBrand,
 };
