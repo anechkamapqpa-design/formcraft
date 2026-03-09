@@ -513,6 +513,28 @@ export function MiniVoxel3D() {
   );
 }
 
+export function MiniStoryBrand() {
+  return (
+    <ScaledPreview>
+      <div className="w-[1280px] h-[800px] bg-[hsl(160,15%,5%)] text-[hsl(40,20%,90%)] relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,hsl(35,40%,20%,0.3),transparent_70%)]" />
+        <nav className="absolute top-0 left-0 right-0 z-50 flex items-center justify-between px-12 py-6 mix-blend-difference text-white">
+          <span className="text-sm text-white/50">← Back</span>
+          <span className="text-lg tracking-[0.15em] uppercase font-bold" style={{ fontFamily: "'Playfair Display', serif" }}>Story<em className="font-normal italic">Brand</em></span>
+          <span className="text-xs tracking-[0.2em] uppercase text-white/40">Explore</span>
+        </nav>
+        <div className="relative z-10 flex flex-col items-center justify-center h-full text-center px-16">
+          <p className="text-xs tracking-[0.5em] uppercase text-[hsl(35,50%,60%)] mb-8">Cinematic Brand Story</p>
+          <h2 className="text-8xl font-bold leading-[0.95] tracking-tight mb-8" style={{ fontFamily: "'Playfair Display', serif" }}>
+            Every Brand Has<br /><em className="font-normal italic text-[hsl(35,50%,65%)]">a Story</em>
+          </h2>
+          <p className="text-lg text-[hsl(40,15%,50%)] max-w-xl">Immersive storytelling experiences for luxury brands</p>
+        </div>
+      </div>
+    </ScaledPreview>
+  );
+}
+
 export const miniPreviewMap: Record<string, () => JSX.Element> = {
   "Luxury Art": MiniLuxuryArt,
   "SaaS Clean": MiniSaaSClean,
