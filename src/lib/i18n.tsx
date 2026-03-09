@@ -223,12 +223,12 @@ const translations = {
       "SaaS": "SaaS",
     } as Record<string, string>,
     templateData: {
-      "Ecom Drop": { title: "Eком Дроп", description: "Высококонверсионный лендинг для дропшиппинга и интернет-магазинов." },
-      "Experimental Neon": { title: "Экспериментальный Неон", description: "Смелый футуристический лендинг для креативных агентств и художников." },
-      "Luxury Art": { title: "Люкс Арт", description: "Элегантный минималистичный дизайн для люксовых брендов и галерей." },
-      "Personal Brand": { title: "Личный Бренд", description: "Чистая профессиональная страница для демонстрации портфолио и услуг." },
-      "Product Interactive": { title: "Продукт Интерактив", description: "Вовлекающий интерактивный лендинг для демонстрации цифровых продуктов." },
-      "SaaS Clean": { title: "SaaS Клин", description: "Современный конверсионный лендинг для SaaS-продуктов." },
+      "Ecom Drop": { title: "Ecom Drop", description: "Высококонверсионный лендинг для дропшиппинга и интернет-магазинов." },
+      "Experimental Neon": { title: "Experimental Neon", description: "Смелый футуристический лендинг для креативных агентств и художников." },
+      "Luxury Art": { title: "Luxury Art", description: "Элегантный минималистичный дизайн для люксовых брендов и галерей." },
+      "Personal Brand": { title: "Personal Brand", description: "Чистая профессиональная страница для демонстрации портфолио и услуг." },
+      "Product Interactive": { title: "Product Interactive", description: "Вовлекающий интерактивный лендинг для демонстрации цифровых продуктов." },
+      "SaaS Clean": { title: "SaaS Clean", description: "Современный конверсионный лендинг для SaaS-продуктов." },
     } as Record<string, { title: string; description: string }>,
   },
 } as const;
