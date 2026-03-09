@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, lazy, Suspense } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -8,31 +8,32 @@ import { LangProvider } from "@/lib/i18n";
 import Home from "./pages/Home";
 import TemplateDetail from "./pages/TemplateDetail";
 import About from "./pages/About";
-import LuxuryArt from "./pages/demos/LuxuryArt";
-import SaaSClean from "./pages/demos/SaaSClean";
-import EcomDrop from "./pages/demos/EcomDrop";
-import PersonalBrand from "./pages/demos/PersonalBrand";
-import ExperimentalNeon from "./pages/demos/ExperimentalNeon";
-import ProductInteractive from "./pages/demos/ProductInteractive";
-import FitnessTracker from "./pages/demos/FitnessTracker";
-import RestaurantMenu from "./pages/demos/RestaurantMenu";
-import MusicFestival from "./pages/demos/MusicFestival";
-import RealEstate from "./pages/demos/RealEstate";
-import PhotoPortfolio from "./pages/demos/PhotoPortfolio";
-import MedicalClinic from "./pages/demos/MedicalClinic";
-import TravelAgency from "./pages/demos/TravelAgency";
-import GamingHub from "./pages/demos/GamingHub";
-import EducationPlatform from "./pages/demos/EducationPlatform";
-import WeddingPlanner from "./pages/demos/WeddingPlanner";
-import ArchitectureStudio from "./pages/demos/ArchitectureStudio";
-import CryptoDashboard from "./pages/demos/CryptoDashboard";
-import FashionMagazine from "./pages/demos/FashionMagazine";
-import PodcastLanding from "./pages/demos/PodcastLanding";
-import YogaStudio from "./pages/demos/YogaStudio";
-import PetCare from "./pages/demos/PetCare";
-import LawFirm from "./pages/demos/LawFirm";
-import CoffeeShop from "./pages/demos/CoffeeShop";
 import NotFound from "./pages/NotFound";
+
+const MinimalPortfolio = lazy(() => import("./pages/demos/MinimalPortfolio"));
+const DarkStudio = lazy(() => import("./pages/demos/DarkStudio"));
+const SaaSStartup = lazy(() => import("./pages/demos/SaaSStartup"));
+const CreativeAgency = lazy(() => import("./pages/demos/CreativeAgency"));
+const PersonalBrand = lazy(() => import("./pages/demos/PersonalBrand"));
+const ProductShowcase = lazy(() => import("./pages/demos/ProductShowcase"));
+const StartupPitch = lazy(() => import("./pages/demos/StartupPitch"));
+const DigitalArtGallery = lazy(() => import("./pages/demos/DigitalArtGallery"));
+const CorporateWebsite = lazy(() => import("./pages/demos/CorporateWebsite"));
+const StartupAnimation = lazy(() => import("./pages/demos/StartupAnimation"));
+const MarketplacePlatform = lazy(() => import("./pages/demos/MarketplacePlatform"));
+const MobileAppLanding = lazy(() => import("./pages/demos/MobileAppLanding"));
+const StartupCommunity = lazy(() => import("./pages/demos/StartupCommunity"));
+const LuxuryBrand = lazy(() => import("./pages/demos/LuxuryBrand"));
+const EventLanding = lazy(() => import("./pages/demos/EventLanding"));
+const EducationPlatform = lazy(() => import("./pages/demos/EducationPlatform"));
+const CreativeBlog = lazy(() => import("./pages/demos/CreativeBlog"));
+const FreelancerLanding = lazy(() => import("./pages/demos/FreelancerLanding"));
+const StartupDashboard = lazy(() => import("./pages/demos/StartupDashboard"));
+const ArchitectureStudio = lazy(() => import("./pages/demos/ArchitectureStudio"));
+const FitnessBrand = lazy(() => import("./pages/demos/FitnessBrand"));
+const RestaurantWebsite = lazy(() => import("./pages/demos/RestaurantWebsite"));
+const AIProductLanding = lazy(() => import("./pages/demos/AIProductLanding"));
+const CreativeStartup = lazy(() => import("./pages/demos/CreativeStartup"));
 
 const queryClient = new QueryClient();
 
@@ -42,6 +43,8 @@ function ScrollToTop() {
   return null;
 }
 
+const Loader = () => <div className="min-h-screen bg-background flex items-center justify-center"><div className="w-6 h-6 border-2 border-primary border-t-transparent rounded-full animate-spin" /></div>;
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
@@ -50,36 +53,38 @@ const App = () => (
         <Sonner />
         <BrowserRouter>
           <ScrollToTop />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/template/:id" element={<TemplateDetail />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/demo/luxury-art" element={<LuxuryArt />} />
-            <Route path="/demo/saas-clean" element={<SaaSClean />} />
-            <Route path="/demo/ecom-drop" element={<EcomDrop />} />
-            <Route path="/demo/personal-brand" element={<PersonalBrand />} />
-            <Route path="/demo/experimental-neon" element={<ExperimentalNeon />} />
-            <Route path="/demo/product-interactive" element={<ProductInteractive />} />
-            <Route path="/demo/fitness-tracker" element={<FitnessTracker />} />
-            <Route path="/demo/restaurant-menu" element={<RestaurantMenu />} />
-            <Route path="/demo/music-festival" element={<MusicFestival />} />
-            <Route path="/demo/real-estate" element={<RealEstate />} />
-            <Route path="/demo/photo-portfolio" element={<PhotoPortfolio />} />
-            <Route path="/demo/medical-clinic" element={<MedicalClinic />} />
-            <Route path="/demo/travel-agency" element={<TravelAgency />} />
-            <Route path="/demo/gaming-hub" element={<GamingHub />} />
-            <Route path="/demo/education-platform" element={<EducationPlatform />} />
-            <Route path="/demo/wedding-planner" element={<WeddingPlanner />} />
-            <Route path="/demo/architecture-studio" element={<ArchitectureStudio />} />
-            <Route path="/demo/crypto-dashboard" element={<CryptoDashboard />} />
-            <Route path="/demo/fashion-magazine" element={<FashionMagazine />} />
-            <Route path="/demo/podcast-landing" element={<PodcastLanding />} />
-            <Route path="/demo/yoga-studio" element={<YogaStudio />} />
-            <Route path="/demo/pet-care" element={<PetCare />} />
-            <Route path="/demo/law-firm" element={<LawFirm />} />
-            <Route path="/demo/coffee-shop" element={<CoffeeShop />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+          <Suspense fallback={<Loader />}>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/template/:id" element={<TemplateDetail />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/demo/minimal-portfolio" element={<MinimalPortfolio />} />
+              <Route path="/demo/dark-studio" element={<DarkStudio />} />
+              <Route path="/demo/saas-startup" element={<SaaSStartup />} />
+              <Route path="/demo/creative-agency" element={<CreativeAgency />} />
+              <Route path="/demo/personal-brand" element={<PersonalBrand />} />
+              <Route path="/demo/product-showcase" element={<ProductShowcase />} />
+              <Route path="/demo/startup-pitch" element={<StartupPitch />} />
+              <Route path="/demo/digital-art-gallery" element={<DigitalArtGallery />} />
+              <Route path="/demo/corporate-website" element={<CorporateWebsite />} />
+              <Route path="/demo/startup-animation" element={<StartupAnimation />} />
+              <Route path="/demo/marketplace-platform" element={<MarketplacePlatform />} />
+              <Route path="/demo/mobile-app-landing" element={<MobileAppLanding />} />
+              <Route path="/demo/startup-community" element={<StartupCommunity />} />
+              <Route path="/demo/luxury-brand" element={<LuxuryBrand />} />
+              <Route path="/demo/event-landing" element={<EventLanding />} />
+              <Route path="/demo/education-platform" element={<EducationPlatform />} />
+              <Route path="/demo/creative-blog" element={<CreativeBlog />} />
+              <Route path="/demo/freelancer-landing" element={<FreelancerLanding />} />
+              <Route path="/demo/startup-dashboard" element={<StartupDashboard />} />
+              <Route path="/demo/architecture-studio" element={<ArchitectureStudio />} />
+              <Route path="/demo/fitness-brand" element={<FitnessBrand />} />
+              <Route path="/demo/restaurant-website" element={<RestaurantWebsite />} />
+              <Route path="/demo/ai-product-landing" element={<AIProductLanding />} />
+              <Route path="/demo/creative-startup" element={<CreativeStartup />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </Suspense>
         </BrowserRouter>
       </LangProvider>
     </TooltipProvider>
