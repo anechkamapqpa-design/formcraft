@@ -301,6 +301,28 @@ export function MiniMarketSphere() {
   );
 }
 
+export function MiniAtelier() {
+  return (
+    <ScaledPreview>
+      <div className="w-[1280px] h-[800px] bg-[hsl(0,0%,98%)] text-[hsl(0,0%,10%)] relative overflow-hidden font-sans">
+        <nav className="absolute top-0 left-0 right-0 z-50 flex items-center justify-between px-12 py-8 mix-blend-difference text-white">
+          <span className="text-xl tracking-[0.2em] uppercase font-bold">Atelier</span>
+          <span className="text-xs tracking-[0.2em] uppercase">Creative Studio</span>
+        </nav>
+        <div className="absolute top-0 left-0 right-0 h-[600px]">
+          <img src="/images/demos/atelier-hero.jpg" alt="" className="w-full h-full object-cover" />
+        </div>
+        <div className="absolute top-[520px] left-1/2 -translate-x-1/2 w-full max-w-5xl bg-[hsl(0,0%,98%)] p-12">
+          <h1 className="text-6xl font-bold tracking-tight leading-[1.1] mb-6">
+            We don't just design.<br />We create digital culture.
+          </h1>
+          <p className="text-xl text-[hsl(0,0%,40%)]">Multidisciplinary creative studio focused on brand identity.</p>
+        </div>
+      </div>
+    </ScaledPreview>
+  );
+}
+
 export const miniPreviewMap: Record<string, () => JSX.Element> = {
   "Luxury Art": MiniLuxuryArt,
   "SaaS Clean": MiniSaaSClean,
@@ -312,4 +334,5 @@ export const miniPreviewMap: Record<string, () => JSX.Element> = {
   "AppMotion": MiniAppMotion,
   "EchoPress": MiniEchoPress,
   "MarketSphere": MiniMarketSphere,
+  "Atelier": MiniAtelier,
 };
