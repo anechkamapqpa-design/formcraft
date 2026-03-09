@@ -126,6 +126,7 @@ const translations = {
       "GlassWave": { title: "GlassWave", description: "A modern SaaS template with glassmorphism design, frosted panels and gradient backgrounds." },
       "BrutalistLab": { title: "BrutalistLab", description: "A bold neo-brutalist template for tech startups, digital agencies and Web3 projects." },
       "CommunityGrid": { title: "CommunityGrid", description: "A vibrant template for online communities, startup clubs, conferences and networking platforms." },
+      "MonoJournal": { title: "MonoJournal", description: "A minimalist editorial magazine template with bold typography, editorial grids and content-first design." },
     } as Record<string, { title: string; description: string }>,
     demos: {
       luxuryArt: {
