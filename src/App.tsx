@@ -20,6 +20,7 @@ import EchoPress from "./pages/demos/EchoPress";
 import MarketSphere from "./pages/demos/MarketSphere";
 import Atelier from "./pages/demos/Atelier";
 import NeuroFlow from "./pages/demos/NeuroFlow";
+import GlassWave from "./pages/demos/GlassWave";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
