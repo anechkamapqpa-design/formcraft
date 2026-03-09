@@ -80,7 +80,13 @@ export default function TemplateDetail() {
                 <h1 className="font-display text-xl sm:text-2xl md:text-3xl font-bold text-foreground tracking-tight leading-[1.1]">{localTitle}</h1>
                 <p className="mt-2 text-sm text-muted-foreground leading-relaxed line-clamp-3">{localDesc}</p>
                 <div className="mt-4 flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5">
-                  <Button className="rounded-xl w-full sm:w-auto">{t.detail.getTemplate}<ArrowUpRight className="w-4 h-4" /></Button>
+                  <Button className="rounded-xl w-full sm:w-auto" onClick={() => {
+                    const prefill = `${t.detail.orderPrefix} "${template.title}"`;
+                    navigate("/?prefill=" + encodeURIComponent(prefill));
+                    setTimeout(() => {
+                      document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+                    }, 150);
+                  }}>{t.detail.getTemplate}<ArrowUpRight className="w-4 h-4" /></Button>
                   <Button variant="secondary" className="rounded-xl w-full sm:w-auto" asChild><Link to={demoSlugMap[template.title] || "#"}>{t.detail.livePreview}</Link></Button>
                 </div>
               </div>
