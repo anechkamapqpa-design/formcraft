@@ -120,6 +120,7 @@ const translations = {
       "LuxeAura": { title: "LuxeAura", description: "A premium brand website for luxury fashion, jewelry, and lifestyle brands." },
       "AppMotion": { title: "AppMotion", description: "A mobile app landing page with interactive mockups and download CTAs." },
       "EchoPress": { title: "EchoPress", description: "A modern editorial magazine template for media portals and content platforms." },
+      "MarketSphere": { title: "MarketSphere", description: "A marketplace platform template for e-commerce, SaaS, and freelance services." },
     } as Record<string, { title: string; description: string }>,
     demos: {
       luxuryArt: {
