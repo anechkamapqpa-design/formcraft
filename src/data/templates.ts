@@ -35,6 +35,7 @@ export const demoSlugMap: Record<string, string> = {
   "MarketSphere": "/demo/market-sphere",
   "Atelier": "/demo/atelier",
   "NeuroFlow": "/demo/neuro-flow",
+  "GlassWave": "/demo/glass-wave",
 };
 
 export function getTemplate(id: number): Template | undefined {
