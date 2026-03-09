@@ -121,6 +121,7 @@ const translations = {
       "AppMotion": { title: "AppMotion", description: "A mobile app landing page with interactive mockups and download CTAs." },
       "EchoPress": { title: "EchoPress", description: "A modern editorial magazine template for media portals and content platforms." },
       "MarketSphere": { title: "MarketSphere", description: "A marketplace platform template for e-commerce, SaaS, and freelance services." },
+      "Atelier": { title: "Atelier", description: "A stylish portfolio template for design studios with emphasis on projects and visual storytelling." },
     } as Record<string, { title: string; description: string }>,
     demos: {
       luxuryArt: {
@@ -229,6 +230,7 @@ const translations = {
         ] as readonly { title: string; desc: string }[],
         dashboardLabels: { revenue: "Revenue", users: "Users", conversion: "Conversion", growth: "Growth" },
         footer: "© 2026 Data360. All rights reserved.",
+      },
       luxeAura: {
         back: "← Back",
         since: "Est. 2018",
@@ -439,8 +441,26 @@ const translations = {
           ] as readonly { name: string; image: string; revenue: string; percent: number }[],
         },
       },
+      atelier: {
+        back: "← Back",
+        manifestoLabel: "Manifesto",
+        manifestoTitle: "We don't just design.\nWe create digital culture.",
+        manifestoSubtitle: "Multidisciplinary creative studio focused on brand identity, digital products, and visual storytelling.",
+        projectsLabel: "Selected Projects",
+        servicesLabel: "Services",
+        servicesTitle: "What We Do",
+        services: [
+          { title: "Brand Identity", desc: "We build brands from scratch — strategy, naming, visual systems, and guidelines." },
+          { title: "Digital Design", desc: "Websites, apps, and digital experiences that captivate and convert." },
+          { title: "Art Direction", desc: "Creative direction for campaigns, photoshoots, and editorial content." },
+          { title: "Packaging & Print", desc: "Tactile design that extends your brand into the physical world." },
+        ] as readonly { title: string; desc: string }[],
+        teamLabel: "The Team",
+        contactTitle: "Let's create\nsomething together.",
+        contactBtn: "Start a Project",
+        footer: "© 2026 Atelier Studio. All rights reserved.",
+      },
     },
-  },
   },
   ru: {
     nav: {
@@ -560,6 +580,7 @@ const translations = {
       "AppMotion": { title: "AppMotion", description: "Лендинг для мобильных приложений с интерактивными мокапами и кнопками загрузки." },
       "EchoPress": { title: "EchoPress", description: "Современный редакционный шаблон для медиа-порталов и контент-платформ." },
       "MarketSphere": { title: "MarketSphere", description: "Шаблон платформы-маркетплейса для e-commerce, SaaS и фриланс-сервисов." },
+      "Atelier": { title: "Atelier", description: "Стильный портфолио-шаблон для дизайнерских студий с акцентом на проектах и визуальном сторителлинге." },
     } as Record<string, { title: string; description: string }>,
     demos: {
       luxuryArt: {
@@ -878,6 +899,25 @@ const translations = {
             { name: "Беспроводные наушники", image: "/images/demos/marketsphere-product1.jpg", revenue: "2,450", percent: 52 },
           ] as readonly { name: string; image: string; revenue: string; percent: number }[],
         },
+      },
+      atelier: {
+        back: "← Назад",
+        manifestoLabel: "Манифест",
+        manifestoTitle: "Мы не просто проектируем.\nМы создаём цифровую культуру.",
+        manifestoSubtitle: "Мультидисциплинарная креативная студия, специализирующаяся на брендинге, цифровых продуктах и визуальном сторителлинге.",
+        projectsLabel: "Избранные проекты",
+        servicesLabel: "Услуги",
+        servicesTitle: "Что мы делаем",
+        services: [
+          { title: "Айдентика", desc: "Создаём бренды с нуля — стратегия, нейминг, визуальная система и гайдлайны." },
+          { title: "Цифровой дизайн", desc: "Сайты, приложения и цифровые впечатления, которые вовлекают и конвертируют." },
+          { title: "Арт-дирекшн", desc: "Креативное направление для кампаний, фотосъёмок и редакционного контента." },
+          { title: "Упаковка и печать", desc: "Тактильный дизайн, расширяющий ваш бренд в физический мир." },
+        ] as readonly { title: string; desc: string }[],
+        teamLabel: "Команда",
+        contactTitle: "Давайте создадим\nчто-то вместе.",
+        contactBtn: "Начать проект",
+        footer: "© 2026 Atelier Studio. Все права защищены.",
       },
     },
   },
