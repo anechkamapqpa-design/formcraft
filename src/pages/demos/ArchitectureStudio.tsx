@@ -5,11 +5,10 @@ import { useLang } from "@/lib/i18n";
 export default function ArchitectureStudio() {
   const { t } = useLang();
   const d = (t.demos as any).architectureStudio;
-
   return (
     <div className="min-h-screen bg-[hsl(0,0%,100%)] text-[hsl(0,0%,8%)]">
       <nav className="flex items-center justify-between px-8 py-5 border-b border-[hsl(0,0%,90%)]">
-        <Link to="/template/17" className="text-xs text-[hsl(0,0%,50%)] hover:text-[hsl(0,0%,8%)] transition">{d.back}</Link>
+        <Link to="/template/20" className="text-xs text-[hsl(0,0%,50%)] hover:text-[hsl(0,0%,8%)] transition">{d.back}</Link>
         <h1 className="text-lg font-bold tracking-[0.2em] uppercase">FORMA</h1>
         <span className="text-xs text-[hsl(0,0%,50%)]">{d.contact}</span>
       </nav>

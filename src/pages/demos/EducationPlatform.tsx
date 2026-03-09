@@ -5,11 +5,10 @@ import { useLang } from "@/lib/i18n";
 export default function EducationPlatform() {
   const { t } = useLang();
   const d = (t.demos as any).educationPlatform;
-
   return (
     <div className="min-h-screen bg-[hsl(45,40%,97%)] text-[hsl(220,30%,15%)]">
       <nav className="flex items-center justify-between px-8 py-4 max-w-7xl mx-auto">
-        <Link to="/template/15" className="text-sm text-[hsl(220,15%,50%)] hover:text-[hsl(220,30%,15%)] transition">{d.back}</Link>
+        <Link to="/template/16" className="text-sm text-[hsl(220,15%,50%)] hover:text-[hsl(220,30%,15%)] transition">{d.back}</Link>
         <span className="text-xl font-bold text-[hsl(260,70%,55%)]">🎓 EduFlow</span>
         <button className="text-sm bg-[hsl(260,70%,55%)] text-[hsl(0,0%,100%)] px-5 py-2 rounded-lg">{d.signUp}</button>
       </nav>
@@ -26,6 +25,18 @@ export default function EducationPlatform() {
               <div className="w-10 h-10 rounded-lg mb-3 mx-auto" style={{ background: c.color }} />
               <h3 className="font-bold text-sm">{c.title}</h3>
               <p className="text-xs text-[hsl(220,15%,55%)] mt-1">{c.count}</p>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+      <section className="max-w-4xl mx-auto px-8 pb-20">
+        <h2 className="text-2xl font-bold text-center mb-8">{d.instructorsTitle}</h2>
+        <div className="grid md:grid-cols-3 gap-6">
+          {d.instructors.map((inst: any, i: number) => (
+            <motion.div key={i} initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }} className="text-center">
+              <div className="w-16 h-16 rounded-full bg-[hsl(260,50%,90%)] mx-auto mb-3" />
+              <h3 className="font-bold text-sm">{inst.name}</h3>
+              <p className="text-xs text-[hsl(220,15%,55%)]">{inst.subject}</p>
             </motion.div>
           ))}
         </div>
