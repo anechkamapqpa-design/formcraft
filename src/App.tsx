@@ -21,6 +21,7 @@ import MarketSphere from "./pages/demos/MarketSphere";
 import Atelier from "./pages/demos/Atelier";
 import NeuroFlow from "./pages/demos/NeuroFlow";
 import GlassWave from "./pages/demos/GlassWave";
+import BrutalistLab from "./pages/demos/BrutalistLab";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
