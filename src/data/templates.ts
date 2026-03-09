@@ -19,6 +19,7 @@ export const templates: Template[] = [
   { id: 10, title: "MarketSphere", description: "A marketplace platform template for e-commerce, SaaS, and freelance services.", imageUrl: "/images/marketsphere.png", category: "E-commerce" },
   { id: 11, title: "Atelier", description: "A stylish portfolio template for design studios with an emphasis on projects and visual storytelling.", imageUrl: "/images/atelier.png", category: "Creative" },
   { id: 12, title: "NeuroFlow", description: "A futuristic template for AI startups and SaaS platforms with dark theme and glowing gradients.", imageUrl: "/images/neuroflow.png", category: "SaaS" },
+  { id: 13, title: "GlassWave", description: "A modern SaaS template with glassmorphism design, frosted panels and gradient backgrounds.", imageUrl: "/images/glasswave.png", category: "SaaS" },
 ];
 
 export const demoSlugMap: Record<string, string> = {
@@ -34,6 +35,7 @@ export const demoSlugMap: Record<string, string> = {
   "MarketSphere": "/demo/market-sphere",
   "Atelier": "/demo/atelier",
   "NeuroFlow": "/demo/neuro-flow",
+  "GlassWave": "/demo/glass-wave",
 };
 
 export function getTemplate(id: number): Template | undefined {

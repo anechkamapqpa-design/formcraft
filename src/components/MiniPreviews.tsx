@@ -364,6 +364,41 @@ export function MiniNeuroFlow() {
   );
 }
 
+export function MiniGlassWave() {
+  return (
+    <ScaledPreview>
+      <div className="w-[1280px] h-[800px] bg-[hsl(220,35%,8%)] text-white relative overflow-hidden">
+        <div className="absolute w-[500px] h-[500px] bg-[hsl(210,90%,55%)] rounded-full blur-[100px] opacity-20 top-[-10%] right-[-5%]" />
+        <div className="absolute w-[400px] h-[400px] bg-[hsl(280,80%,55%)] rounded-full blur-[100px] opacity-15 top-[30%] left-[-10%]" />
+        <div className="absolute w-[350px] h-[350px] bg-[hsl(170,70%,50%)] rounded-full blur-[100px] opacity-12 bottom-[10%] right-[10%]" />
+        <div className="relative z-10 text-center pt-24 px-16">
+          <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-white/[0.08] border border-white/10 text-[hsl(210,80%,70%)] text-xs font-semibold rounded-full mb-8">✨ Next-Gen SaaS Platform</span>
+          <h1 className="text-7xl font-extrabold leading-[1.08] tracking-tight mb-6">
+            Your Data, Crystal Clear.<br />
+            <span style={{ background: "linear-gradient(to right, hsl(210,90%,65%), hsl(260,80%,70%), hsl(320,80%,65%))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Beautifully Transparent.</span>
+          </h1>
+          <p className="text-lg text-white/40 max-w-2xl mx-auto mb-10">A modern analytics platform with glass-smooth interfaces.</p>
+          <div className="max-w-4xl mx-auto bg-white/[0.07] backdrop-blur-xl border border-white/[0.12] rounded-2xl p-5">
+            <div className="grid grid-cols-4 gap-3">
+              {[
+                { label: "Revenue", val: "$184K", color: "hsl(210,90%,65%)" },
+                { label: "Users", val: "32.4K", color: "hsl(260,80%,70%)" },
+                { label: "Conversion", val: "5.8%", color: "hsl(170,70%,55%)" },
+                { label: "Growth", val: "+42%", color: "hsl(320,80%,65%)" },
+              ].map((s) => (
+                <div key={s.label} className="bg-white/[0.07] rounded-xl p-3 border border-white/[0.1]">
+                  <p className="text-[9px] text-white/30 uppercase">{s.label}</p>
+                  <p className="text-lg font-bold" style={{ color: s.color }}>{s.val}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </ScaledPreview>
+  );
+}
+
 export const miniPreviewMap: Record<string, () => JSX.Element> = {
   "Luxury Art": MiniLuxuryArt,
   "SaaS Clean": MiniSaaSClean,
@@ -377,4 +412,5 @@ export const miniPreviewMap: Record<string, () => JSX.Element> = {
   "MarketSphere": MiniMarketSphere,
   "Atelier": MiniAtelier,
   "NeuroFlow": MiniNeuroFlow,
+  "GlassWave": MiniGlassWave,
 };
