@@ -118,6 +118,7 @@ const translations = {
       "Product Interactive": { title: "Product Interactive", description: "An engaging, interactive landing page to showcase digital products." },
       "SaaS Clean": { title: "SaaS Clean", description: "A modern, converting landing page designed specifically for SaaS products." },
       "LuxeAura": { title: "LuxeAura", description: "A premium brand website for luxury fashion, jewelry, and lifestyle brands." },
+      "AppMotion": { title: "AppMotion", description: "A mobile app landing page with interactive mockups and download CTAs." },
     } as Record<string, { title: string; description: string }>,
     demos: {
       luxuryArt: {
