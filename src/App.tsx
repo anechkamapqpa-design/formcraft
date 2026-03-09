@@ -14,6 +14,7 @@ import EcomDrop from "./pages/demos/EcomDrop";
 import PersonalBrand from "./pages/demos/PersonalBrand";
 import ExperimentalNeon from "./pages/demos/ExperimentalNeon";
 import ProductInteractive from "./pages/demos/ProductInteractive";
+import LuxeAura from "./pages/demos/LuxeAura";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
