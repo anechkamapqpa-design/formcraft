@@ -530,4 +530,5 @@ export const miniPreviewMap: Record<string, () => JSX.Element> = {
   "BrutalistLab": MiniBrutalistLab,
   "CommunityGrid": MiniCommunityGrid,
   "MonoJournal": MiniMonoJournal,
+  "Voxel3D": MiniVoxel3D,
 };

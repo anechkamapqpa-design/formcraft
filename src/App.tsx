@@ -63,6 +63,7 @@ const App = () => (
             <Route path="/demo/brutalist-lab" element={<BrutalistLab />} />
             <Route path="/demo/community-grid" element={<CommunityGrid />} />
             <Route path="/demo/mono-journal" element={<MonoJournal />} />
+            <Route path="/demo/voxel-3d" element={<Voxel3D />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>

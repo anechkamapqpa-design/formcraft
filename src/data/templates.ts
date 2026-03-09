@@ -43,6 +43,7 @@ export const demoSlugMap: Record<string, string> = {
   "BrutalistLab": "/demo/brutalist-lab",
   "CommunityGrid": "/demo/community-grid",
   "MonoJournal": "/demo/mono-journal",
+  "Voxel3D": "/demo/voxel-3d",
 };
 
 export function getTemplate(id: number): Template | undefined {
