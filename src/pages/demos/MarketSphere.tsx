@@ -2,8 +2,8 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Search, ShoppingCart, Heart, Star, SlidersHorizontal, ChevronDown, TrendingUp, Package, Users, DollarSign, BarChart2, Bell, Settings, Home, Tag, X, Check, ArrowRight, Zap, Shield, Truck } from "lucide-react";
 import { useLang } from "@/lib/i18n";
-import AnnaNavbar from "@/components/AnnaNavbar";
-import AnnaFooter from "@/components/AnnaFooter";
+import { AnnaNavbar } from "@/components/AnnaNavbar";
+import { AnnaFooter } from "@/components/AnnaFooter";
 
 type View = "storefront" | "dashboard";
 
