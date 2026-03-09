@@ -59,6 +59,7 @@ const App = () => (
             <Route path="/demo/neuro-flow" element={<NeuroFlow />} />
             <Route path="/demo/glass-wave" element={<GlassWave />} />
             <Route path="/demo/brutalist-lab" element={<BrutalistLab />} />
+            <Route path="/demo/community-grid" element={<CommunityGrid />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
