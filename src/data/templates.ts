@@ -66,6 +66,7 @@ export const demoSlugMap: Record<string, string> = {
   "Freelance Hub": "/demo/restaurant-website",
   "Quantum": "/demo/ai-product-landing",
   "Infinity Grid": "/demo/creative-startup",
+  "LuxeAura": "/demo/luxe-aura-brand",
 };
 
 export function getTemplate(id: number): Template | undefined {
