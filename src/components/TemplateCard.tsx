@@ -10,13 +10,6 @@ interface TemplateCardProps {
   index: number;
 }
 
-const styleColors: Record<string, string> = {
-  minimal: "bg-[hsl(210,15%,90%)] text-[hsl(210,20%,30%)]",
-  brutalist: "bg-[hsl(0,70%,92%)] text-[hsl(0,60%,35%)]",
-  luxury: "bg-[hsl(40,50%,90%)] text-[hsl(40,50%,30%)]",
-  futuristic: "bg-[hsl(260,50%,92%)] text-[hsl(260,50%,35%)]",
-};
-
 export function TemplateCard({ template, index }: TemplateCardProps) {
   const { t } = useLang();
 
@@ -28,10 +21,6 @@ export function TemplateCard({ template, index }: TemplateCardProps) {
   const localDesc = t.templateData[tdKey]?.description || template.description;
 
   const MiniPreview = miniPreviewMap[template.title];
-
-  const styleLabel = (t as any).styles?.[template.style] || template.style;
-  const nicheLabel = (t as any).niches?.[template.niche] || template.niche;
-  const moodLabel = (t as any).moods?.[template.mood] || template.mood;
 
   return (
     <motion.div
@@ -70,11 +59,6 @@ export function TemplateCard({ template, index }: TemplateCardProps) {
           <p className="mt-1 text-xs text-muted-foreground line-clamp-1 leading-relaxed">
             {localDesc}
           </p>
-          <div className="mt-2 flex flex-wrap gap-1">
-            <span className={`px-1.5 py-0.5 rounded text-[9px] font-medium ${styleColors[template.style] || ""}`}>{styleLabel}</span>
-            <span className="px-1.5 py-0.5 rounded text-[9px] font-medium bg-[hsl(200,30%,90%)] text-[hsl(200,30%,30%)]">{nicheLabel}</span>
-            <span className="px-1.5 py-0.5 rounded text-[9px] font-medium bg-[hsl(150,20%,90%)] text-[hsl(150,30%,30%)]">{moodLabel}</span>
-          </div>
         </div>
       </Link>
     </motion.div>
