@@ -15,6 +15,7 @@ import PersonalBrand from "./pages/demos/PersonalBrand";
 import ExperimentalNeon from "./pages/demos/ExperimentalNeon";
 import ProductInteractive from "./pages/demos/ProductInteractive";
 import LuxeAura from "./pages/demos/LuxeAura";
+import AppMotion from "./pages/demos/AppMotion";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -44,6 +45,7 @@ const App = () => (
             <Route path="/demo/experimental-neon" element={<ExperimentalNeon />} />
             <Route path="/demo/product-interactive" element={<ProductInteractive />} />
             <Route path="/demo/luxe-aura" element={<LuxeAura />} />
+            <Route path="/demo/app-motion" element={<AppMotion />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>

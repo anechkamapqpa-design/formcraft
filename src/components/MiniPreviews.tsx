@@ -185,6 +185,35 @@ export function MiniLuxeAura() {
   );
 }
 
+export function MiniAppMotion() {
+  return (
+    <ScaledPreview>
+      <div className="w-[1280px] h-[800px] bg-[hsl(240,15%,98%)] text-[hsl(240,20%,15%)] relative overflow-hidden">
+        <div className="absolute top-20 -left-32 w-96 h-96 bg-[hsl(260,80%,85%)] rounded-full blur-[120px] opacity-60" />
+        <div className="absolute bottom-20 -right-32 w-96 h-96 bg-[hsl(200,90%,85%)] rounded-full blur-[120px] opacity-60" />
+        <div className="relative w-full h-full flex items-center">
+          <div className="pl-24 max-w-xl">
+            <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-[hsl(260,80%,95%)] text-[hsl(260,80%,45%)] text-xs font-semibold rounded-full mb-6">⚡ #1 Productivity App</span>
+            <h2 className="text-7xl font-extrabold leading-[1.05] tracking-tight mb-4">
+              Your Ideas.<br />
+              <span className="bg-gradient-to-r from-[hsl(260,80%,55%)] to-[hsl(200,90%,55%)] bg-clip-text" style={{ WebkitTextFillColor: "transparent" }}>In Motion.</span><br />
+              Always.
+            </h2>
+            <p className="text-lg text-[hsl(240,10%,45%)] max-w-md">Transform how you work with the most intuitive app experience.</p>
+          </div>
+          <div className="absolute right-48 top-1/2 -translate-y-1/2">
+            <div className="w-[200px] h-[400px] bg-[hsl(240,20%,10%)] rounded-[2rem] p-1.5 shadow-2xl border border-[hsl(240,10%,25%)]">
+              <div className="w-full h-full rounded-[1.7rem] overflow-hidden">
+                <img src="/images/demos/appmotion-hero-bg.jpg" alt="" className="w-full h-full object-cover" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ScaledPreview>
+  );
+}
+
 export const miniPreviewMap: Record<string, () => JSX.Element> = {
   "Luxury Art": MiniLuxuryArt,
   "SaaS Clean": MiniSaaSClean,
@@ -193,4 +222,5 @@ export const miniPreviewMap: Record<string, () => JSX.Element> = {
   "Experimental Neon": MiniExperimentalNeon,
   "Product Interactive": MiniProductInteractive,
   "LuxeAura": MiniLuxeAura,
+  "AppMotion": MiniAppMotion,
 };
