@@ -263,6 +263,7 @@ const translations = {
     detail: {
       back: "Назад к шаблонам",
       getTemplate: "Получить шаблон",
+      orderPrefix: "Я хотел бы заказать сайт по шаблону",
       livePreview: "Живой просмотр",
       included: "Что включено",
       creators: "200+ авторов",
