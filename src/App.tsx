@@ -34,6 +34,7 @@ const FitnessBrand = lazy(() => import("./pages/demos/FitnessBrand"));
 const RestaurantWebsite = lazy(() => import("./pages/demos/RestaurantWebsite"));
 const AIProductLanding = lazy(() => import("./pages/demos/AIProductLanding"));
 const CreativeStartup = lazy(() => import("./pages/demos/CreativeStartup"));
+const LuxeAuraBrand = lazy(() => import("./pages/demos/LuxeAuraBrand"));
 
 const queryClient = new QueryClient();
 
