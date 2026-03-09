@@ -53,6 +53,7 @@ const App = () => (
             <Route path="/demo/echo-press" element={<EchoPress />} />
             <Route path="/demo/market-sphere" element={<MarketSphere />} />
             <Route path="/demo/atelier" element={<Atelier />} />
+            <Route path="/demo/neuro-flow" element={<NeuroFlow />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>

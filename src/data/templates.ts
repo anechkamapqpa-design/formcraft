@@ -33,6 +33,7 @@ export const demoSlugMap: Record<string, string> = {
   "EchoPress": "/demo/echo-press",
   "MarketSphere": "/demo/market-sphere",
   "Atelier": "/demo/atelier",
+  "NeuroFlow": "/demo/neuro-flow",
 };
 
 export function getTemplate(id: number): Template | undefined {

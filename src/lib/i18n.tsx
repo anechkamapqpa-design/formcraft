@@ -122,6 +122,7 @@ const translations = {
       "EchoPress": { title: "EchoPress", description: "A modern editorial magazine template for media portals and content platforms." },
       "MarketSphere": { title: "MarketSphere", description: "A marketplace platform template for e-commerce, SaaS, and freelance services." },
       "Atelier": { title: "Atelier", description: "A stylish portfolio template for design studios with emphasis on projects and visual storytelling." },
+      "NeuroFlow": { title: "NeuroFlow", description: "A futuristic template for AI startups and SaaS platforms with dark theme and glowing gradients." },
     } as Record<string, { title: string; description: string }>,
     demos: {
       luxuryArt: {
