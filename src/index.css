@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Space+Grotesk:wght@300..700&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Space+Grotesk:wght@300..700&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -37,6 +37,8 @@
     --border: 0 0% 14%;
     --input: 0 0% 18%;
     --ring: 150 60% 50%;
+
+    --landing-gold: 42 75% 55%;
 
     --chart-1: 150 60% 50%;
     --chart-2: 200 70% 50%;
