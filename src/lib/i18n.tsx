@@ -19,7 +19,7 @@ const translations = {
       subtitle: "High-converting landing page templates built with precision. Designed to elevate your brand.",
       explore: "Explore Templates",
       viewShowcase: "View Showcase",
-      templateCount: "10 Templates",
+      templateCount: "18 Templates",
       responsive: "Fully Responsive",
       updates: "Free Updates",
     },
