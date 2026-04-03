@@ -27,7 +27,7 @@ export function AnnaNavbar() {
       if (basePath === "/") {
         document.getElementById(link.hash)?.scrollIntoView({ behavior: "smooth" });
       } else {
-        navigate("/");
+        navigate(lp("/"));
         setTimeout(() => {
           document.getElementById(link.hash!)?.scrollIntoView({ behavior: "smooth" });
         }, 100);
