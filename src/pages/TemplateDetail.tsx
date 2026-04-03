@@ -88,7 +88,7 @@ export default function TemplateDetail() {
                       document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
                     }, 150);
                   }}>{t.detail.getTemplate}<ArrowUpRight className="w-4 h-4" /></Button>
-                  <Button variant="secondary" className="rounded-xl w-full sm:w-auto" asChild><Link to={demoSlugMap[template.title] || "#"}>{t.detail.livePreview}</Link></Button>
+                  <Button variant="secondary" className="rounded-xl w-full sm:w-auto" asChild><Link to={lp(demoSlugMap[template.title] || "#")}>{t.detail.livePreview}</Link></Button>
                 </div>
               </div>
               <div className="mt-4 bg-card border border-border/50 rounded-xl p-4 animated-border">
