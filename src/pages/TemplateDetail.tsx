@@ -13,6 +13,7 @@ export default function TemplateDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { t } = useLang();
+  const lp = useLangPath();
   const template = getTemplate(Number(id));
 
   if (!template) {
