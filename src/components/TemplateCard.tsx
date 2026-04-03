@@ -30,7 +30,7 @@ export function TemplateCard({ template, index }: TemplateCardProps) {
       transition={{ duration: 0.7, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
     >
       <Link
-        to={`/template/${template.id}`}
+        to={lp(`/template/${template.id}`)}
         className="group block rounded-2xl overflow-hidden border border-border/50 hover:border-[hsl(220,20%,30%)] transition-all duration-500 hover:shadow-2xl"
       >
         <div className="relative h-40 overflow-hidden transition-transform duration-500 group-hover:scale-[1.02]">

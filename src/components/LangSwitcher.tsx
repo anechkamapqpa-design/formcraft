@@ -1,12 +1,17 @@
 import { useLang } from "@/lib/i18n";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Globe } from "lucide-react";
 
 export function LangSwitcher() {
-  const { lang, setLang } = useLang();
+  const { lang } = useLang();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const toggle = () => {
-    setLang(lang === "en" ? "ru" : "en");
+    const newLang = lang === "en" ? "ru" : "en";
+    const pathWithoutLang = location.pathname.replace(/^\/(en|ru)/, "") || "/";
+    navigate(`/${newLang}${pathWithoutLang}${location.search}${location.hash}`);
   };
 
   return (
