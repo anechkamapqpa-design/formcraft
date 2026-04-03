@@ -58,7 +58,7 @@ export default function TemplateDetail() {
           </motion.div>
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6">
             <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }} className="lg:col-span-7">
-              <Link to={demoSlugMap[template.title] || "#"} className="block relative rounded-2xl overflow-hidden border border-border/30 hover:border-[hsl(220,20%,30%)] transition-all duration-500 hover:shadow-2xl group cursor-pointer">
+              <Link to={lp(demoSlugMap[template.title] || "#")} className="block relative rounded-2xl overflow-hidden border border-border/30 hover:border-[hsl(220,20%,30%)] transition-all duration-500 hover:shadow-2xl group cursor-pointer">
                 <div className="relative aspect-[16/9] overflow-hidden">
                   {MiniPreview ? <MiniPreview /> : <div className="w-full h-full bg-gradient-to-br from-[hsl(220,20%,20%)] to-[hsl(220,20%,8%)]" />}
                   <div className="absolute inset-0 bg-gradient-to-t from-[hsl(220,20%,6%)]/60 via-transparent to-transparent" />
