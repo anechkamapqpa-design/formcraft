@@ -1,4 +1,5 @@
-import { createContext, useContext, useState, useEffect, type ReactNode } from "react";
+import { createContext, useContext, useState, useEffect, useMemo, type ReactNode } from "react";
+import { useParams, useNavigate, useLocation, Outlet } from "react-router-dom";
 
 export type Lang = "en" | "ru";
 
@@ -1601,18 +1602,146 @@ interface LangContextType {
 
 const LangContext = createContext<LangContextType | null>(null);
 
-export function LangProvider({ children }: { children: ReactNode }) {
-  const [lang, setLangState] = useState<Lang>(() => {
-    if (typeof window !== "undefined") {
-      const saved = localStorage.getItem("anna-lang");
-      if (saved === "ru" || saved === "en") return saved;
+export function LangLayout() {
+  const { lang: langParam } = useParams<{ lang: string }>();
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    if (langParam !== "en" && langParam !== "ru") {
+      navigate(`/en${location.pathname}${location.search}${location.hash}`, { replace: true });
     }
-    return "en";
-  });
+  }, [langParam, navigate, location.pathname, location.search, location.hash]);
+
+  const lang: Lang = langParam === "ru" ? "ru" : "en";
+
+  return <LangProviderInner lang={lang} />;
+}
+
+function LangProviderInner({ lang }: { lang: Lang }) {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const setLang = (newLang: Lang) => {
+    const pathWithoutLang = location.pathname.replace(/^\/(en|ru)/, "") || "/";
+    navigate(`/${newLang}${pathWithoutLang}${location.search}${location.hash}`);
+  };
+
+  useEffect(() => {
+    document.documentElement.lang = lang;
+  }, [lang]);
+
+  const t = translations[lang];
+
+  return (
+    <LangContext.Provider value={{ lang, setLang, t }}>
+      <SEOHead lang={lang} />
+      <Outlet />
+    </LangContext.Provider>
+  );
+}
+
+function SEOHead({ lang }: { lang: Lang }) {
+  const location = useLocation();
+  const pathWithoutLang = location.pathname.replace(/^\/(en|ru)/, "") || "/";
+  const baseUrl = "https://www.formcraft.tech";
+
+  useEffect(() => {
+    // Title
+    document.title = lang === "ru"
+      ? "Formcraft | Конструктор лендингов и форм захвата лидов"
+      : "Formcraft | No-Code Landing Page Builder & Lead Capture Forms";
+
+    // Meta description
+    let metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) {
+      metaDesc.setAttribute("content", lang === "ru"
+        ? "Создавайте профессиональные лендинги и формы захвата лидов. Formcraft помогает бизнесу запускать маркетинговые страницы и собирать данные клиентов."
+        : "Build powerful landing pages and capture leads effortlessly. Formcraft helps businesses launch marketing pages, collect customer data and grow faster."
+      );
+    }
+
+    // OG title
+    let ogTitle = document.querySelector('meta[property="og:title"]');
+    if (ogTitle) {
+      ogTitle.setAttribute("content", lang === "ru"
+        ? "Formcraft | Конструктор лендингов и форм захвата лидов"
+        : "Formcraft | No-Code Landing Page Builder & Lead Capture Forms"
+      );
+    }
+
+    // OG description
+    let ogDesc = document.querySelector('meta[property="og:description"]');
+    if (ogDesc) {
+      ogDesc.setAttribute("content", lang === "ru"
+        ? "Создавайте профессиональные лендинги и умные формы с Formcraft. Запускайте маркетинговые страницы, собирайте лиды и автоматизируйте процессы за минуты."
+        : "Create professional landing pages and smart forms with Formcraft. Launch marketing pages, collect leads and automate customer workflows in minutes."
+      );
+    }
+
+    // OG URL
+    let ogUrl = document.querySelector('meta[property="og:url"]');
+    if (ogUrl) {
+      ogUrl.setAttribute("content", `${baseUrl}/${lang}${pathWithoutLang}`);
+    }
+
+    // Twitter title & description
+    let twTitle = document.querySelector('meta[name="twitter:title"]');
+    if (twTitle) {
+      twTitle.setAttribute("content", lang === "ru"
+        ? "Formcraft | Конструктор лендингов и форм захвата лидов"
+        : "Formcraft | No-Code Landing Page Builder & Lead Capture Forms"
+      );
+    }
+    let twDesc = document.querySelector('meta[name="twitter:description"]');
+    if (twDesc) {
+      twDesc.setAttribute("content", lang === "ru"
+        ? "Создавайте лендинги и собирайте лиды с Formcraft. Простая no-code платформа для маркетинга и лидогенерации."
+        : "Build landing pages and capture leads with Formcraft. A simple no-code platform for marketing and lead generation."
+      );
+    }
+
+    // Canonical
+    let canonical = document.querySelector('link[rel="canonical"]');
+    if (canonical) {
+      canonical.setAttribute("href", `${baseUrl}/${lang}${pathWithoutLang}`);
+    }
+
+    // Hreflang tags
+    const existingHreflangs = document.querySelectorAll('link[hreflang]');
+    existingHreflangs.forEach(el => el.remove());
+
+    const enLink = document.createElement("link");
+    enLink.rel = "alternate";
+    enLink.hreflang = "en";
+    enLink.href = `${baseUrl}/en${pathWithoutLang}`;
+    document.head.appendChild(enLink);
+
+    const ruLink = document.createElement("link");
+    ruLink.rel = "alternate";
+    ruLink.hreflang = "ru";
+    ruLink.href = `${baseUrl}/ru${pathWithoutLang}`;
+    document.head.appendChild(ruLink);
+
+    const defaultLink = document.createElement("link");
+    defaultLink.rel = "alternate";
+    defaultLink.hreflang = "x-default";
+    defaultLink.href = `${baseUrl}/en${pathWithoutLang}`;
+    document.head.appendChild(defaultLink);
+
+    return () => {
+      document.querySelectorAll('link[hreflang]').forEach(el => el.remove());
+    };
+  }, [lang, pathWithoutLang]);
+
+  return null;
+}
+
+export function LangProvider({ children }: { children: ReactNode }) {
+  const [lang, setLangState] = useState<Lang>("en");
 
   const setLang = (newLang: Lang) => {
     setLangState(newLang);
-    localStorage.setItem("anna-lang", newLang);
     document.documentElement.lang = newLang;
   };
 
@@ -1633,4 +1762,9 @@ export function useLang() {
   const ctx = useContext(LangContext);
   if (!ctx) throw new Error("useLang must be used within LangProvider");
   return ctx;
+}
+
+export function useLangPath() {
+  const { lang } = useLang();
+  return (path: string) => `/${lang}${path.startsWith("/") ? path : `/${path}`}`;
 }

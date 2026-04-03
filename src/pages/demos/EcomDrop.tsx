@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ShoppingBag, ChevronRight } from "lucide-react";
-import { useLang } from "@/lib/i18n";
+import { useLang, useLangPath } from "@/lib/i18n";
 
 const products = [
   { name: "Shadow Hoodie V2", price: "€149", tag: "SOLD OUT" },
@@ -12,12 +12,13 @@ const products = [
 
 export default function EcomDrop() {
   const { t } = useLang();
+  const lp = useLangPath();
   const d = t.demos.ecomDrop;
 
   return (
     <div className="min-h-screen bg-[hsl(0,0%,4%)] text-[hsl(0,0%,100%)]">
       <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 bg-[hsl(0,0%,4%)]/90 backdrop-blur-md">
-        <Link to="/template/1" className="text-xs text-[hsl(0,0%,50%)] hover:text-[hsl(0,0%,100%)] transition">{d.back}</Link>
+        <Link to={lp("/template/1")} className="text-xs text-[hsl(0,0%,50%)] hover:text-[hsl(0,0%,100%)] transition">{d.back}</Link>
         <h1 className="text-2xl font-black tracking-[0.15em] uppercase">NOISE</h1>
         <ShoppingBag className="w-5 h-5 text-[hsl(0,0%,60%)]" />
       </nav>

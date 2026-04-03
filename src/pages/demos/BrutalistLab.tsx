@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ArrowLeft, ArrowRight, Zap, Box, Layers, Globe, Code, Cpu } from "lucide-react";
-import { useLang } from "@/lib/i18n";
+import { useLang, useLangPath } from "@/lib/i18n";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
@@ -10,13 +10,14 @@ const fadeUp = {
 
 export default function BrutalistLab() {
   const { t } = useLang();
+  const lp = useLangPath();
   const d = (t.demos as any).brutalistLab;
 
   return (
     <div className="min-h-screen bg-[hsl(60,5%,96%)] text-[hsl(0,0%,8%)] font-sans selection:bg-[hsl(50,100%,50%)] selection:text-[hsl(0,0%,0%)]">
       {/* Nav */}
       <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 md:px-12 py-4 bg-[hsl(60,5%,96%)] border-b-4 border-[hsl(0,0%,0%)]">
-        <Link to="/" className="text-sm font-bold uppercase tracking-wider hover:text-[hsl(0,80%,50%)] transition-colors">{d.back}</Link>
+        <Link to={lp("/")} className="text-sm font-bold uppercase tracking-wider hover:text-[hsl(0,80%,50%)] transition-colors">{d.back}</Link>
         <span className="text-xl md:text-2xl font-black uppercase tracking-tight">Brutalist<span className="text-[hsl(0,80%,50%)]">Lab</span></span>
         <span className="hidden md:inline text-xs font-bold uppercase tracking-widest border-2 border-[hsl(0,0%,0%)] px-3 py-1.5 hover:bg-[hsl(0,0%,0%)] hover:text-[hsl(60,5%,96%)] transition-colors cursor-pointer">{d.getStarted}</span>
       </nav>

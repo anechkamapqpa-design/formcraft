@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Eye } from "lucide-react";
 import type { Template } from "@/data/templates";
-import { useLang } from "@/lib/i18n";
+import { useLang, useLangPath } from "@/lib/i18n";
 import { miniPreviewMap } from "@/components/MiniPreviews";
 
 interface TemplateCardProps {
@@ -12,6 +12,7 @@ interface TemplateCardProps {
 
 export function TemplateCard({ template, index }: TemplateCardProps) {
   const { t } = useLang();
+  const lp = useLangPath();
 
   const catKey = template.category as keyof typeof t.categories;
   const localCategory = t.categories[catKey] || template.category;
@@ -29,7 +30,7 @@ export function TemplateCard({ template, index }: TemplateCardProps) {
       transition={{ duration: 0.7, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
     >
       <Link
-        to={`/template/${template.id}`}
+        to={lp(`/template/${template.id}`)}
         className="group block rounded-2xl overflow-hidden border border-border/50 hover:border-[hsl(220,20%,30%)] transition-all duration-500 hover:shadow-2xl"
       >
         <div className="relative h-40 overflow-hidden transition-transform duration-500 group-hover:scale-[1.02]">

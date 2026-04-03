@@ -1,6 +1,6 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Link } from "react-router-dom";
-import { useLang } from "@/lib/i18n";
+import { useLang, useLangPath } from "@/lib/i18n";
 import { useRef, useEffect, useCallback } from "react";
 
 const projects = [
@@ -151,6 +151,7 @@ function AbstractCanvas() {
 
 export default function Atelier() {
   const { t } = useLang();
+  const lp = useLangPath();
   const d = t.demos.atelier;
 
   const containerRef = useRef<HTMLDivElement>(null);
@@ -162,7 +163,7 @@ export default function Atelier() {
   return (
     <div className="min-h-screen bg-[hsl(0,0%,98%)] text-[hsl(0,0%,10%)] selection:bg-[hsl(0,0%,10%)] selection:text-[hsl(0,0%,98%)] font-sans" ref={containerRef}>
       <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-8 py-6 mix-blend-difference text-white">
-        <Link to="/template/11" className="text-xs tracking-[0.2em] uppercase font-medium hover:opacity-70 transition-opacity">{d.back}</Link>
+        <Link to={lp("/template/11")} className="text-xs tracking-[0.2em] uppercase font-medium hover:opacity-70 transition-opacity">{d.back}</Link>
         <span className="text-xl font-bold tracking-tighter">Atelier</span>
         <span className="text-xs tracking-[0.2em] uppercase font-medium hidden sm:block">Creative Studio</span>
       </nav>

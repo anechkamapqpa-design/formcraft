@@ -5,7 +5,7 @@ import { Search, X, ArrowRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { LangSwitcher } from "@/components/LangSwitcher";
-import { useLang } from "@/lib/i18n";
+import { useLang, useLangPath } from "@/lib/i18n";
 
 export function AnnaNavbar() {
   const [searchOpen, setSearchOpen] = useState(false);
@@ -13,19 +13,21 @@ export function AnnaNavbar() {
   const location = useLocation();
   const navigate = useNavigate();
   const { t } = useLang();
+  const lp = useLangPath();
 
   const navLinks = [
-    { label: t.nav.templates, href: "/#templates", hash: "templates" },
-    { label: t.nav.about, href: "/about", hash: null },
+    { label: t.nav.templates, href: lp("/#templates"), hash: "templates" },
+    { label: t.nav.about, href: lp("/about"), hash: null },
   ];
 
   const handleNavClick = useCallback((e: React.MouseEvent, link: { href: string; hash: string | null }) => {
     if (link.hash) {
       e.preventDefault();
-      if (location.pathname === "/") {
+      const basePath = location.pathname.replace(/^\/(en|ru)/, "") || "/";
+      if (basePath === "/") {
         document.getElementById(link.hash)?.scrollIntoView({ behavior: "smooth" });
       } else {
-        navigate("/");
+        navigate(lp("/"));
         setTimeout(() => {
           document.getElementById(link.hash!)?.scrollIntoView({ behavior: "smooth" });
         }, 100);
@@ -45,7 +47,7 @@ export function AnnaNavbar() {
         <div className="mx-2 sm:mx-4 mt-2 sm:mt-4">
           <div className="max-w-7xl mx-auto bg-card/60 backdrop-blur-2xl border border-border/50 rounded-xl sm:rounded-2xl px-3 sm:px-6 py-2.5 sm:py-3">
             <div className="flex items-center justify-between gap-2 sm:gap-4">
-              <Link to="/" className="shrink-0 font-display text-2xl sm:text-3xl font-bold tracking-tight text-foreground">
+              <Link to={lp("/")} className="shrink-0 font-display text-2xl sm:text-3xl font-bold tracking-tight text-foreground">
                 Form<span className="text-gradient">Craft</span>
               </Link>
 
@@ -79,7 +81,7 @@ export function AnnaNavbar() {
                 </Button>
                 <Button
                   className="hidden md:inline-flex rounded-lg"
-                  onClick={(e) => handleNavClick(e, { href: "/#contact", hash: "contact" })}
+                  onClick={(e) => handleNavClick(e, { href: lp("/#contact"), hash: "contact" })}
                 >
                   {t.nav.getStarted}
                   <ArrowRight className="w-3.5 h-3.5" />

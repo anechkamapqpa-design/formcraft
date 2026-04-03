@@ -1,12 +1,13 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ArrowRight, Layers, Cpu, TrendingUp } from "lucide-react";
-import { useLang } from "@/lib/i18n";
+import { useLang, useLangPath } from "@/lib/i18n";
 
 const stepIcons = [Layers, Cpu, TrendingUp];
 
 export default function ProductInteractive() {
   const { t } = useLang();
+  const lp = useLangPath();
   const d = t.demos.productInteractive;
   const dl = d.dashboardLabels;
 
@@ -14,7 +15,7 @@ export default function ProductInteractive() {
     <div className="min-h-screen bg-[hsl(225,30%,8%)] text-[hsl(0,0%,100%)]">
       <nav className="flex items-center justify-between px-8 py-4 max-w-7xl mx-auto">
         <div className="flex items-center gap-6">
-          <Link to="/template/5" className="text-xs text-[hsl(225,20%,45%)] hover:text-[hsl(0,0%,100%)] transition">{d.back}</Link>
+          <Link to={lp("/template/5")} className="text-xs text-[hsl(225,20%,45%)] hover:text-[hsl(0,0%,100%)] transition">{d.back}</Link>
           <span className="text-lg font-bold"><span className="text-[hsl(0,85%,55%)]">Data</span>360</span>
         </div>
         <button className="bg-[hsl(0,85%,55%)] text-[hsl(0,0%,100%)] px-5 py-2.5 rounded-lg text-sm font-semibold hover:bg-[hsl(0,85%,45%)] transition">{d.getStarted}</button>

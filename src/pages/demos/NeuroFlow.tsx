@@ -1,9 +1,10 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { useLang } from "@/lib/i18n";
+import { useLang, useLangPath } from "@/lib/i18n";
 
 export default function NeuroFlow() {
   const { t } = useLang();
+  const lp = useLangPath();
   const d = t.demos.neuroFlow;
 
   return (
@@ -16,7 +17,7 @@ export default function NeuroFlow() {
 
       {/* Nav */}
       <nav className="relative z-50 flex items-center justify-between px-8 py-5 border-b border-[hsl(270,30%,20%)]/40">
-        <Link to="/template/12" className="text-sm text-[hsl(270,40%,70%)] hover:text-white transition">{d.back}</Link>
+        <Link to={lp("/template/12")} className="text-sm text-[hsl(270,40%,70%)] hover:text-white transition">{d.back}</Link>
         <div className="flex items-center gap-2">
           <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-[hsl(270,80%,60%)] to-[hsl(200,90%,55%)] flex items-center justify-center text-xs font-black">N</div>
           <span className="font-bold text-lg tracking-tight">NeuroFlow</span>

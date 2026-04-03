@@ -1,5 +1,5 @@
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useLang } from "@/lib/i18n";
+import { useLang, useLangPath } from "@/lib/i18n";
 import { Link } from "react-router-dom";
 import { ArrowLeft, ArrowDown, Play, ArrowRight } from "lucide-react";
 import { useRef } from "react";
@@ -18,6 +18,7 @@ function ParallaxSection({ children, className = "", offset = 50 }: { children: 
 
 export default function StoryBrand() {
   const { t } = useLang();
+  const lp = useLangPath();
   const d = (t.demos as any).storyBrand;
   const heroRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress: heroScroll } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
@@ -30,7 +31,7 @@ export default function StoryBrand() {
 
       {/* Nav */}
       <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 md:px-12 py-5 mix-blend-difference">
-        <Link to="/" className="flex items-center gap-2 text-white/70 hover:text-white transition-colors text-sm">
+        <Link to={lp("/")} className="flex items-center gap-2 text-white/70 hover:text-white transition-colors text-sm">
           <ArrowLeft className="w-4 h-4" />
           {d.back}
         </Link>

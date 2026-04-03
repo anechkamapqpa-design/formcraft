@@ -4,12 +4,13 @@ import { ArrowRight, Globe, Loader2 } from "lucide-react";
 import { SiTelegram } from "react-icons/si";
 import { Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useLang } from "@/lib/i18n";
+import { useLang, useLangPath } from "@/lib/i18n";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 
 export function AnnaFooter() {
   const { t } = useLang();
+  const lp = useLangPath();
   const [searchParams, setSearchParams] = useSearchParams();
   const [selectedType, setSelectedType] = useState(0);
   const [selectedTimeline, setSelectedTimeline] = useState(0);
@@ -142,7 +143,7 @@ export function AnnaFooter() {
 
       <div className="relative border-t border-border/20">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col sm:flex-row items-center justify-between gap-2">
-          <Link to="/" className="font-display text-2xl font-bold tracking-tight text-foreground/80">
+          <Link to={lp("/")} className="font-display text-2xl font-bold tracking-tight text-foreground/80">
             Form<span className="text-gradient">Craft</span>
           </Link>
           <p className="text-xs text-muted-foreground/50">{new Date().getFullYear()} {t.footer.rights}</p>
