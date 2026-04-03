@@ -81,7 +81,7 @@ export function AnnaNavbar() {
                 </Button>
                 <Button
                   className="hidden md:inline-flex rounded-lg"
-                  onClick={(e) => handleNavClick(e, { href: "/#contact", hash: "contact" })}
+                  onClick={(e) => handleNavClick(e, { href: lp("/#contact"), hash: "contact" })}
                 >
                   {t.nav.getStarted}
                   <ArrowRight className="w-3.5 h-3.5" />
