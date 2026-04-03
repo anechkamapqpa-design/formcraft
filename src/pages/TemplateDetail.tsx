@@ -52,7 +52,7 @@ export default function TemplateDetail() {
       <main className="flex-1 min-h-screen flex flex-col justify-center pt-16 sm:pt-20 pb-4">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
           <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-            <Button variant="ghost" size="sm" className="mb-3 sm:mb-4 group" onClick={() => { navigate("/"); setTimeout(() => { document.getElementById("templates")?.scrollIntoView({ behavior: "smooth" }); }, 100); }}>
+            <Button variant="ghost" size="sm" className="mb-3 sm:mb-4 group" onClick={() => { navigate(lp("/")); setTimeout(() => { document.getElementById("templates")?.scrollIntoView({ behavior: "smooth" }); }, 100); }}>
               <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />{t.detail.back}
             </Button>
           </motion.div>
