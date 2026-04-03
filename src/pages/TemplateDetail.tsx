@@ -23,7 +23,7 @@ export default function TemplateDetail() {
         <div className="flex-1 flex flex-col items-center justify-center text-center px-4">
           <h1 className="font-display text-3xl sm:text-4xl font-bold text-foreground mb-4">{t.detail.notFound}</h1>
           <p className="text-muted-foreground mb-8 text-sm sm:text-base">{t.detail.notFoundDesc}</p>
-          <Button className="rounded-xl" asChild><Link to="/">{t.detail.returnHome}</Link></Button>
+          <Button className="rounded-xl" asChild><Link to={lp("/")}>{t.detail.returnHome}</Link></Button>
         </div>
       </div>
     );
