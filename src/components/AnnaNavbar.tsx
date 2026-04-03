@@ -13,10 +13,11 @@ export function AnnaNavbar() {
   const location = useLocation();
   const navigate = useNavigate();
   const { t } = useLang();
+  const lp = useLangPath();
 
   const navLinks = [
-    { label: t.nav.templates, href: "/#templates", hash: "templates" },
-    { label: t.nav.about, href: "/about", hash: null },
+    { label: t.nav.templates, href: lp("/#templates"), hash: "templates" },
+    { label: t.nav.about, href: lp("/about"), hash: null },
   ];
 
   const handleNavClick = useCallback((e: React.MouseEvent, link: { href: string; hash: string | null }) => {
