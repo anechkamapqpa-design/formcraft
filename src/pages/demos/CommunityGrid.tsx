@@ -1,10 +1,11 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ArrowRight, Users, Calendar, MessageSquare, Star, MapPin, Clock } from "lucide-react";
-import { useLang } from "@/lib/i18n";
+import { useLang, useLangPath } from "@/lib/i18n";
 
 export default function CommunityGrid() {
   const { t } = useLang();
+  const lp = useLangPath();
   const d = (t.demos as any).communityGrid;
 
   return (
@@ -12,7 +13,7 @@ export default function CommunityGrid() {
       {/* Nav */}
       <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl bg-[hsl(250,30%,98%)]/80 border-b border-[hsl(250,15%,90%)]">
         <div className="max-w-7xl mx-auto flex items-center justify-between px-6 md:px-10 py-4">
-          <Link to="/" className="text-sm font-medium text-[hsl(250,15%,50%)] hover:text-[hsl(250,20%,15%)] transition-colors">{d.back}</Link>
+          <Link to={lp("/")} className="text-sm font-medium text-[hsl(250,15%,50%)] hover:text-[hsl(250,20%,15%)] transition-colors">{d.back}</Link>
           <span className="text-xl font-extrabold tracking-tight">Community<span className="text-[hsl(270,80%,55%)]">Grid</span></span>
           <button className="hidden md:inline-flex items-center gap-2 bg-[hsl(270,80%,55%)] text-white px-5 py-2 rounded-full text-sm font-semibold hover:bg-[hsl(270,80%,48%)] transition-colors">
             {d.joinBtn}

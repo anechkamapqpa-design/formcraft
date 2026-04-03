@@ -1,19 +1,20 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { CheckCircle, Zap, Shield, BarChart3, Users, Globe } from "lucide-react";
-import { useLang } from "@/lib/i18n";
+import { useLang, useLangPath } from "@/lib/i18n";
 
 const featureIcons = [Zap, Shield, BarChart3, Users, Globe, CheckCircle];
 
 export default function SaaSClean() {
   const { t } = useLang();
+  const lp = useLangPath();
   const d = t.demos.saasClean;
 
   return (
     <div className="min-h-screen bg-[hsl(220,20%,98%)] text-[hsl(220,25%,15%)]">
       <nav className="flex items-center justify-between px-8 py-4 max-w-7xl mx-auto">
         <div className="flex items-center gap-8">
-          <Link to="/template/6" className="text-sm text-[hsl(220,15%,50%)] hover:text-[hsl(220,25%,15%)] transition">{d.back}</Link>
+          <Link to={lp("/template/6")} className="text-sm text-[hsl(220,15%,50%)] hover:text-[hsl(220,25%,15%)] transition">{d.back}</Link>
           <span className="text-xl font-bold text-[hsl(230,70%,55%)]">✦ Saasify</span>
         </div>
         <div className="flex items-center gap-3">

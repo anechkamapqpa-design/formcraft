@@ -1,10 +1,11 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ArrowRight, Clock, User, ChevronRight } from "lucide-react";
-import { useLang } from "@/lib/i18n";
+import { useLang, useLangPath } from "@/lib/i18n";
 
 export default function MonoJournal() {
   const { t } = useLang();
+  const lp = useLangPath();
   const d = (t.demos as any).monoJournal;
 
   return (
@@ -12,7 +13,7 @@ export default function MonoJournal() {
       {/* Nav */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-[hsl(40,20%,97%)]/90 backdrop-blur-lg border-b border-[hsl(20,10%,88%)]">
         <div className="max-w-7xl mx-auto flex items-center justify-between px-6 md:px-10 py-4">
-          <Link to="/" className="text-sm text-[hsl(20,10%,45%)] hover:text-[hsl(20,10%,12%)] transition-colors">{d.back}</Link>
+          <Link to={lp("/")} className="text-sm text-[hsl(20,10%,45%)] hover:text-[hsl(20,10%,12%)] transition-colors">{d.back}</Link>
           <h1 className="text-2xl md:text-3xl font-black tracking-tight uppercase" style={{ fontFamily: "'Playfair Display', serif" }}>
             Mono<span className="text-[hsl(0,75%,45%)]">Journal</span>
           </h1>

@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { useLang } from "@/lib/i18n";
+import { useLang, useLangPath } from "@/lib/i18n";
 import { Smartphone, Zap, Shield, BarChart3, Star, Download, ArrowRight, Check } from "lucide-react";
 import { useState } from "react";
 
@@ -12,6 +12,7 @@ const screens = [
 
 export default function AppMotion() {
   const { t } = useLang();
+  const lp = useLangPath();
   const d = (t.demos as any).appMotion;
   const [activeScreen, setActiveScreen] = useState(0);
 
@@ -19,7 +20,7 @@ export default function AppMotion() {
     <div className="min-h-screen bg-[hsl(240,15%,98%)] text-[hsl(240,20%,15%)]" style={{ fontFamily: "'system-ui', -apple-system, sans-serif" }}>
       {/* Nav */}
       <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 md:px-12 py-4 bg-[hsl(240,15%,98%)]/80 backdrop-blur-xl border-b border-[hsl(240,10%,90%)]/50">
-        <Link to="/template/8" className="text-[hsl(240,10%,50%)] text-sm hover:text-[hsl(260,80%,55%)] transition">{d.back}</Link>
+        <Link to={lp("/template/8")} className="text-[hsl(240,10%,50%)] text-sm hover:text-[hsl(260,80%,55%)] transition">{d.back}</Link>
         <h1 className="text-xl font-bold tracking-tight bg-gradient-to-r from-[hsl(260,80%,55%)] to-[hsl(200,90%,55%)] bg-clip-text text-transparent">
           AppMotion
         </h1>

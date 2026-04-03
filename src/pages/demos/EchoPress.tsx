@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { useLang } from "@/lib/i18n";
+import { useLang, useLangPath } from "@/lib/i18n";
 import { ArrowRight, Clock, User, TrendingUp, Mail, Bookmark } from "lucide-react";
 import { useState } from "react";
 
@@ -14,6 +14,7 @@ const articles = [
 
 export default function EchoPress() {
   const { t } = useLang();
+  const lp = useLangPath();
   const d = (t.demos as any).echoPress;
   const [activeCat, setActiveCat] = useState(0);
 
@@ -22,7 +23,7 @@ export default function EchoPress() {
       {/* Nav */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-[hsl(40,20%,97%)]/90 backdrop-blur-xl border-b border-[hsl(20,10%,88%)]">
         <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between h-16">
-          <Link to="/template/9" className="text-[hsl(20,10%,50%)] text-sm hover:text-[hsl(0,85%,45%)] transition">{d.back}</Link>
+          <Link to={lp("/template/9")} className="text-[hsl(20,10%,50%)] text-sm hover:text-[hsl(0,85%,45%)] transition">{d.back}</Link>
           <h1 className="text-2xl font-black tracking-tight uppercase" style={{ fontFamily: "'Georgia', serif" }}>
             Echo<span className="text-[hsl(0,85%,45%)]">Press</span>
           </h1>

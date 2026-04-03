@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { useLang } from "@/lib/i18n";
+import { useLang, useLangPath } from "@/lib/i18n";
 
 const artworks = [
   { id: 1, title: "Eternal Whispers", artist: "Elena Vasquez", price: "$12,400", img: "/images/demos/art1.jpg" },
@@ -13,12 +13,13 @@ const artworks = [
 
 export default function LuxuryArt() {
   const { t } = useLang();
+  const lp = useLangPath();
   const d = t.demos.luxuryArt;
 
   return (
     <div className="min-h-screen bg-[hsl(30,10%,5%)] text-[hsl(40,30%,90%)]">
       <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-8 py-5 bg-[hsl(30,10%,5%)]/80 backdrop-blur-md border-b border-[hsl(40,40%,30%)]/20">
-        <Link to="/template/3" className="text-[hsl(40,30%,70%)] text-xs tracking-[0.3em] uppercase hover:text-[hsl(40,40%,85%)] transition">{d.back}</Link>
+        <Link to={lp("/template/3")} className="text-[hsl(40,30%,70%)] text-xs tracking-[0.3em] uppercase hover:text-[hsl(40,40%,85%)] transition">{d.back}</Link>
         <h1 className="font-serif text-xl tracking-[0.2em] uppercase text-[hsl(40,40%,85%)]">Siberiana</h1>
         <span className="text-xs tracking-[0.2em] uppercase text-[hsl(40,30%,60%)]">{d.livingGallery}</span>
       </nav>

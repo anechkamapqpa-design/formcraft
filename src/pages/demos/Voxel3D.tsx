@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { useLang } from "@/lib/i18n";
+import { useLang, useLangPath } from "@/lib/i18n";
 import { Link } from "react-router-dom";
 import { ArrowLeft, Play, ChevronRight, Zap, Shield, Cpu, Globe, Layers, Rocket } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
@@ -76,6 +76,7 @@ const sectionVariants = {
 
 export default function Voxel3D() {
   const { t } = useLang();
+  const lp = useLangPath();
   const d = (t.demos as any).voxel3D;
 
   return (
@@ -111,7 +112,7 @@ export default function Voxel3D() {
 
       {/* Nav */}
       <nav className="relative z-50 flex items-center justify-between px-6 md:px-12 py-5 border-b border-white/[0.06]">
-        <Link to="/" className="flex items-center gap-2 text-white/70 hover:text-white transition-colors text-sm font-medium">
+        <Link to={lp("/")} className="flex items-center gap-2 text-white/70 hover:text-white transition-colors text-sm font-medium">
           <ArrowLeft className="w-4 h-4" />
           {d.back}
         </Link>

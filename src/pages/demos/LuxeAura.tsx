@@ -1,6 +1,6 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Link } from "react-router-dom";
-import { useLang } from "@/lib/i18n";
+import { useLang, useLangPath } from "@/lib/i18n";
 import { ArrowRight, Diamond, Star, MapPin, Mail, Phone } from "lucide-react";
 import { useRef } from "react";
 
@@ -26,6 +26,7 @@ const shopItems = [
 
 export default function LuxeAura() {
   const { t } = useLang();
+  const lp = useLangPath();
   const d = (t.demos as any).luxeAura;
   const heroRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
@@ -36,7 +37,7 @@ export default function LuxeAura() {
     <div className="min-h-screen bg-[hsl(30,8%,4%)] text-[hsl(40,25%,88%)]" style={{ fontFamily: "'Georgia', 'Times New Roman', serif" }}>
       {/* Nav */}
       <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 md:px-12 py-5 bg-[hsl(30,8%,4%)]/85 backdrop-blur-xl border-b border-[hsl(40,50%,35%)]/15">
-        <Link to="/template/7" className="text-[hsl(40,30%,60%)] text-xs tracking-[0.3em] uppercase hover:text-[hsl(40,50%,80%)] transition">{d.back}</Link>
+        <Link to={lp("/template/7")} className="text-[hsl(40,30%,60%)] text-xs tracking-[0.3em] uppercase hover:text-[hsl(40,50%,80%)] transition">{d.back}</Link>
         <h1 className="text-2xl tracking-[0.25em] uppercase font-light" style={{ fontFamily: "'Georgia', serif", color: "hsl(40,50%,78%)" }}>
           <Diamond className="w-4 h-4 inline-block mr-2 -mt-0.5" />LuxeAura
         </h1>

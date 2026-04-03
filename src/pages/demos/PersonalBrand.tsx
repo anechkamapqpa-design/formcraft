@@ -1,16 +1,17 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ArrowRight, Instagram, Linkedin, Youtube } from "lucide-react";
-import { useLang } from "@/lib/i18n";
+import { useLang, useLangPath } from "@/lib/i18n";
 
 export default function PersonalBrand() {
   const { t } = useLang();
+  const lp = useLangPath();
   const d = t.demos.personalBrand;
 
   return (
     <div className="min-h-screen bg-[hsl(30,25%,97%)] text-[hsl(20,15%,20%)]">
       <nav className="flex items-center justify-between px-8 py-5 max-w-7xl mx-auto">
-        <Link to="/template/4" className="text-sm text-[hsl(20,10%,55%)] hover:text-[hsl(20,15%,20%)] transition">{d.back}</Link>
+        <Link to={lp("/template/4")} className="text-sm text-[hsl(20,10%,55%)] hover:text-[hsl(20,15%,20%)] transition">{d.back}</Link>
         <span className="text-xl font-bold text-[hsl(350,75%,50%)]">Creator Kit</span>
         <div className="hidden md:flex items-center gap-6 text-sm text-[hsl(20,10%,45%)]">
           <a href="#services">{d.servicesTitle}</a>

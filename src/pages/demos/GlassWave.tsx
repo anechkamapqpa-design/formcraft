@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { useLang } from "@/lib/i18n";
+import { useLang, useLangPath } from "@/lib/i18n";
 
 function GlassCard({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   return (
@@ -16,6 +16,7 @@ function GradientOrb({ className }: { className: string }) {
 
 export default function GlassWave() {
   const { t } = useLang();
+  const lp = useLangPath();
   const d = t.demos.glassWave;
 
   return (
@@ -28,7 +29,7 @@ export default function GlassWave() {
 
       {/* Nav */}
       <nav className="relative z-50 flex items-center justify-between px-8 py-5">
-        <Link to="/template/13" className="text-sm text-white/50 hover:text-white transition">{d.back}</Link>
+        <Link to={lp("/template/13")} className="text-sm text-white/50 hover:text-white transition">{d.back}</Link>
         <div className="flex items-center gap-2">
           <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-[hsl(210,90%,60%)] to-[hsl(280,80%,60%)] flex items-center justify-center text-xs font-black">G</div>
           <span className="font-bold text-lg">GlassWave</span>
