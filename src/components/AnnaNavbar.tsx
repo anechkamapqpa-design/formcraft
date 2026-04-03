@@ -5,7 +5,7 @@ import { Search, X, ArrowRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { LangSwitcher } from "@/components/LangSwitcher";
-import { useLang } from "@/lib/i18n";
+import { useLang, useLangPath } from "@/lib/i18n";
 
 export function AnnaNavbar() {
   const [searchOpen, setSearchOpen] = useState(false);
