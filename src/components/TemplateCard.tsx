@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Eye } from "lucide-react";
 import type { Template } from "@/data/templates";
-import { useLang } from "@/lib/i18n";
+import { useLang, useLangPath } from "@/lib/i18n";
 import { miniPreviewMap } from "@/components/MiniPreviews";
 
 interface TemplateCardProps {
