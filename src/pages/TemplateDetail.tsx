@@ -83,7 +83,7 @@ export default function TemplateDetail() {
                 <div className="mt-4 flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5">
                   <Button className="rounded-xl w-full sm:w-auto" onClick={() => {
                     const prefill = `${t.detail.orderPrefix} "${template.title}"`;
-                    navigate("/?prefill=" + encodeURIComponent(prefill));
+                    navigate(lp("/?prefill=" + encodeURIComponent(prefill)));
                     setTimeout(() => {
                       document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
                     }, 150);
