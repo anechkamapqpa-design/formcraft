@@ -3,8 +3,8 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
-import { LangProvider } from "@/lib/i18n";
+import { BrowserRouter, Routes, Route, useLocation, Navigate } from "react-router-dom";
+import { LangProvider, LangLayout } from "@/lib/i18n";
 import Home from "./pages/Home";
 import TemplateDetail from "./pages/TemplateDetail";
 import About from "./pages/About";
@@ -36,6 +36,32 @@ function ScrollToTop() {
   return null;
 }
 
+const langRoutes = (
+  <>
+    <Route index element={<Home />} />
+    <Route path="template/:id" element={<TemplateDetail />} />
+    <Route path="about" element={<About />} />
+    <Route path="demo/luxury-art" element={<LuxuryArt />} />
+    <Route path="demo/saas-clean" element={<SaaSClean />} />
+    <Route path="demo/ecom-drop" element={<EcomDrop />} />
+    <Route path="demo/personal-brand" element={<PersonalBrand />} />
+    <Route path="demo/experimental-neon" element={<ExperimentalNeon />} />
+    <Route path="demo/product-interactive" element={<ProductInteractive />} />
+    <Route path="demo/luxe-aura" element={<LuxeAura />} />
+    <Route path="demo/app-motion" element={<AppMotion />} />
+    <Route path="demo/echo-press" element={<EchoPress />} />
+    <Route path="demo/market-sphere" element={<MarketSphere />} />
+    <Route path="demo/atelier" element={<Atelier />} />
+    <Route path="demo/neuro-flow" element={<NeuroFlow />} />
+    <Route path="demo/glass-wave" element={<GlassWave />} />
+    <Route path="demo/brutalist-lab" element={<BrutalistLab />} />
+    <Route path="demo/community-grid" element={<CommunityGrid />} />
+    <Route path="demo/mono-journal" element={<MonoJournal />} />
+    <Route path="demo/voxel-3d" element={<Voxel3D />} />
+    <Route path="demo/story-brand" element={<StoryBrand />} />
+  </>
+);
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
@@ -45,27 +71,10 @@ const App = () => (
         <BrowserRouter>
           <ScrollToTop />
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/template/:id" element={<TemplateDetail />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/demo/luxury-art" element={<LuxuryArt />} />
-            <Route path="/demo/saas-clean" element={<SaaSClean />} />
-            <Route path="/demo/ecom-drop" element={<EcomDrop />} />
-            <Route path="/demo/personal-brand" element={<PersonalBrand />} />
-            <Route path="/demo/experimental-neon" element={<ExperimentalNeon />} />
-            <Route path="/demo/product-interactive" element={<ProductInteractive />} />
-            <Route path="/demo/luxe-aura" element={<LuxeAura />} />
-            <Route path="/demo/app-motion" element={<AppMotion />} />
-            <Route path="/demo/echo-press" element={<EchoPress />} />
-            <Route path="/demo/market-sphere" element={<MarketSphere />} />
-            <Route path="/demo/atelier" element={<Atelier />} />
-            <Route path="/demo/neuro-flow" element={<NeuroFlow />} />
-            <Route path="/demo/glass-wave" element={<GlassWave />} />
-            <Route path="/demo/brutalist-lab" element={<BrutalistLab />} />
-            <Route path="/demo/community-grid" element={<CommunityGrid />} />
-            <Route path="/demo/mono-journal" element={<MonoJournal />} />
-            <Route path="/demo/voxel-3d" element={<Voxel3D />} />
-            <Route path="/demo/story-brand" element={<StoryBrand />} />
+            <Route path="/" element={<Navigate to="/en" replace />} />
+            <Route path="/:lang" element={<LangLayout />}>
+              {langRoutes}
+            </Route>
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
@@ -73,6 +82,5 @@ const App = () => (
     </TooltipProvider>
   </QueryClientProvider>
 );
-
 
 export default App;
