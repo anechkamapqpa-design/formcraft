@@ -23,7 +23,8 @@ export function AnnaNavbar() {
   const handleNavClick = useCallback((e: React.MouseEvent, link: { href: string; hash: string | null }) => {
     if (link.hash) {
       e.preventDefault();
-      if (location.pathname === "/") {
+      const basePath = location.pathname.replace(/^\/(en|ru)/, "") || "/";
+      if (basePath === "/") {
         document.getElementById(link.hash)?.scrollIntoView({ behavior: "smooth" });
       } else {
         navigate("/");
