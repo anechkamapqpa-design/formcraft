@@ -6,7 +6,7 @@ import { getTemplate, demoSlugMap } from "@/data/templates";
 import { AnnaNavbar } from "@/components/AnnaNavbar";
 import { AnnaFooter } from "@/components/AnnaFooter";
 import { Button } from "@/components/ui/button";
-import { useLang } from "@/lib/i18n";
+import { useLang, useLangPath } from "@/lib/i18n";
 import { miniPreviewMap } from "@/components/MiniPreviews";
 
 export default function TemplateDetail() {
