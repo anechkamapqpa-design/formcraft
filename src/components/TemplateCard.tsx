@@ -12,6 +12,7 @@ interface TemplateCardProps {
 
 export function TemplateCard({ template, index }: TemplateCardProps) {
   const { t } = useLang();
+  const lp = useLangPath();
 
   const catKey = template.category as keyof typeof t.categories;
   const localCategory = t.categories[catKey] || template.category;
