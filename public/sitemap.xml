@@ -1,42 +1,159 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://www.formcraft.tech/</loc>
+    <loc>https://www.formcraft.tech/en</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.formcraft.tech/en" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.formcraft.tech/ru" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.formcraft.tech/en" />
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://www.formcraft.tech/about</loc>
+    <loc>https://www.formcraft.tech/ru</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.formcraft.tech/en" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.formcraft.tech/ru" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.formcraft.tech/en" />
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://www.formcraft.tech/en/about</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.formcraft.tech/en/about" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.formcraft.tech/ru/about" />
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.formcraft.tech/demo/luxury-art</loc>
+    <loc>https://www.formcraft.tech/ru/about</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.formcraft.tech/en/about" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.formcraft.tech/ru/about" />
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.formcraft.tech/en/demo/luxury-art</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.formcraft.tech/en/demo/luxury-art" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.formcraft.tech/ru/demo/luxury-art" />
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://www.formcraft.tech/demo/saas-clean</loc>
+    <loc>https://www.formcraft.tech/en/demo/saas-clean</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.formcraft.tech/en/demo/saas-clean" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.formcraft.tech/ru/demo/saas-clean" />
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://www.formcraft.tech/demo/ecom-drop</loc>
+    <loc>https://www.formcraft.tech/en/demo/ecom-drop</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.formcraft.tech/en/demo/ecom-drop" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.formcraft.tech/ru/demo/ecom-drop" />
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://www.formcraft.tech/demo/personal-brand</loc>
+    <loc>https://www.formcraft.tech/en/demo/personal-brand</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.formcraft.tech/en/demo/personal-brand" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.formcraft.tech/ru/demo/personal-brand" />
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://www.formcraft.tech/demo/experimental-neon</loc>
+    <loc>https://www.formcraft.tech/en/demo/experimental-neon</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.formcraft.tech/en/demo/experimental-neon" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.formcraft.tech/ru/demo/experimental-neon" />
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://www.formcraft.tech/demo/product-interactive</loc>
+    <loc>https://www.formcraft.tech/en/demo/product-interactive</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.formcraft.tech/en/demo/product-interactive" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.formcraft.tech/ru/demo/product-interactive" />
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.formcraft.tech/en/demo/luxe-aura</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.formcraft.tech/en/demo/luxe-aura" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.formcraft.tech/ru/demo/luxe-aura" />
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.formcraft.tech/en/demo/app-motion</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.formcraft.tech/en/demo/app-motion" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.formcraft.tech/ru/demo/app-motion" />
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.formcraft.tech/en/demo/echo-press</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.formcraft.tech/en/demo/echo-press" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.formcraft.tech/ru/demo/echo-press" />
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.formcraft.tech/en/demo/market-sphere</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.formcraft.tech/en/demo/market-sphere" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.formcraft.tech/ru/demo/market-sphere" />
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.formcraft.tech/en/demo/atelier</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.formcraft.tech/en/demo/atelier" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.formcraft.tech/ru/demo/atelier" />
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.formcraft.tech/en/demo/neuro-flow</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.formcraft.tech/en/demo/neuro-flow" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.formcraft.tech/ru/demo/neuro-flow" />
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.formcraft.tech/en/demo/glass-wave</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.formcraft.tech/en/demo/glass-wave" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.formcraft.tech/ru/demo/glass-wave" />
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.formcraft.tech/en/demo/brutalist-lab</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.formcraft.tech/en/demo/brutalist-lab" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.formcraft.tech/ru/demo/brutalist-lab" />
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.formcraft.tech/en/demo/community-grid</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.formcraft.tech/en/demo/community-grid" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.formcraft.tech/ru/demo/community-grid" />
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.formcraft.tech/en/demo/mono-journal</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.formcraft.tech/en/demo/mono-journal" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.formcraft.tech/ru/demo/mono-journal" />
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.formcraft.tech/en/demo/voxel-3d</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.formcraft.tech/en/demo/voxel-3d" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.formcraft.tech/ru/demo/voxel-3d" />
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.formcraft.tech/en/demo/story-brand</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.formcraft.tech/en/demo/story-brand" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.formcraft.tech/ru/demo/story-brand" />
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
