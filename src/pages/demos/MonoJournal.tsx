@@ -33,7 +33,8 @@ export default function MonoJournal() {
         <div className="max-w-7xl mx-auto">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }} className="grid grid-cols-1 md:grid-cols-2 gap-0 border border-[hsl(20,10%,88%)]">
             <div className="aspect-[4/3] md:aspect-auto bg-[hsl(20,5%,85%)] relative overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-br from-[hsl(20,10%,25%)] to-[hsl(0,0%,40%)]" />
+              <img src="/images/monojournal/featured.jpg" alt={d.featured.title} loading="lazy" className="absolute inset-0 w-full h-full object-cover" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
               <div className="absolute top-6 left-6">
                 <span className="px-3 py-1 bg-[hsl(0,75%,45%)] text-white text-[10px] font-bold uppercase tracking-wider">{d.featuredTag}</span>
               </div>
@@ -73,7 +74,8 @@ export default function MonoJournal() {
                 transition={{ delay: i * 0.1 }}
                 className="group cursor-pointer"
               >
-                <div className="aspect-[16/10] bg-gradient-to-br from-[hsl(20,5%,80%)] to-[hsl(20,5%,70%)] mb-4 relative overflow-hidden">
+                <div className="aspect-[16/10] bg-[hsl(20,5%,80%)] mb-4 relative overflow-hidden">
+                  <img src={`/images/monojournal/article-${i + 1}.jpg`} alt={a.title} loading="lazy" className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
                   <div className="absolute inset-0 bg-[hsl(20,10%,25%)]/10 group-hover:bg-[hsl(20,10%,25%)]/20 transition-colors" />
                 </div>
                 <span className="text-[10px] font-bold uppercase tracking-wider text-[hsl(0,75%,45%)]">{a.category}</span>
