@@ -44,7 +44,8 @@ export default function StoryBrand() {
       {/* Hero - Full screen cinematic */}
       <section ref={heroRef} className="relative h-[100vh] flex items-center justify-center overflow-hidden">
         <motion.div style={{ opacity: heroOpacity, scale: heroScale }} className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-b from-[hsl(160,20%,8%)] via-[hsl(160,15%,5%)]/60 to-[hsl(160,15%,5%)]" />
+          <img src="/images/storybrand/hero.jpg" alt={d.heroTitle1} className="absolute inset-0 w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[hsl(160,20%,8%)]/70 via-[hsl(160,15%,5%)]/70 to-[hsl(160,15%,5%)]" />
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,hsl(35,40%,20%,0.3),transparent_70%)]" />
         </motion.div>
         <div className="relative z-10 text-center px-6 max-w-5xl mx-auto">
@@ -128,8 +129,8 @@ export default function StoryBrand() {
               transition={{ duration: 1 }}
               className="aspect-[3/4] bg-gradient-to-br from-[hsl(35,25%,18%)] to-[hsl(160,15%,10%)] rounded-sm overflow-hidden relative"
             >
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_40%,hsl(35,40%,25%,0.5),transparent_60%)]" />
-              <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-[hsl(160,15%,5%)] to-transparent" />
+              <img src="/images/storybrand/chapter1.jpg" alt={d.ch1Title} loading="lazy" className="absolute inset-0 w-full h-full object-cover" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[hsl(160,15%,5%)] via-[hsl(160,15%,5%)]/30 to-transparent" />
               <div className="absolute bottom-8 left-8">
                 <span className="text-xs tracking-[0.3em] uppercase text-[hsl(35,50%,60%)]">{d.ch1ImageCaption}</span>
               </div>
@@ -180,7 +181,8 @@ export default function StoryBrand() {
                 className="group cursor-pointer"
               >
                 <div className="aspect-[3/4] bg-gradient-to-br from-[hsl(35,20%,15%)] to-[hsl(160,15%,8%)] mb-6 overflow-hidden relative">
-                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_30%,hsl(35,30%,22%,0.6),transparent_70%)]" />
+                  <img src={`/images/storybrand/product-${i + 1}.jpg`} alt={p.name} loading="lazy" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[hsl(160,15%,5%)]/60 via-transparent to-transparent" />
                   <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-[hsl(35,40%,40%)]/10" />
                   <div className="absolute bottom-6 left-6 right-6 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
                     <span className="text-xs tracking-[0.2em] uppercase text-[hsl(35,50%,65%)]">{d.viewProduct}</span>
@@ -214,8 +216,8 @@ export default function StoryBrand() {
                   transition={{ delay: i * 0.1 }}
                   className={`${spans[i]} relative overflow-hidden group cursor-pointer`}
                 >
-                  <div className="absolute inset-0 bg-gradient-to-br from-[hsl(35,25%,18%)] to-[hsl(160,15%,8%)]" />
-                  <div className={`absolute inset-0 bg-[radial-gradient(circle_at_${i % 2 === 0 ? '30%_40%' : '70%_60%'},hsl(35,30%,25%,0.4),transparent_60%)]`} />
+                  <img src={`/images/storybrand/gallery-${i + 1}.jpg`} alt={item} loading="lazy" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[hsl(160,15%,5%)]/50 to-transparent" />
                   <div className="absolute inset-0 bg-[hsl(160,15%,5%)]/0 group-hover:bg-[hsl(160,15%,5%)]/40 transition-colors duration-500" />
                   <div className="absolute bottom-4 left-4 translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
                     <span className="text-xs tracking-[0.2em] uppercase text-[hsl(35,50%,70%)]">{item}</span>
@@ -237,7 +239,8 @@ export default function StoryBrand() {
               viewport={{ once: true }}
               className="aspect-square bg-gradient-to-tl from-[hsl(35,20%,15%)] to-[hsl(160,20%,10%)] relative overflow-hidden"
             >
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_60%_40%,hsl(35,35%,22%,0.5),transparent_60%)]" />
+              <img src="/images/storybrand/bts.jpg" alt={d.btsTitle} loading="lazy" className="absolute inset-0 w-full h-full object-cover" />
+              <div className="absolute inset-0 bg-gradient-to-tr from-[hsl(160,15%,5%)]/60 via-transparent to-transparent" />
             </motion.div>
           </ParallaxSection>
           <ParallaxSection offset={25}>
