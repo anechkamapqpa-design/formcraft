@@ -32,7 +32,7 @@ function StarRating({ rating, count }: { rating: number; count?: number }) {
 
 export default function MarketSphere() {
   const { t } = useLang();
-  const ms = (t as any).marketSphere;
+  const ms = (t as any).demos?.marketSphere ?? (t as any).marketSphere;
   const [view, setView] = useState<View>("storefront");
   const [activeCategory, setActiveCategory] = useState(ms.categories[0]);
   const [wishlist, setWishlist] = useState<number[]>([]);
