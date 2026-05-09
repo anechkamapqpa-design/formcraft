@@ -471,8 +471,9 @@ export function MiniMonoJournal() {
         </div>
         <div className="px-10 pt-8">
           <div className="grid grid-cols-2 gap-0 border border-[hsl(20,10%,88%)]">
-            <div className="aspect-[4/3] bg-gradient-to-br from-[hsl(20,10%,25%)] to-[hsl(0,0%,40%)] relative">
-              <span className="absolute top-4 left-4 px-3 py-1 bg-[hsl(0,75%,45%)] text-white text-[9px] font-bold uppercase tracking-wider">Featured</span>
+            <div className="aspect-[4/3] relative overflow-hidden">
+              <img src="/images/monojournal/featured.jpg" alt="" className="absolute inset-0 w-full h-full object-cover" />
+              <span className="absolute top-4 left-4 px-3 py-1 bg-[hsl(0,75%,45%)] text-white text-[9px] font-bold uppercase tracking-wider z-10">Featured</span>
             </div>
             <div className="p-10 bg-white flex flex-col justify-center">
               <span className="text-[9px] font-bold uppercase tracking-wider" style={{ color: "hsl(0,75%,45%)" }}>Culture</span>
