@@ -46,8 +46,8 @@ export default function EcomDrop() {
           {products.map((p, i) => (
             <motion.div key={p.name} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }} className="group cursor-pointer">
               <div className="relative aspect-[3/4] bg-[hsl(0,0%,10%)] rounded-lg overflow-hidden mb-3">
-                <div className="absolute inset-0 flex items-center justify-center text-[hsl(0,0%,20%)] text-6xl font-black">N</div>
-                <span className="absolute top-3 left-3 text-[10px] font-bold tracking-wider bg-[hsl(0,0%,15%)] px-2 py-1 rounded">{p.tag}</span>
+                <img src={`/images/demos/ecom-product-${i + 1}.jpg`} alt={p.name} loading="lazy" className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                <span className="absolute top-3 left-3 z-10 text-[10px] font-bold tracking-wider bg-[hsl(0,0%,15%)]/90 backdrop-blur-sm px-2 py-1 rounded">{p.tag}</span>
               </div>
               <h4 className="text-sm font-semibold">{p.name}</h4>
               <p className="text-sm text-[hsl(0,0%,50%)]">{p.price}</p>
