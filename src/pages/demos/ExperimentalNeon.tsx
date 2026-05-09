@@ -98,7 +98,17 @@ export default function ExperimentalNeon() {
         </div>
       </nav>
       <section className="relative h-screen flex items-center justify-center">
-        <img src="/images/demos/neon-hero.jpg" alt="Neon waves" className="absolute inset-0 w-full h-full object-cover opacity-25" />
+        <motion.img
+          src="/images/demos/neon-hero.jpg"
+          alt="Neon waves"
+          className="absolute inset-0 w-full h-full object-cover opacity-25"
+          animate={{
+            scale: [1.1, 1.18, 1.1],
+            x: ["-2%", "2%", "-2%"],
+            y: ["-1%", "1%", "-1%"],
+          }}
+          transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
+        />
         <HologramWaves />
         <div className="absolute inset-0 bg-gradient-to-b from-[hsl(260,30%,5%)]/60 via-transparent to-[hsl(260,30%,5%)]" />
         <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1 }} className="relative z-10 text-center">
