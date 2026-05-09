@@ -1,6 +1,87 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { useLang, useLangPath } from "@/lib/i18n";
+import { useEffect, useRef } from "react";
+
+function HologramWaves() {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    let raf = 0;
+    let dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+    const resize = () => {
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = canvas.offsetWidth * dpr;
+      canvas.height = canvas.offsetHeight * dpr;
+    };
+    resize();
+    window.addEventListener("resize", resize);
+
+    const colors = [
+      "hsla(280, 100%, 70%, 0.55)",
+      "hsla(220, 100%, 70%, 0.5)",
+      "hsla(180, 100%, 60%, 0.55)",
+      "hsla(320, 100%, 65%, 0.45)",
+      "hsla(200, 100%, 70%, 0.4)",
+    ];
+
+    const draw = (t: number) => {
+      const w = canvas.width;
+      const h = canvas.height;
+      ctx.clearRect(0, 0, w, h);
+      ctx.lineWidth = 1.4 * dpr;
+      ctx.lineCap = "round";
+
+      const layers = 28;
+      const time = t * 0.0006;
+
+      for (let l = 0; l < layers; l++) {
+        const phase = l * 0.18;
+        const colorIdx = l % colors.length;
+        ctx.strokeStyle = colors[colorIdx];
+        ctx.shadowBlur = 14 * dpr;
+        ctx.shadowColor = colors[colorIdx];
+
+        ctx.beginPath();
+        const baseY = h / 2 + Math.sin(time * 0.7 + l * 0.3) * h * 0.06;
+        const amp = h * (0.18 + Math.sin(time * 0.5 + l * 0.4) * 0.06) * (1 - l / (layers * 2.2));
+        const freq = 0.0035 + Math.sin(time * 0.3 + l * 0.2) * 0.0008;
+
+        for (let x = 0; x <= w; x += 6 * dpr) {
+          const y =
+            baseY +
+            Math.sin(x * freq + time * 1.4 + phase) * amp +
+            Math.sin(x * freq * 2.3 + time * 0.9 + phase * 1.7) * amp * 0.35;
+          if (x === 0) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
+        }
+        ctx.stroke();
+      }
+
+      raf = requestAnimationFrame(draw);
+    };
+    raf = requestAnimationFrame(draw);
+
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("resize", resize);
+    };
+  }, []);
+
+  return (
+    <canvas
+      ref={canvasRef}
+      className="absolute inset-0 w-full h-full pointer-events-none"
+      style={{ mixBlendMode: "screen" }}
+    />
+  );
+}
 
 export default function ExperimentalNeon() {
   const { t } = useLang();
