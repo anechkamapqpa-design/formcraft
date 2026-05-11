@@ -112,7 +112,7 @@ export default function ExperimentalNeon() {
         <div className="absolute inset-0 bg-gradient-to-b from-[hsl(260,30%,5%)]/60 via-transparent to-[hsl(260,30%,5%)]" />
         <div className="absolute inset-0 bg-gradient-to-b from-[hsl(260,30%,5%)]/60 via-transparent to-[hsl(260,30%,5%)]" />
         <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1 }} className="relative z-10 text-center">
-          <h1 className="text-7xl md:text-[10rem] font-black leading-[0.85] uppercase tracking-tighter">
+          <h1 className="text-[4.275rem] md:text-[9.5rem] font-black leading-[0.85] uppercase tracking-tighter">
             <span className="block bg-gradient-to-r from-[hsl(280,100%,70%)] via-[hsl(200,100%,70%)] to-[hsl(180,100%,60%)] bg-clip-text text-transparent">{d.heroTitle1}</span>
             <span className="block text-[hsl(0,0%,100%)]/90">{d.heroTitle2}</span>
             <span className="block bg-gradient-to-r from-[hsl(180,100%,60%)] to-[hsl(320,100%,65%)] bg-clip-text text-transparent">{d.heroTitle3}</span>
