@@ -89,7 +89,7 @@ export default function ExperimentalNeon() {
   const d = t.demos.experimentalNeon;
 
   return (
-    <div className="min-h-screen bg-[hsl(260,30%,5%)] text-[hsl(0,0%,100%)] overflow-hidden">
+    <div className="min-h-screen bg-[hsl(260,30%,5%)] text-[hsl(0,0%,100%)]">
       <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-8 py-5 bg-[hsl(260,30%,5%)]/80 backdrop-blur-md">
         <Link to={lp("/template/2")} className="text-xs text-[hsl(280,30%,50%)] hover:text-[hsl(180,100%,70%)] transition">{d.back}</Link>
         <div className="flex items-center gap-6 text-sm">
