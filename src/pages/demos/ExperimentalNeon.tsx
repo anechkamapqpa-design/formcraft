@@ -115,7 +115,7 @@ export default function ExperimentalNeon() {
           <h1 className="text-[4.275rem] md:text-[9.5rem] font-black leading-[0.85] uppercase tracking-tighter">
             <span className="block bg-gradient-to-r from-[hsl(280,100%,70%)] via-[hsl(200,100%,70%)] to-[hsl(180,100%,60%)] bg-clip-text text-transparent">{d.heroTitle1}</span>
             <span className="block text-[hsl(0,0%,100%)]/90">{d.heroTitle2}</span>
-            <span className="block bg-gradient-to-r from-[hsl(180,100%,60%)] to-[hsl(320,100%,65%)] bg-clip-text text-transparent">{d.heroTitle3}</span>
+            <span className="block bg-gradient-to-r from-[hsl(180,100%,60%)] to-[hsl(320,100%,65%)] bg-clip-text text-transparent text-[95%]">{d.heroTitle3}</span>
           </h1>
           <div className="flex justify-center gap-4 mt-12">
             <motion.button whileHover={{ scale: 1.05 }} className="bg-gradient-to-r from-[hsl(280,100%,60%)] to-[hsl(320,100%,60%)] px-8 py-3.5 rounded-full font-bold text-sm uppercase tracking-wider shadow-lg">{d.portfolioHighlights}</motion.button>
