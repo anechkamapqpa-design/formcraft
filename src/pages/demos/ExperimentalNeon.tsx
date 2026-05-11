@@ -111,11 +111,11 @@ export default function ExperimentalNeon() {
         />
         <div className="absolute inset-0 bg-gradient-to-b from-[hsl(260,30%,5%)]/60 via-transparent to-[hsl(260,30%,5%)]" />
         <div className="absolute inset-0 bg-gradient-to-b from-[hsl(260,30%,5%)]/60 via-transparent to-[hsl(260,30%,5%)]" />
-        <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1 }} className="relative z-10 text-center">
-          <h1 className="text-[4.275rem] md:text-[8.5rem] font-black leading-[0.85] uppercase tracking-tighter px-4">
-            <span className="block bg-gradient-to-r from-[hsl(280,100%,70%)] via-[hsl(200,100%,70%)] to-[hsl(180,100%,60%)] bg-clip-text text-transparent">{d.heroTitle1}</span>
-            <span className="block text-[hsl(0,0%,100%)]/90">{d.heroTitle2}</span>
-            <span className="block bg-gradient-to-r from-[hsl(180,100%,60%)] to-[hsl(320,100%,65%)] bg-clip-text text-transparent text-[95%]">{d.heroTitle3}</span>
+        <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1 }} className="relative z-10 w-full text-center overflow-visible px-4">
+          <h1 className="text-[4.275rem] md:text-[8.5rem] font-black leading-[0.9] uppercase tracking-tighter overflow-visible py-[0.08em]">
+            <span className="block overflow-visible px-[0.08em] -mx-[0.08em] bg-gradient-to-r from-[hsl(280,100%,70%)] via-[hsl(200,100%,70%)] to-[hsl(180,100%,60%)] bg-clip-text text-transparent">{d.heroTitle1}</span>
+            <span className="block overflow-visible px-[0.08em] -mx-[0.08em] text-[hsl(0,0%,100%)]/90">{d.heroTitle2}</span>
+            <span className="block overflow-visible px-[0.12em] -mx-[0.12em] bg-gradient-to-r from-[hsl(180,100%,60%)] to-[hsl(320,100%,65%)] bg-clip-text text-transparent text-[95%]">{d.heroTitle3}</span>
           </h1>
           <div className="flex justify-center gap-4 mt-12">
             <motion.button whileHover={{ scale: 1.05 }} className="bg-gradient-to-r from-[hsl(280,100%,60%)] to-[hsl(320,100%,60%)] px-8 py-3.5 rounded-full font-bold text-sm uppercase tracking-wider shadow-lg">{d.portfolioHighlights}</motion.button>
