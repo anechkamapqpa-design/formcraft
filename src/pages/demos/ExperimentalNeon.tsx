@@ -2,6 +2,12 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { useLang, useLangPath } from "@/lib/i18n";
 import { useEffect, useRef } from "react";
+import workSynthwave from "@/assets/neon-work-synthwave.jpg";
+import workGenesis from "@/assets/neon-work-genesis.jpg";
+import workDreams from "@/assets/neon-work-dreams.jpg";
+import workBloom from "@/assets/neon-work-bloom.jpg";
+
+const workImages = [workSynthwave, workGenesis, workDreams, workBloom];
 
 function HologramWaves() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -127,7 +133,9 @@ export default function ExperimentalNeon() {
         <h3 className="text-center text-5xl font-black mb-16 bg-gradient-to-r from-[hsl(280,100%,70%)] to-[hsl(180,100%,60%)] bg-clip-text text-transparent">{d.featuredWork}</h3>
         <div className="grid md:grid-cols-2 gap-6">
           {d.works.map((w, i) => (
-            <motion.div key={i} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }} whileHover={{ scale: 1.02 }} className="relative aspect-video rounded-2xl overflow-hidden cursor-pointer group" style={{ background: `linear-gradient(135deg, hsl(${260+i*30}, 80%, 15%), hsl(${200+i*20}, 70%, 10%))` }}>
+            <motion.div key={i} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }} whileHover={{ scale: 1.02 }} className="relative aspect-video rounded-2xl overflow-hidden cursor-pointer group bg-[hsl(260,30%,8%)]">
+              <img src={workImages[i]} alt={w.title} loading="lazy" width={1280} height={720} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[hsl(260,30%,5%)] via-[hsl(260,30%,5%)]/40 to-transparent" />
               <div className="absolute inset-0 flex flex-col justify-end p-8">
                 <span className="text-xs text-[hsl(180,100%,60%)] tracking-[0.2em] uppercase mb-1">{w.category}</span>
                 <h4 className="text-2xl font-bold">{w.title}</h4>
