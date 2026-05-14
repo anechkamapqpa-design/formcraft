@@ -112,6 +112,27 @@ export default function Home() {
             </div>
           )}
         </section>
+        <section id="how-it-works" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 sm:py-32">
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-16">
+            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4">{t.howItWorks.title}</h2>
+            <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto">{t.howItWorks.subtitle}</p>
+          </motion.div>
+          <div className="grid md:grid-cols-3 gap-8 md:gap-12">
+            {t.howItWorks.steps.map((step, i) => (
+              <motion.div key={i} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.15 }} className="relative">
+                <div className="text-5xl sm:text-6xl font-black text-primary/10 mb-4">{step.num}</div>
+                <h3 className="font-display text-xl sm:text-2xl font-bold text-foreground mb-3">{step.title}</h3>
+                <p className="text-muted-foreground leading-relaxed">{step.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.4 }} className="mt-16 text-center">
+            <p className="text-sm text-muted-foreground mb-6">{t.howItWorks.pricing}</p>
+            <Button size="lg" className="rounded-xl" onClick={() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })}>
+              {t.howItWorks.cta}<ArrowRight className="w-4 h-4 ml-2" />
+            </Button>
+          </motion.div>
+        </section>
       </main>
       <AnnaFooter />
     </div>
