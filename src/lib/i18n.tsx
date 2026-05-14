@@ -131,6 +131,17 @@ const translations = {
       "Voxel3D": { title: "Voxel3D", description: "A futuristic 3D product landing page with interactive scenes and immersive visuals." },
       "StoryBrand": { title: "StoryBrand", description: "A cinematic storytelling template for fashion, lifestyle and luxury brands with immersive scroll." },
     } as Record<string, { title: string; description: string }>,
+    howItWorks: {
+      title: "How It Works",
+      subtitle: "You choose the style. I build the page.",
+      steps: [
+        { num: "1", title: "Pick a template", desc: "Browse the collection and find the look that fits your brand. Not sure? Just describe your business." },
+        { num: "2", title: "I adapt it for you", desc: "I customise the structure, copy, and visuals to match your product, audience, and goal — not just the aesthetics." },
+        { num: "3", title: "You get a ready page", desc: "Clean code, fully responsive, ready to launch. Delivered in 3–7 days." },
+      ] as readonly { num: string; title: string; desc: string }[],
+      pricing: "Pricing from $250 · Rush delivery available",
+      cta: "Start a Project →",
+    },
     demos: {
       luxuryArt: {
         back: "← Back",
@@ -924,6 +935,17 @@ const translations = {
       "Voxel3D": { title: "Voxel3D", description: "Футуристичный 3D-лендинг с интерактивными сценами и иммерсивными визуалами." },
       "StoryBrand": { title: "StoryBrand", description: "Кинематографичный шаблон сторителлинга для fashion-, lifestyle- и luxury-брендов с иммерсивным скроллом." },
     } as Record<string, { title: string; description: string }>,
+    howItWorks: {
+      title: "Как это работает",
+      subtitle: "Ты выбираешь стиль. Я строю страницу.",
+      steps: [
+        { num: "1", title: "Выбери шаблон", desc: "Просмотри коллекцию и найди стиль, который подходит твоему бренду. Не уверен? Просто опиши бизнес." },
+        { num: "2", title: "Я адаптирую под тебя", desc: "Настрою структуру, тексты и визуал под твой продукт, аудиторию и цель — а не только под эстетику." },
+        { num: "3", title: "Получаешь готовую страницу", desc: "Чистый код, адаптивный дизайн, готов к запуску. Срок — 3–7 дней." },
+      ] as readonly { num: string; title: string; desc: string }[],
+      pricing: "Стоимость от 25 000 ₽ · Срочная доставка доступна",
+      cta: "Начать проект →",
+    },
     demos: {
       luxuryArt: {
         back: "← Назад",
