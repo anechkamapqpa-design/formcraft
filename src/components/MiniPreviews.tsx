@@ -545,6 +545,34 @@ export function MiniStoryBrand() {
   );
 }
 
+export function MiniCuriosa() {
+  return (
+    <ScaledPreview>
+      <div className="w-[1280px] h-[800px] relative overflow-hidden" style={{ background: "hsl(158,42%,15%)", color: "hsl(42,46%,90%)" }}>
+        <div className="absolute text-[120px] top-[12%] left-[6%]">🦩</div>
+        <div className="absolute text-[90px] top-[16%] right-[10%]">🌙</div>
+        <div className="absolute text-[80px] bottom-[18%] left-[14%]">🌹</div>
+        <div className="absolute text-[70px] bottom-[24%] right-[16%]">🎻</div>
+        <nav className="absolute top-0 left-0 right-0 flex items-center justify-between px-12 py-6 z-20">
+          <span className="text-sm opacity-70">← Back</span>
+          <span className="text-3xl font-black" style={{ fontFamily: "'Playfair Display', serif" }}>Curi<span style={{ color: "hsl(42,78%,62%)" }}>🔑</span>sa</span>
+          <span className="text-xs font-bold uppercase tracking-widest px-5 py-2.5 rounded-full text-white" style={{ background: "hsl(322,52%,48%)" }}>Reserve a Table</span>
+        </nav>
+        <div className="relative z-10 h-full flex flex-col justify-center px-16">
+          <p className="text-sm uppercase tracking-[0.35em] mb-5" style={{ color: "hsl(42,78%,62%)" }}>An eclectic cultural salon · est. 2019</p>
+          <h1 className="font-black leading-[0.88] tracking-tight text-[9rem]" style={{ fontFamily: "'Playfair Display', serif" }}>
+            A Room<br />Full of<br /><span className="italic" style={{ color: "hsl(42,78%,62%)" }}>Secrets</span>
+          </h1>
+          <div className="mt-8 flex gap-4">
+            <span className="px-7 py-3.5 rounded-full text-sm font-bold text-white" style={{ background: "hsl(322,52%,48%)" }}>Reserve a Table</span>
+            <span className="px-7 py-3.5 rounded-full text-sm font-bold border" style={{ borderColor: "hsl(42,46%,90%,0.4)" }}>See What's On</span>
+          </div>
+        </div>
+      </div>
+    </ScaledPreview>
+  );
+}
+
 export const miniPreviewMap: Record<string, () => JSX.Element> = {
   "Luxury Art": MiniLuxuryArt,
   "SaaS Clean": MiniSaaSClean,
@@ -564,4 +592,5 @@ export const miniPreviewMap: Record<string, () => JSX.Element> = {
   "MonoJournal": MiniMonoJournal,
   "Voxel3D": MiniVoxel3D,
   "StoryBrand": MiniStoryBrand,
+  "Curiosa": MiniCuriosa,
 };

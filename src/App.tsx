@@ -29,6 +29,7 @@ const CommunityGrid = lazy(() => import("./pages/demos/CommunityGrid"));
 const MonoJournal = lazy(() => import("./pages/demos/MonoJournal"));
 const Voxel3D = lazy(() => import("./pages/demos/Voxel3D"));
 const StoryBrand = lazy(() => import("./pages/demos/StoryBrand"));
+const Curiosa = lazy(() => import("./pages/demos/Curiosa"));
 
 const queryClient = new QueryClient();
 
@@ -69,6 +70,7 @@ const langRoutes = (
     <Route path="demo/mono-journal" element={<MonoJournal />} />
     <Route path="demo/voxel-3d" element={<Voxel3D />} />
     <Route path="demo/story-brand" element={<StoryBrand />} />
+    <Route path="demo/curiosa" element={<Curiosa />} />
   </>
 );
 
