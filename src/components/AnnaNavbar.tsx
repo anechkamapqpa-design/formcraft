@@ -9,11 +9,22 @@ import { useLang, useLangPath } from "@/lib/i18n";
 
 export function AnnaNavbar() {
   const [searchOpen, setSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
   const { t } = useLang();
   const lp = useLangPath();
+
+  const handleSearchSubmit = useCallback((e: React.FormEvent) => {
+    e.preventDefault();
+    const q = searchQuery.trim();
+    navigate(lp(q ? `/?q=${encodeURIComponent(q)}` : "/"));
+    setSearchOpen(false);
+    setTimeout(() => {
+      document.getElementById("templates")?.scrollIntoView({ behavior: "smooth" });
+    }, 100);
+  }, [searchQuery, navigate, lp]);
 
   const navLinks = [
     { label: t.nav.templates, href: lp("/#templates"), hash: "templates" },
@@ -76,7 +87,7 @@ export function AnnaNavbar() {
 
               <div className="flex items-center gap-1 sm:gap-2">
                 <LangSwitcher />
-                <Button variant="ghost" size="icon" onClick={() => setSearchOpen(!searchOpen)}>
+                <Button variant="ghost" size="icon" onClick={() => setSearchOpen(!searchOpen)} aria-label={t.nav.searchPlaceholder} aria-expanded={searchOpen}>
                   {searchOpen ? <X className="w-4 h-4" /> : <Search className="w-4 h-4" />}
                 </Button>
                 <Button
@@ -99,17 +110,20 @@ export function AnnaNavbar() {
             <AnimatePresence>
               {searchOpen && (
                 <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.3 }} className="overflow-hidden">
-                  <div className="pt-3 mt-3 border-t border-border/50">
+                  <form className="pt-3 mt-3 border-t border-border/50" onSubmit={handleSearchSubmit} role="search">
                     <div className="relative">
                       <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                       <input
                         type="search"
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
                         placeholder={t.nav.searchPlaceholder}
+                        aria-label={t.nav.searchPlaceholder}
                         className="w-full pl-10 pr-4 py-2.5 bg-secondary/50 rounded-lg text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary/50"
                         autoFocus
                       />
                     </div>
-                  </div>
+                  </form>
                 </motion.div>
               )}
             </AnimatePresence>

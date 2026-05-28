@@ -8,7 +8,7 @@ export default function About() {
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <AnnaNavbar />
-      <main className="flex-1 h-screen flex flex-col justify-center pt-16 sm:pt-20 pb-4">
+      <main className="flex-1 min-h-screen flex flex-col justify-center pt-24 sm:pt-28 pb-12">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
           <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="font-display text-2xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-6 sm:mb-8">{t.about.title}</motion.h1>
           <div className="space-y-3 sm:space-y-4">

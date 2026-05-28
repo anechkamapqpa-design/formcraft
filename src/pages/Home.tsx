@@ -1,8 +1,9 @@
 import { useState, useMemo } from "react";
+import { useSearchParams } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowRight, Sparkles, LayoutGrid } from "lucide-react";
+import { ArrowRight, LayoutGrid, X } from "lucide-react";
 import { templates } from "@/data/templates";
-import { TemplateCard, TemplateCardSkeleton } from "@/components/TemplateCard";
+import { TemplateCard } from "@/components/TemplateCard";
 import { AnnaNavbar } from "@/components/AnnaNavbar";
 import { AnnaFooter } from "@/components/AnnaFooter";
 import { Button } from "@/components/ui/button";
@@ -39,23 +40,44 @@ function MarqueeStrip() {
 
 export default function Home() {
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
+  const [searchParams, setSearchParams] = useSearchParams();
   const { t } = useLang();
 
+  const query = (searchParams.get("q") || "").toLowerCase().trim();
+
   const categories = useMemo(() => {
-    const uniqueCategories = new Set(templates.map((t) => t.category));
+    const uniqueCategories = new Set(templates.map((tpl) => tpl.category));
     return ["All", ...Array.from(uniqueCategories)];
   }, []);
 
   const filteredTemplates = useMemo(() => {
-    if (selectedCategory === "All") return templates;
-    return templates.filter((t) => t.category === selectedCategory);
-  }, [selectedCategory]);
+    let result = templates;
+    if (selectedCategory !== "All") {
+      result = result.filter((tpl) => tpl.category === selectedCategory);
+    }
+    if (query) {
+      result = result.filter((tpl) => {
+        const local = t.templateData[tpl.title as keyof typeof t.templateData];
+        const haystack = [tpl.title, tpl.description, tpl.category, local?.title, local?.description]
+          .filter(Boolean)
+          .join(" ")
+          .toLowerCase();
+        return haystack.includes(query);
+      });
+    }
+    return result;
+  }, [selectedCategory, query, t]);
+
+  const clearAll = () => {
+    setSelectedCategory("All");
+    if (query) setSearchParams({}, { replace: true });
+  };
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <AnnaNavbar />
       <main className="flex-1">
-        <section className="relative h-screen flex flex-col justify-between overflow-x-hidden overflow-y-hidden items-start">
+        <section className="relative min-h-screen flex flex-col justify-between overflow-x-hidden items-start">
           <div className="absolute inset-0 pointer-events-none">
             <div className="absolute top-1/4 left-1/4 w-64 sm:w-96 h-64 sm:h-96 bg-primary/5 rounded-full blur-3xl" />
             <div className="absolute bottom-1/4 right-1/4 w-64 sm:w-96 h-64 sm:h-96 bg-primary/[0.03] rounded-full blur-3xl" />
@@ -94,6 +116,12 @@ export default function Home() {
                 <Button key={category} variant={selectedCategory === category ? "default" : "secondary"} size="sm" onClick={() => setSelectedCategory(category)} className="rounded-lg">{localCat}</Button>
               );
             })}
+            {query && (
+              <Button variant="outline" size="sm" onClick={() => setSearchParams({}, { replace: true })} className="rounded-lg gap-1.5 border-primary/40 text-primary">
+                “{searchParams.get("q")}”
+                <X className="w-3.5 h-3.5" />
+              </Button>
+            )}
           </div>
           {filteredTemplates.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
@@ -108,7 +136,7 @@ export default function Home() {
               </div>
               <h3 className="font-display text-lg sm:text-xl font-semibold text-foreground">{t.collection.noResults}</h3>
               <p className="text-sm text-muted-foreground mt-2">{t.collection.noResultsHint}</p>
-              <Button variant="secondary" size="sm" onClick={() => setSelectedCategory("All")} className="mt-6 rounded-lg">{t.collection.clearFilters}</Button>
+              <Button variant="secondary" size="sm" onClick={clearAll} className="mt-6 rounded-lg">{t.collection.clearFilters}</Button>
             </div>
           )}
         </section>

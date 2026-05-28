@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect, useMemo, type ReactNode } from "react";
 import { useParams, useNavigate, useLocation, Outlet } from "react-router-dom";
+import { getTemplate, demoSlugMap } from "@/data/templates";
 
 export type Lang = "en" | "ru";
 
@@ -20,7 +21,7 @@ const translations = {
       subtitle: "High-converting landing page templates built with precision. Designed to elevate your brand.",
       explore: "Explore Templates",
       viewShowcase: "View Showcase",
-      templateCount: "18 Templates",
+      templateCount: "19 Templates",
       responsive: "Fully Responsive",
       updates: "Free Updates",
     },
@@ -78,6 +79,10 @@ const translations = {
         description: "Short Description",
         descriptionPlaceholder: "Tell me about your project...",
         submit: "Start a Project",
+        errorRequired: "Please fill in your name and contact",
+        errorContact: "Enter a valid email or Telegram handle",
+        success: "Request sent! I'll get back to you within 24 hours.",
+        errorSubmit: "Failed to send. Please try again later.",
       },
       contacts: {
         telegram: "Telegram",
@@ -130,6 +135,7 @@ const translations = {
       "MonoJournal": { title: "MonoJournal", description: "A minimalist editorial magazine template with bold typography, editorial grids and content-first design." },
       "Voxel3D": { title: "Voxel3D", description: "A futuristic 3D product landing page with interactive scenes and immersive visuals." },
       "StoryBrand": { title: "StoryBrand", description: "A cinematic storytelling template for fashion, lifestyle and luxury brands with immersive scroll." },
+      "Curiosa": { title: "Curiosa", description: "A playful retro-collage template for cafés, cultural clubs and creative community spaces." },
     } as Record<string, { title: string; description: string }>,
     howItWorks: {
       title: "How It Works",
@@ -806,6 +812,61 @@ const translations = {
         shopBtn: "Visit the Shop",
         footer: "© 2026 StoryBrand. All rights reserved.",
       },
+      curiosa: {
+        back: "← Back",
+        reserve: "Reserve a Table",
+        navLinks: ["Café", "Events", "Library", "Menu"] as readonly string[],
+        marquee: ["Coffee & Curiosities", "Live Music", "Book Club", "Film Nights", "Lectures", "Tea Ceremonies", "Vinyl Sessions", "Late Talks"] as readonly string[],
+        heroKicker: "An eclectic cultural salon · est. 2019",
+        heroTitle1: "A Room",
+        heroTitle2: "Full of",
+        heroTitle3: "Secrets",
+        heroSubtitle: "Part café, part library, part theatre of the absurd. A place to think out loud, drink something warm, and stay a little too long.",
+        heroBtn: "Reserve a Table",
+        heroBtn2: "See What's On",
+        welcomeLabel: "Welcome",
+        welcomeTitle: "Come in, the kettle's on.",
+        welcomeText: "We collect curious people the way others collect stamps. Pull up a velvet chair — the conversation is already in progress.",
+        conceptLabel: "The Idea",
+        conceptTitle: "Not a café.\nA state of mind.",
+        conceptText: "Curiosa is a space for the kind of conversations you can't have anywhere else — unhurried, a little strange, and entirely yours.",
+        conceptPoints: [
+          { emoji: "🔑", title: "Open Doors", desc: "No password required — just curiosity and a free evening." },
+          { emoji: "🌙", title: "Late Hours", desc: "The best ideas arrive after 10pm. We stay open for them." },
+          { emoji: "🎭", title: "Quiet Theatre", desc: "Lectures, readings and the occasional unannounced performance." },
+        ] as readonly { emoji: string; title: string; desc: string }[],
+        spacesLabel: "The Rooms",
+        spacesTitle: "Four Rooms, One Secret",
+        spaces: [
+          { emoji: "☕", title: "The Café", desc: "Single-origin coffee, strange teas, and cake that ruins diets." },
+          { emoji: "📚", title: "The Library", desc: "Borrow a book, leave a thought. Mostly fiction, occasionally dangerous." },
+          { emoji: "🎻", title: "The Salon", desc: "Concerts, vinyl nights and conversations that run long." },
+          { emoji: "🚪", title: "The Secret Room", desc: "You'll find it when you're meant to. Ask the flamingo." },
+        ] as readonly { emoji: string; title: string; desc: string }[],
+        eventsLabel: "What's On",
+        eventsTitle: "This Week at Curiosa",
+        events: [
+          { date: "Thu · 19:00", title: "Vinyl & Vermouth", type: "Music" },
+          { date: "Fri · 20:00", title: "How to Be Wrong Beautifully", type: "Lecture" },
+          { date: "Sun · 17:00", title: "The Unreliable Book Club", type: "Reading" },
+        ] as readonly { date: string; title: string; type: string }[],
+        menuLabel: "The Menu",
+        menuTitle: "Small Things, Big Comfort",
+        menuText: "Everything is made in-house, including the opinions.",
+        menuItems: [
+          { name: "Velvet Cocoa", price: "$5" },
+          { name: "Secret Garden Tea", price: "$4" },
+          { name: "Misbehaving Cheesecake", price: "$7" },
+          { name: "The Usual (ask the barista)", price: "$6" },
+        ] as readonly { name: string; price: string }[],
+        ctaTitle: "Your table\nis waiting.",
+        ctaText: "Reserve a corner, bring a friend or come alone — the room fills the gaps.",
+        ctaBtn: "Reserve a Table",
+        contactLabel: "Find Us",
+        address: "14 Lamplight Lane, Old Town",
+        hours: "Tue–Sun · 11:00 – late",
+        footer: "© 2026 Curiosa. All curiosities reserved.",
+      },
     },
   },
   ru: {
@@ -824,7 +885,7 @@ const translations = {
       subtitle: "Высококонверсионные шаблоны лендингов, созданные с точностью. Разработаны для продвижения вашего бренда.",
       explore: "Смотреть шаблоны",
       viewShowcase: "Витрина работ",
-      templateCount: "18 шаблонов",
+      templateCount: "19 шаблонов",
       responsive: "Адаптивный дизайн",
       updates: "Бесплатные обновления",
     },
@@ -882,6 +943,10 @@ const translations = {
         description: "Краткое описание",
         descriptionPlaceholder: "Расскажите о вашем проекте...",
         submit: "Начать проект",
+        errorRequired: "Заполните имя и контакт",
+        errorContact: "Введите корректный email или Telegram",
+        success: "Заявка отправлена! Отвечу в течение 24 часов.",
+        errorSubmit: "Ошибка отправки. Попробуйте позже.",
       },
       contacts: {
         telegram: "Telegram",
@@ -934,6 +999,7 @@ const translations = {
       "MonoJournal": { title: "MonoJournal", description: "Минималистичный журнальный шаблон с крупной типографикой, редакционной сеткой и фокусом на контент." },
       "Voxel3D": { title: "Voxel3D", description: "Футуристичный 3D-лендинг с интерактивными сценами и иммерсивными визуалами." },
       "StoryBrand": { title: "StoryBrand", description: "Кинематографичный шаблон сторителлинга для fashion-, lifestyle- и luxury-брендов с иммерсивным скроллом." },
+      "Curiosa": { title: "Curiosa", description: "Игривый ретро-коллажный шаблон для кафе, культурных клубов и креативных пространств." },
     } as Record<string, { title: string; description: string }>,
     howItWorks: {
       title: "Как это работает",
@@ -1610,6 +1676,61 @@ const translations = {
         shopBtn: "Посетить магазин",
         footer: "© 2026 StoryBrand. Все права защищены.",
       },
+      curiosa: {
+        back: "← Назад",
+        reserve: "Забронировать стол",
+        navLinks: ["Кафе", "События", "Библиотека", "Меню"] as readonly string[],
+        marquee: ["Кофе и диковины", "Живая музыка", "Книжный клуб", "Киновечера", "Лекции", "Чайные церемонии", "Винил по вечерам", "Поздние разговоры"] as readonly string[],
+        heroKicker: "Эклектичный культурный салон · с 2019",
+        heroTitle1: "Комната,",
+        heroTitle2: "полная",
+        heroTitle3: "секретов",
+        heroSubtitle: "Немного кафе, немного библиотека, немного театр абсурда. Место, где думают вслух, пьют что-то тёплое и засиживаются чуть дольше нужного.",
+        heroBtn: "Забронировать стол",
+        heroBtn2: "Афиша событий",
+        welcomeLabel: "Добро пожаловать",
+        welcomeTitle: "Заходите, чайник уже закипает.",
+        welcomeText: "Мы коллекционируем любопытных людей так, как другие коллекционируют марки. Садитесь в бархатное кресло — разговор уже идёт.",
+        conceptLabel: "Идея",
+        conceptTitle: "Не кафе.\nА состояние.",
+        conceptText: "Curiosa — пространство для разговоров, которые больше негде вести: неспешных, немного странных и целиком ваших.",
+        conceptPoints: [
+          { emoji: "🔑", title: "Открытые двери", desc: "Пароль не нужен — только любопытство и свободный вечер." },
+          { emoji: "🌙", title: "Поздние часы", desc: "Лучшие идеи приходят после десяти. Мы открыты ради них." },
+          { emoji: "🎭", title: "Тихий театр", desc: "Лекции, чтения и редкие незапланированные представления." },
+        ] as readonly { emoji: string; title: string; desc: string }[],
+        spacesLabel: "Комнаты",
+        spacesTitle: "Четыре комнаты, один секрет",
+        spaces: [
+          { emoji: "☕", title: "Кафе", desc: "Кофе одного происхождения, странные чаи и десерты, рушащие любые диеты." },
+          { emoji: "📚", title: "Библиотека", desc: "Возьмите книгу, оставьте мысль. В основном проза, иногда опасная." },
+          { emoji: "🎻", title: "Салон", desc: "Концерты, винил по вечерам и разговоры, что тянутся допоздна." },
+          { emoji: "🚪", title: "Секретная комната", desc: "Вы найдёте её, когда придёт время. Спросите у фламинго." },
+        ] as readonly { emoji: string; title: string; desc: string }[],
+        eventsLabel: "Афиша",
+        eventsTitle: "На этой неделе в Curiosa",
+        events: [
+          { date: "Чт · 19:00", title: "Винил и вермут", type: "Музыка" },
+          { date: "Пт · 20:00", title: "Как красиво ошибаться", type: "Лекция" },
+          { date: "Вс · 17:00", title: "Ненадёжный книжный клуб", type: "Чтения" },
+        ] as readonly { date: string; title: string; type: string }[],
+        menuLabel: "Меню",
+        menuTitle: "Маленькие радости, большой уют",
+        menuText: "Всё готовится у нас — включая мнения.",
+        menuItems: [
+          { name: "Бархатное какао", price: "350 ₽" },
+          { name: "Чай «Тайный сад»", price: "300 ₽" },
+          { name: "Хулиганский чизкейк", price: "450 ₽" },
+          { name: "Как обычно (спросите бариста)", price: "400 ₽" },
+        ] as readonly { name: string; price: string }[],
+        ctaTitle: "Ваш стол\nуже ждёт.",
+        ctaText: "Займите уголок, приходите с другом или в одиночку — комната заполнит паузы.",
+        ctaBtn: "Забронировать стол",
+        contactLabel: "Как нас найти",
+        address: "Фонарный переулок, 14, Старый город",
+        hours: "Вт–Вс · 11:00 – до последнего гостя",
+        footer: "© 2026 Curiosa. Все диковины защищены.",
+      },
     },
   },
 } as const;
@@ -1663,68 +1784,87 @@ function LangProviderInner({ lang }: { lang: Lang }) {
   );
 }
 
+const reverseDemoMap: Record<string, string> = Object.fromEntries(
+  Object.entries(demoSlugMap).map(([name, slug]) => [slug, name])
+);
+
+function getPageMeta(lang: Lang, path: string): { title: string; description: string } {
+  const tr = translations[lang];
+  const ru = lang === "ru";
+
+  // Home (default)
+  let title = ru
+    ? "Formcraft — лендинги под ключ: дизайн и разработка"
+    : "Formcraft — Custom Landing Page Design & Development";
+  let description = ru
+    ? "Создаём высококонверсионные лендинги под ключ на основе премиум-шаблонов. Дизайн, адаптивная вёрстка и запуск за 3–7 дней."
+    : "High-converting landing pages designed and built for you from premium templates. Custom design, responsive code, launched in 3–7 days.";
+
+  const tplMatch = path.match(/^\/template\/(\d+)/);
+
+  if (path === "/about") {
+    title = `${tr.about.title} — Formcraft`;
+    description = ru
+      ? "О проекте Formcraft: лендинг как система конверсии — сначала логика и структура, затем визуальное направление."
+      : "About Formcraft: landing pages built as conversion systems — logic and structure first, visual direction second.";
+  } else if (tplMatch) {
+    const tpl = getTemplate(Number(tplMatch[1]));
+    if (tpl) {
+      const local = tr.templateData[tpl.title as keyof typeof tr.templateData];
+      const name = local?.title || tpl.title;
+      title = `${name} — ${ru ? "шаблон лендинга" : "landing page template"} | Formcraft`;
+      description = local?.description || tpl.description;
+    }
+  } else if (path.startsWith("/demo/")) {
+    const name = reverseDemoMap[path];
+    if (name) {
+      title = `${name} — ${ru ? "живое демо шаблона" : "live template demo"} | Formcraft`;
+      description = ru
+        ? `Живое демо шаблона ${name}. Посмотрите, как выглядит готовый лендинг Formcraft в действии.`
+        : `Live demo of the ${name} template — see a finished Formcraft landing page in action.`;
+    }
+  }
+
+  return { title, description };
+}
+
 function SEOHead({ lang }: { lang: Lang }) {
   const location = useLocation();
   const pathWithoutLang = location.pathname.replace(/^\/(en|ru)/, "") || "/";
   const baseUrl = "https://www.formcraft.tech";
 
   useEffect(() => {
+    const { title, description } = getPageMeta(lang, pathWithoutLang);
+
     // Title
-    document.title = lang === "ru"
-      ? "Formcraft | Конструктор лендингов и форм захвата лидов"
-      : "Formcraft | No-Code Landing Page Builder & Lead Capture Forms";
+    document.title = title;
 
     // Meta description
-    let metaDesc = document.querySelector('meta[name="description"]');
-    if (metaDesc) {
-      metaDesc.setAttribute("content", lang === "ru"
-        ? "Создавайте профессиональные лендинги и формы захвата лидов. Formcraft помогает бизнесу запускать маркетинговые страницы и собирать данные клиентов."
-        : "Build powerful landing pages and capture leads effortlessly. Formcraft helps businesses launch marketing pages, collect customer data and grow faster."
-      );
-    }
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) metaDesc.setAttribute("content", description);
 
     // OG title
-    let ogTitle = document.querySelector('meta[property="og:title"]');
-    if (ogTitle) {
-      ogTitle.setAttribute("content", lang === "ru"
-        ? "Formcraft | Конструктор лендингов и форм захвата лидов"
-        : "Formcraft | No-Code Landing Page Builder & Lead Capture Forms"
-      );
-    }
+    const ogTitle = document.querySelector('meta[property="og:title"]');
+    if (ogTitle) ogTitle.setAttribute("content", title);
 
     // OG description
-    let ogDesc = document.querySelector('meta[property="og:description"]');
-    if (ogDesc) {
-      ogDesc.setAttribute("content", lang === "ru"
-        ? "Создавайте профессиональные лендинги и умные формы с Formcraft. Запускайте маркетинговые страницы, собирайте лиды и автоматизируйте процессы за минуты."
-        : "Create professional landing pages and smart forms with Formcraft. Launch marketing pages, collect leads and automate customer workflows in minutes."
-      );
-    }
+    const ogDesc = document.querySelector('meta[property="og:description"]');
+    if (ogDesc) ogDesc.setAttribute("content", description);
 
     // OG URL
-    let ogUrl = document.querySelector('meta[property="og:url"]');
+    const ogUrl = document.querySelector('meta[property="og:url"]');
     if (ogUrl) {
       ogUrl.setAttribute("content", `${baseUrl}/${lang}${pathWithoutLang}`);
     }
 
     // Twitter title & description
-    let twTitle = document.querySelector('meta[name="twitter:title"]');
-    if (twTitle) {
-      twTitle.setAttribute("content", lang === "ru"
-        ? "Formcraft | Конструктор лендингов и форм захвата лидов"
-        : "Formcraft | No-Code Landing Page Builder & Lead Capture Forms"
-      );
-    }
-    let twDesc = document.querySelector('meta[name="twitter:description"]');
-    if (twDesc) {
-      twDesc.setAttribute("content", lang === "ru"
-        ? "Создавайте лендинги и собирайте лиды с Formcraft. Простая no-code платформа для маркетинга и лидогенерации."
-        : "Build landing pages and capture leads with Formcraft. A simple no-code platform for marketing and lead generation."
-      );
-    }
+    const twTitle = document.querySelector('meta[name="twitter:title"]');
+    if (twTitle) twTitle.setAttribute("content", title);
+    const twDesc = document.querySelector('meta[name="twitter:description"]');
+    if (twDesc) twDesc.setAttribute("content", description);
 
     // Canonical
-    let canonical = document.querySelector('link[rel="canonical"]');
+    const canonical = document.querySelector('link[rel="canonical"]');
     if (canonical) {
       canonical.setAttribute("href", `${baseUrl}/${lang}${pathWithoutLang}`);
     }

@@ -32,14 +32,26 @@ export function AnnaFooter() {
     { icon: Mail, label: t.footer.contacts.email, desc: t.footer.contacts.emailDesc, href: "mailto:launch.flow@yandex.ru", color: "group-hover:text-primary", glow: "group-hover:shadow-[0_0_20px_hsl(150,60%,50%,0.1)]" },
   ];
 
+  const isValidContact = (value: string) => {
+    const v = value.trim();
+    const email = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const telegramHandle = /^@?[a-zA-Z0-9_]{4,}$/;
+    const telegramLink = /(t\.me\/|telegram\.me\/)[a-zA-Z0-9_]{4,}/i;
+    return email.test(v) || telegramHandle.test(v) || telegramLink.test(v);
+  };
+
   const handleSubmit = async () => {
     if (!name.trim() || !contact.trim()) {
-      toast.error("Заполните имя и контакт");
+      toast.error(t.footer.form.errorRequired);
+      return;
+    }
+    if (!isValidContact(contact)) {
+      toast.error(t.footer.form.errorContact);
       return;
     }
     setIsSubmitting(true);
     try {
-      const { data, error } = await supabase.functions.invoke("send-contact-form", {
+      const { error } = await supabase.functions.invoke("send-contact-form", {
         body: {
           name: name.trim(),
           contact: contact.trim(),
@@ -49,7 +61,7 @@ export function AnnaFooter() {
         },
       });
       if (error) throw error;
-      toast.success("Заявка отправлена!");
+      toast.success(t.footer.form.success);
       setName("");
       setContact("");
       setDescription("");
@@ -57,7 +69,7 @@ export function AnnaFooter() {
       setSelectedTimeline(0);
     } catch (err) {
       console.error(err);
-      toast.error("Ошибка отправки. Попробуйте позже.");
+      toast.error(t.footer.form.errorSubmit);
     } finally {
       setIsSubmitting(false);
     }
@@ -80,12 +92,12 @@ export function AnnaFooter() {
             <div className="space-y-3.5">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                 <div>
-                  <label className="block text-[11px] font-medium text-muted-foreground uppercase tracking-wider mb-1.5">{t.footer.form.name}</label>
-                  <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder={t.footer.form.namePlaceholder} className="w-full px-3 py-2.5 bg-background/60 border border-border/50 rounded-lg text-sm text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:border-primary/50 transition-colors" />
+                  <label htmlFor="contact-name" className="block text-[11px] font-medium text-muted-foreground uppercase tracking-wider mb-1.5">{t.footer.form.name}</label>
+                  <input id="contact-name" type="text" autoComplete="name" value={name} onChange={(e) => setName(e.target.value)} placeholder={t.footer.form.namePlaceholder} className="w-full px-3 py-2.5 bg-background/60 border border-border/50 rounded-lg text-sm text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:border-primary/50 transition-colors" />
                 </div>
                 <div>
-                  <label className="block text-[11px] font-medium text-muted-foreground uppercase tracking-wider mb-1.5">{t.footer.form.contact}</label>
-                  <input type="text" value={contact} onChange={(e) => setContact(e.target.value)} placeholder={t.footer.form.contactPlaceholder} className="w-full px-3 py-2.5 bg-background/60 border border-border/50 rounded-lg text-sm text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:border-primary/50 transition-colors" />
+                  <label htmlFor="contact-handle" className="block text-[11px] font-medium text-muted-foreground uppercase tracking-wider mb-1.5">{t.footer.form.contact}</label>
+                  <input id="contact-handle" type="text" value={contact} onChange={(e) => setContact(e.target.value)} placeholder={t.footer.form.contactPlaceholder} className="w-full px-3 py-2.5 bg-background/60 border border-border/50 rounded-lg text-sm text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:border-primary/50 transition-colors" />
                 </div>
               </div>
 
@@ -108,8 +120,8 @@ export function AnnaFooter() {
               </div>
 
               <div>
-                <label className="block text-[11px] font-medium text-muted-foreground uppercase tracking-wider mb-1.5">{t.footer.form.description}</label>
-                <textarea rows={2} value={description} onChange={(e) => setDescription(e.target.value)} placeholder={t.footer.form.descriptionPlaceholder} className="w-full px-3 py-2.5 bg-background/60 border border-border/50 rounded-lg text-sm text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:border-primary/50 transition-colors resize-none" />
+                <label htmlFor="contact-description" className="block text-[11px] font-medium text-muted-foreground uppercase tracking-wider mb-1.5">{t.footer.form.description}</label>
+                <textarea id="contact-description" rows={2} value={description} onChange={(e) => setDescription(e.target.value)} placeholder={t.footer.form.descriptionPlaceholder} className="w-full px-3 py-2.5 bg-background/60 border border-border/50 rounded-lg text-sm text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:border-primary/50 transition-colors resize-none" />
               </div>
 
               <Button className="w-full py-5 text-sm font-semibold" onClick={handleSubmit} disabled={isSubmitting}>
