@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect, useMemo, type ReactNode } from "react";
 import { useParams, useNavigate, useLocation, Outlet } from "react-router-dom";
+import { getTemplate, demoSlugMap } from "@/data/templates";
 
 export type Lang = "en" | "ru";
 
@@ -78,6 +79,10 @@ const translations = {
         description: "Short Description",
         descriptionPlaceholder: "Tell me about your project...",
         submit: "Start a Project",
+        errorRequired: "Please fill in your name and contact",
+        errorContact: "Enter a valid email or Telegram handle",
+        success: "Request sent! I'll get back to you within 24 hours.",
+        errorSubmit: "Failed to send. Please try again later.",
       },
       contacts: {
         telegram: "Telegram",
@@ -882,6 +887,10 @@ const translations = {
         description: "Краткое описание",
         descriptionPlaceholder: "Расскажите о вашем проекте...",
         submit: "Начать проект",
+        errorRequired: "Заполните имя и контакт",
+        errorContact: "Введите корректный email или Telegram",
+        success: "Заявка отправлена! Отвечу в течение 24 часов.",
+        errorSubmit: "Ошибка отправки. Попробуйте позже.",
       },
       contacts: {
         telegram: "Telegram",
@@ -1663,68 +1672,87 @@ function LangProviderInner({ lang }: { lang: Lang }) {
   );
 }
 
+const reverseDemoMap: Record<string, string> = Object.fromEntries(
+  Object.entries(demoSlugMap).map(([name, slug]) => [slug, name])
+);
+
+function getPageMeta(lang: Lang, path: string): { title: string; description: string } {
+  const tr = translations[lang];
+  const ru = lang === "ru";
+
+  // Home (default)
+  let title = ru
+    ? "Formcraft — лендинги под ключ: дизайн и разработка"
+    : "Formcraft — Custom Landing Page Design & Development";
+  let description = ru
+    ? "Создаём высококонверсионные лендинги под ключ на основе премиум-шаблонов. Дизайн, адаптивная вёрстка и запуск за 3–7 дней."
+    : "High-converting landing pages designed and built for you from premium templates. Custom design, responsive code, launched in 3–7 days.";
+
+  const tplMatch = path.match(/^\/template\/(\d+)/);
+
+  if (path === "/about") {
+    title = `${tr.about.title} — Formcraft`;
+    description = ru
+      ? "О проекте Formcraft: лендинг как система конверсии — сначала логика и структура, затем визуальное направление."
+      : "About Formcraft: landing pages built as conversion systems — logic and structure first, visual direction second.";
+  } else if (tplMatch) {
+    const tpl = getTemplate(Number(tplMatch[1]));
+    if (tpl) {
+      const local = tr.templateData[tpl.title as keyof typeof tr.templateData];
+      const name = local?.title || tpl.title;
+      title = `${name} — ${ru ? "шаблон лендинга" : "landing page template"} | Formcraft`;
+      description = local?.description || tpl.description;
+    }
+  } else if (path.startsWith("/demo/")) {
+    const name = reverseDemoMap[path];
+    if (name) {
+      title = `${name} — ${ru ? "живое демо шаблона" : "live template demo"} | Formcraft`;
+      description = ru
+        ? `Живое демо шаблона ${name}. Посмотрите, как выглядит готовый лендинг Formcraft в действии.`
+        : `Live demo of the ${name} template — see a finished Formcraft landing page in action.`;
+    }
+  }
+
+  return { title, description };
+}
+
 function SEOHead({ lang }: { lang: Lang }) {
   const location = useLocation();
   const pathWithoutLang = location.pathname.replace(/^\/(en|ru)/, "") || "/";
   const baseUrl = "https://www.formcraft.tech";
 
   useEffect(() => {
+    const { title, description } = getPageMeta(lang, pathWithoutLang);
+
     // Title
-    document.title = lang === "ru"
-      ? "Formcraft | Конструктор лендингов и форм захвата лидов"
-      : "Formcraft | No-Code Landing Page Builder & Lead Capture Forms";
+    document.title = title;
 
     // Meta description
-    let metaDesc = document.querySelector('meta[name="description"]');
-    if (metaDesc) {
-      metaDesc.setAttribute("content", lang === "ru"
-        ? "Создавайте профессиональные лендинги и формы захвата лидов. Formcraft помогает бизнесу запускать маркетинговые страницы и собирать данные клиентов."
-        : "Build powerful landing pages and capture leads effortlessly. Formcraft helps businesses launch marketing pages, collect customer data and grow faster."
-      );
-    }
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) metaDesc.setAttribute("content", description);
 
     // OG title
-    let ogTitle = document.querySelector('meta[property="og:title"]');
-    if (ogTitle) {
-      ogTitle.setAttribute("content", lang === "ru"
-        ? "Formcraft | Конструктор лендингов и форм захвата лидов"
-        : "Formcraft | No-Code Landing Page Builder & Lead Capture Forms"
-      );
-    }
+    const ogTitle = document.querySelector('meta[property="og:title"]');
+    if (ogTitle) ogTitle.setAttribute("content", title);
 
     // OG description
-    let ogDesc = document.querySelector('meta[property="og:description"]');
-    if (ogDesc) {
-      ogDesc.setAttribute("content", lang === "ru"
-        ? "Создавайте профессиональные лендинги и умные формы с Formcraft. Запускайте маркетинговые страницы, собирайте лиды и автоматизируйте процессы за минуты."
-        : "Create professional landing pages and smart forms with Formcraft. Launch marketing pages, collect leads and automate customer workflows in minutes."
-      );
-    }
+    const ogDesc = document.querySelector('meta[property="og:description"]');
+    if (ogDesc) ogDesc.setAttribute("content", description);
 
     // OG URL
-    let ogUrl = document.querySelector('meta[property="og:url"]');
+    const ogUrl = document.querySelector('meta[property="og:url"]');
     if (ogUrl) {
       ogUrl.setAttribute("content", `${baseUrl}/${lang}${pathWithoutLang}`);
     }
 
     // Twitter title & description
-    let twTitle = document.querySelector('meta[name="twitter:title"]');
-    if (twTitle) {
-      twTitle.setAttribute("content", lang === "ru"
-        ? "Formcraft | Конструктор лендингов и форм захвата лидов"
-        : "Formcraft | No-Code Landing Page Builder & Lead Capture Forms"
-      );
-    }
-    let twDesc = document.querySelector('meta[name="twitter:description"]');
-    if (twDesc) {
-      twDesc.setAttribute("content", lang === "ru"
-        ? "Создавайте лендинги и собирайте лиды с Formcraft. Простая no-code платформа для маркетинга и лидогенерации."
-        : "Build landing pages and capture leads with Formcraft. A simple no-code platform for marketing and lead generation."
-      );
-    }
+    const twTitle = document.querySelector('meta[name="twitter:title"]');
+    if (twTitle) twTitle.setAttribute("content", title);
+    const twDesc = document.querySelector('meta[name="twitter:description"]');
+    if (twDesc) twDesc.setAttribute("content", description);
 
     // Canonical
-    let canonical = document.querySelector('link[rel="canonical"]');
+    const canonical = document.querySelector('link[rel="canonical"]');
     if (canonical) {
       canonical.setAttribute("href", `${baseUrl}/${lang}${pathWithoutLang}`);
     }
