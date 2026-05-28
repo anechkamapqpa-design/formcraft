@@ -573,6 +573,39 @@ export function MiniCuriosa() {
   );
 }
 
+export function MiniArchive() {
+  return (
+    <ScaledPreview>
+      <div className="w-[1280px] h-[800px] relative overflow-hidden" style={{ background: "hsl(36,12%,7%)", color: "hsl(40,30%,84%)" }}>
+        {/* scanlines */}
+        <div className="absolute inset-0 z-30 opacity-50 pointer-events-none" style={{ backgroundImage: "repeating-linear-gradient(to bottom, transparent 0px, transparent 3px, rgba(0,0,0,0.18) 4px, transparent 6px)" }} />
+        {/* scattered polaroids */}
+        <div className="absolute left-[8%] top-[20%] w-[230px] -rotate-12 bg-[hsl(40,30%,90%)] p-3 pb-12 shadow-2xl z-10">
+          <img src="/images/demos/archive-1.jpg" alt="" className="w-full aspect-[4/5] object-cover" />
+          <span className="absolute bottom-3 left-4 text-[hsl(36,18%,28%)]" style={{ fontFamily: "'Caveat',cursive", fontSize: 28 }}>Rome</span>
+        </div>
+        <div className="absolute right-[9%] top-[24%] w-[210px] rotate-[9deg] bg-[hsl(40,30%,90%)] p-3 pb-12 shadow-2xl z-10">
+          <img src="/images/demos/archive-4.jpg" alt="" className="w-full aspect-[4/5] object-cover" />
+          <span className="absolute bottom-3 left-4 text-[hsl(36,18%,28%)]" style={{ fontFamily: "'Caveat',cursive", fontSize: 28 }}>Lisboa</span>
+        </div>
+        <nav className="absolute top-0 left-0 right-0 flex items-center justify-between px-12 py-6 z-20 font-mono text-sm tracking-[0.3em] uppercase">
+          <span className="opacity-70">← Leave</span>
+          <span>ARCHIVE<span className="opacity-50 lowercase" style={{ fontFamily: "'Caveat',cursive" }}> of memories</span></span>
+          <span className="flex items-center gap-2"><span className="w-2.5 h-2.5 rounded-full" style={{ background: "hsl(0,80%,58%)" }} />REC</span>
+        </nav>
+        <div className="relative z-20 h-full flex flex-col items-center justify-center text-center">
+          <p className="font-mono text-xs uppercase tracking-[0.4em] mb-6" style={{ color: "hsl(40,8%,52%)" }}>Found footage · origin unknown</p>
+          <h1 className="font-black leading-[0.82] tracking-tight text-[9rem]" style={{ fontFamily: "'Playfair Display', serif" }}>
+            Archive<br /><span className="italic font-normal" style={{ color: "hsl(40,8%,52%)" }}>of</span><br />
+            <span style={{ textShadow: "3px 0 hsl(320,90%,60%), -3px 0 hsl(190,90%,60%)" }}>Memories</span>
+          </h1>
+          <span className="mt-8 inline-flex items-center gap-3 px-8 py-4 rounded-full font-mono text-sm uppercase tracking-widest" style={{ background: "hsl(36,72%,60%)", color: "hsl(36,12%,7%)" }}>▶ Open a Memory</span>
+        </div>
+      </div>
+    </ScaledPreview>
+  );
+}
+
 export const miniPreviewMap: Record<string, () => JSX.Element> = {
   "Luxury Art": MiniLuxuryArt,
   "SaaS Clean": MiniSaaSClean,
@@ -593,4 +626,5 @@ export const miniPreviewMap: Record<string, () => JSX.Element> = {
   "Voxel3D": MiniVoxel3D,
   "StoryBrand": MiniStoryBrand,
   "Curiosa": MiniCuriosa,
+  "Archive of Memories": MiniArchive,
 };
