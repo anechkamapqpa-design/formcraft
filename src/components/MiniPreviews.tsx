@@ -573,6 +573,70 @@ export function MiniCuriosa() {
   );
 }
 
+export function MiniArchive() {
+  return (
+    <ScaledPreview>
+      <div className="w-[1280px] h-[800px] relative overflow-hidden" style={{ background: "hsl(36,12%,7%)", color: "hsl(40,30%,84%)" }}>
+        {/* scanlines */}
+        <div className="absolute inset-0 z-30 opacity-50 pointer-events-none" style={{ backgroundImage: "repeating-linear-gradient(to bottom, transparent 0px, transparent 3px, rgba(0,0,0,0.18) 4px, transparent 6px)" }} />
+        {/* scattered polaroids */}
+        <div className="absolute left-[8%] top-[20%] w-[230px] -rotate-12 bg-[hsl(40,30%,90%)] p-3 pb-12 shadow-2xl z-10">
+          <img src="/images/demos/archive-1.jpg" alt="" className="w-full aspect-[4/5] object-cover" />
+          <span className="absolute bottom-3 left-4 text-[hsl(36,18%,28%)]" style={{ fontFamily: "'Caveat',cursive", fontSize: 28 }}>Rome</span>
+        </div>
+        <div className="absolute right-[9%] top-[24%] w-[210px] rotate-[9deg] bg-[hsl(40,30%,90%)] p-3 pb-12 shadow-2xl z-10">
+          <img src="/images/demos/archive-4.jpg" alt="" className="w-full aspect-[4/5] object-cover" />
+          <span className="absolute bottom-3 left-4 text-[hsl(36,18%,28%)]" style={{ fontFamily: "'Caveat',cursive", fontSize: 28 }}>Lisboa</span>
+        </div>
+        <nav className="absolute top-0 left-0 right-0 flex items-center justify-between px-12 py-6 z-20 font-mono text-sm tracking-[0.3em] uppercase">
+          <span className="opacity-70">← Leave</span>
+          <span>ARCHIVE<span className="opacity-50 lowercase" style={{ fontFamily: "'Caveat',cursive" }}> of memories</span></span>
+          <span className="flex items-center gap-2"><span className="w-2.5 h-2.5 rounded-full" style={{ background: "hsl(0,80%,58%)" }} />REC</span>
+        </nav>
+        <div className="relative z-20 h-full flex flex-col items-center justify-center text-center">
+          <p className="font-mono text-xs uppercase tracking-[0.4em] mb-6" style={{ color: "hsl(40,8%,52%)" }}>Found footage · origin unknown</p>
+          <h1 className="font-black leading-[0.82] tracking-tight text-[9rem]" style={{ fontFamily: "'Playfair Display', serif" }}>
+            Archive<br /><span className="italic font-normal" style={{ color: "hsl(40,8%,52%)" }}>of</span><br />
+            <span style={{ textShadow: "3px 0 hsl(320,90%,60%), -3px 0 hsl(190,90%,60%)" }}>Memories</span>
+          </h1>
+          <span className="mt-8 inline-flex items-center gap-3 px-8 py-4 rounded-full font-mono text-sm uppercase tracking-widest" style={{ background: "hsl(36,72%,60%)", color: "hsl(36,12%,7%)" }}>▶ Open a Memory</span>
+        </div>
+      </div>
+    </ScaledPreview>
+  );
+}
+
+export function MiniLumiere() {
+  const sticker: React.CSSProperties = { fontFamily: "'Anton', sans-serif" };
+  const navColors = ["#ECA9B2", "#86C8BD", "#F4EEDD", "#E8857C", "#86C8BD"];
+  return (
+    <ScaledPreview>
+      <div className="w-[1280px] h-[800px] relative overflow-hidden" style={{ background: "#F4EEDD", color: "#1B1A17" }}>
+        {/* segmented nav */}
+        <div className="absolute top-0 left-0 right-0 flex items-stretch h-[70px] border-b-2 border-[#1B1A17] text-sm font-bold uppercase tracking-wider z-20">
+          <div className="flex flex-col justify-center px-6 bg-[#F4EEDD] border-r-2 border-[#1B1A17]"><span className="text-2xl leading-none" style={sticker}>LUMIÈRE</span><span className="text-[9px] tracking-[0.25em] opacity-70">HOTEL &amp; RESORT</span></div>
+          {["STAY", "EXPERIENCE", "CUISINE", "GALLERY", "CONTACT"].map((n, i) => <span key={n} className="flex-1 flex items-center justify-center border-r-2 border-[#1B1A17]" style={{ background: navColors[i] }}>{n}</span>)}
+          <span className="flex items-center justify-center px-8" style={{ background: "#E8A93C" }}>BOOK NOW</span>
+        </div>
+        {/* hero split */}
+        <div className="absolute top-[70px] left-0 bottom-0 w-[44%] px-12 py-12" style={{ background: "#E8A93C" }}>
+          <p className="text-xs font-bold uppercase tracking-[0.3em] mb-6 opacity-80">The hotel that remembers you</p>
+          <div className="flex flex-col items-start gap-3 text-7xl" style={sticker}>
+            <span className="inline-block bg-white px-4 py-1 -rotate-2 shadow-[4px_5px_0_rgba(0,0,0,0.12)]">STORIES</span>
+            <span className="inline-block bg-white px-4 py-1 rotate-1 shadow-[4px_5px_0_rgba(0,0,0,0.12)]">STAY</span>
+            <span className="inline-block bg-white px-4 py-1 -rotate-1 shadow-[4px_5px_0_rgba(0,0,0,0.12)]">WITH YOU</span>
+          </div>
+          <p className="mt-8 max-w-xs text-base font-bold uppercase leading-relaxed">Not just a hotel. A part of your story.</p>
+          <span className="mt-7 inline-flex items-center gap-2 px-7 py-3 rounded-full text-base font-bold uppercase" style={{ background: "#ECA9B2" }}>Discover Lumière →</span>
+        </div>
+        <div className="absolute top-[70px] right-0 bottom-0 w-[56%]">
+          <img src="/images/demos/lumiere-hero.jpg" alt="" className="w-full h-full object-cover" />
+        </div>
+      </div>
+    </ScaledPreview>
+  );
+}
+
 export const miniPreviewMap: Record<string, () => JSX.Element> = {
   "Luxury Art": MiniLuxuryArt,
   "SaaS Clean": MiniSaaSClean,
@@ -593,4 +657,6 @@ export const miniPreviewMap: Record<string, () => JSX.Element> = {
   "Voxel3D": MiniVoxel3D,
   "StoryBrand": MiniStoryBrand,
   "Curiosa": MiniCuriosa,
+  "Archive of Memories": MiniArchive,
+  "Lumière": MiniLumiere,
 };

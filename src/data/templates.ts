@@ -20,6 +20,8 @@ export const templates: Template[] = [
   { id: 17, title: "Voxel3D", description: "A futuristic 3D product landing page with interactive scenes and immersive visuals.", imageUrl: "/images/voxel3d.png", category: "Product" },
   { id: 18, title: "StoryBrand", description: "A cinematic storytelling template for fashion, lifestyle and luxury brands with immersive scroll.", imageUrl: "/images/storybrand.png", category: "Luxury" },
   { id: 19, title: "Curiosa", description: "A playful retro-collage template for cafés, cultural clubs and creative community spaces.", imageUrl: "/images/curiosa.png", category: "Creative" },
+  { id: 20, title: "Archive of Memories", description: "An art-house, found-footage template — polaroids, VHS overlays and voice messages. Open a stranger's memory instead of buying a tour.", imageUrl: "/images/archive.png", category: "Creative" },
+  { id: 21, title: "Lumière", description: "A cinematic, mood-reactive hotel template that remembers how you browse — glassmorphism, an infinite-lobby scroll and a stay-mood selector that re-themes everything.", imageUrl: "/images/lumiere.png", category: "Luxury" },
   { id: 1, title: "Ecom Drop", description: "A high-conversion landing page tailored for e-commerce dropshipping.", imageUrl: "/images/ecom-drop.png", category: "E-commerce" },
   { id: 2, title: "Experimental Neon", description: "A bold, futuristic landing page for creative agencies and artists.", imageUrl: "/images/experimental-neon.png", category: "Creative" },
   { id: 3, title: "Luxury Art", description: "An elegant, minimalist design perfect for luxury brands and galleries.", imageUrl: "/images/luxury-art.png", category: "Luxury" },
@@ -48,6 +50,8 @@ export const demoSlugMap: Record<string, string> = {
   "Voxel3D": "/demo/voxel-3d",
   "StoryBrand": "/demo/story-brand",
   "Curiosa": "/demo/curiosa",
+  "Archive of Memories": "/demo/archive",
+  "Lumière": "/demo/lumiere",
 };
 
 export function getTemplate(id: number): Template | undefined {

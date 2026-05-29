@@ -164,4 +164,18 @@
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
+  <url>
+    <loc>https://www.formcraft.tech/en/demo/archive</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.formcraft.tech/en/demo/archive" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.formcraft.tech/ru/demo/archive" />
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.formcraft.tech/en/demo/lumiere</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.formcraft.tech/en/demo/lumiere" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.formcraft.tech/ru/demo/lumiere" />
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
 </urlset>
