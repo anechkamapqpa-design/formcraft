@@ -606,6 +606,27 @@ export function MiniArchive() {
   );
 }
 
+export function MiniLumiere() {
+  return (
+    <ScaledPreview>
+      <div className="w-[1280px] h-[800px] relative overflow-hidden" style={{ background: "hsl(210,34%,5%)", color: "hsl(40,28%,87%)" }}>
+        <img src="/images/demos/lumiere-hero.jpg" alt="" className="absolute inset-0 w-full h-full object-cover" />
+        <div className="absolute inset-0" style={{ background: "linear-gradient(to top, hsl(210,34%,5%) 8%, transparent 50%, hsl(210,34%,5%)88 100%)" }} />
+        {/* glass nav */}
+        <div className="absolute top-6 left-1/2 -translate-x-1/2 w-[94%] flex items-center justify-between rounded-2xl px-7 py-4 backdrop-blur-2xl bg-white/[0.06] border border-white/[0.12] z-10">
+          <div><span className="block font-bold tracking-[0.2em] text-lg" style={{ fontFamily: "'Playfair Display',serif" }}>LUMIÈRE</span><span className="block text-[9px] tracking-[0.3em] uppercase opacity-60">hotel &amp; resort</span></div>
+          <div className="flex gap-7 text-xs uppercase tracking-widest opacity-80">{["Stay", "Experience", "Rooms", "Rooftop", "Contact"].map(n => <span key={n}>{n}</span>)}</div>
+          <span className="rounded-full px-4 py-2 text-xs font-semibold" style={{ background: "hsl(40,45%,78%)", color: "hsl(210,34%,5%)" }}>Book Now</span>
+        </div>
+        <div className="absolute bottom-24 left-16 z-10">
+          <p className="text-sm uppercase tracking-[0.4em] mb-5" style={{ color: "hsl(40,45%,78%)" }}>The hotel that remembers you</p>
+          <h1 className="font-black leading-[0.85] tracking-tight text-[8rem]" style={{ fontFamily: "'Playfair Display',serif" }}>Stories<br />Stay<br />With You</h1>
+        </div>
+      </div>
+    </ScaledPreview>
+  );
+}
+
 export const miniPreviewMap: Record<string, () => JSX.Element> = {
   "Luxury Art": MiniLuxuryArt,
   "SaaS Clean": MiniSaaSClean,
@@ -627,4 +648,5 @@ export const miniPreviewMap: Record<string, () => JSX.Element> = {
   "StoryBrand": MiniStoryBrand,
   "Curiosa": MiniCuriosa,
   "Archive of Memories": MiniArchive,
+  "Lumière": MiniLumiere,
 };
