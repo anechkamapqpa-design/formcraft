@@ -218,11 +218,13 @@ export default function Lumiere() {
         </div>
         <div className="relative min-h-[340px] md:min-h-[520px]">
           <motion.img key={room.img} src={room.img} alt={room.name} initial={{ opacity: 0.3, scale: 1.04 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.5 }} className="absolute inset-0 w-full h-full object-cover" />
-          <div className="absolute bottom-5 right-5 flex items-center gap-3 bg-[#F4EEDD] rounded-full px-3 py-2 border-2 border-[#1B1A17]">
-            <button onClick={prevRoom} className="p-1.5 hover:opacity-60" aria-label="Previous room"><ArrowLeft className="w-4 h-4" /></button>
-            <span className="text-sm font-bold tabular-nums" style={anton}>{String(roomIdx + 1).padStart(2, "0")} / {String(d.rooms.length).padStart(2, "0")}</span>
-            <button onClick={nextRoom} className="p-1.5 hover:opacity-60" aria-label="Next room"><ArrowRight className="w-4 h-4" /></button>
-          </div>
+          {d.rooms.length > 1 && (
+            <div className="absolute bottom-5 right-5 flex items-center gap-3 bg-[#F4EEDD] rounded-full px-3 py-2 border-2 border-[#1B1A17]">
+              <button onClick={prevRoom} className="p-1.5 hover:opacity-60" aria-label="Previous room"><ArrowLeft className="w-4 h-4" /></button>
+              <span className="text-sm font-bold tabular-nums" style={anton}>{String(roomIdx + 1).padStart(2, "0")} / {String(d.rooms.length).padStart(2, "0")}</span>
+              <button onClick={nextRoom} className="p-1.5 hover:opacity-60" aria-label="Next room"><ArrowRight className="w-4 h-4" /></button>
+            </div>
+          )}
         </div>
       </section>
 

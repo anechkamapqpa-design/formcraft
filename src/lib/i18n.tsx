@@ -961,10 +961,6 @@ const translations = {
         roomsTitle: "Five rooms. Five versions of you.",
         rooms: [
           { name: "Ocean Sanctuary", line: "Wake up to endless blue. A room where the sea becomes part of you.", img: "/images/demos/lumiere-room1.jpg", price: "€480" },
-          { name: "Amalfi Suite", line: "Lemon light, linen sheets, and a balcony over the coast.", img: "/images/demos/lumiere-room2.jpg", price: "€620" },
-          { name: "Azure Studio", line: "Tiled in sky-blue, open to the horizon and nothing else.", img: "/images/demos/lumiere-room3.jpg", price: "€540" },
-          { name: "Golden Veranda", line: "Sun all day, a yellow chair, and the whole bay below.", img: "/images/demos/lumiere-room4.jpg", price: "€700" },
-          { name: "Garden Hideaway", line: "Olive shade, terracotta floors, and very long mornings.", img: "/images/demos/lumiere-room5.jpg", price: "€560" },
         ] as readonly { name: string; line: string; img: string; price: string }[],
         roomEntering: "Entering the room…",
         roomNight: "per night",
@@ -1943,10 +1939,6 @@ const translations = {
         roomsTitle: "Пять номеров. Пять версий тебя.",
         rooms: [
           { name: "Океанское святилище", line: "Просыпайся в бесконечной синеве. Номер, где море становится частью тебя.", img: "/images/demos/lumiere-room1.jpg", price: "€480" },
-          { name: "Амальфи-сьют", line: "Лимонный свет, льняные простыни и балкон над побережьем.", img: "/images/demos/lumiere-room2.jpg", price: "€620" },
-          { name: "Лазурная студия", line: "Небесно-голубая плитка, открытая горизонту и больше ничему.", img: "/images/demos/lumiere-room3.jpg", price: "€540" },
-          { name: "Золотая веранда", line: "Солнце весь день, жёлтое кресло и вся бухта внизу.", img: "/images/demos/lumiere-room4.jpg", price: "€700" },
-          { name: "Садовое убежище", line: "Оливковая тень, терракотовый пол и очень долгие утра.", img: "/images/demos/lumiere-room5.jpg", price: "€560" },
         ] as readonly { name: string; line: string; img: string; price: string }[],
         roomEntering: "Входим в номер…",
         roomNight: "за ночь",
