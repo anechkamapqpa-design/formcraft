@@ -607,20 +607,30 @@ export function MiniArchive() {
 }
 
 export function MiniLumiere() {
+  const sticker: React.CSSProperties = { fontFamily: "'Anton', sans-serif" };
+  const navColors = ["#ECA9B2", "#86C8BD", "#F4EEDD", "#E8857C", "#86C8BD"];
   return (
     <ScaledPreview>
-      <div className="w-[1280px] h-[800px] relative overflow-hidden" style={{ background: "hsl(210,34%,5%)", color: "hsl(40,28%,87%)" }}>
-        <img src="/images/demos/lumiere-hero.jpg" alt="" className="absolute inset-0 w-full h-full object-cover" />
-        <div className="absolute inset-0" style={{ background: "linear-gradient(to top, hsl(210,34%,5%) 8%, transparent 50%, hsl(210,34%,5%)88 100%)" }} />
-        {/* glass nav */}
-        <div className="absolute top-6 left-1/2 -translate-x-1/2 w-[94%] flex items-center justify-between rounded-2xl px-7 py-4 backdrop-blur-2xl bg-white/[0.06] border border-white/[0.12] z-10">
-          <div><span className="block font-bold tracking-[0.2em] text-lg" style={{ fontFamily: "'Playfair Display',serif" }}>LUMIÈRE</span><span className="block text-[9px] tracking-[0.3em] uppercase opacity-60">hotel &amp; resort</span></div>
-          <div className="flex gap-7 text-xs uppercase tracking-widest opacity-80">{["Stay", "Experience", "Rooms", "Rooftop", "Contact"].map(n => <span key={n}>{n}</span>)}</div>
-          <span className="rounded-full px-4 py-2 text-xs font-semibold" style={{ background: "hsl(40,45%,78%)", color: "hsl(210,34%,5%)" }}>Book Now</span>
+      <div className="w-[1280px] h-[800px] relative overflow-hidden" style={{ background: "#F4EEDD", color: "#1B1A17" }}>
+        {/* segmented nav */}
+        <div className="absolute top-0 left-0 right-0 flex items-stretch h-[70px] border-b-2 border-[#1B1A17] text-sm font-bold uppercase tracking-wider z-20">
+          <div className="flex flex-col justify-center px-6 bg-[#F4EEDD] border-r-2 border-[#1B1A17]"><span className="text-2xl leading-none" style={sticker}>LUMIÈRE</span><span className="text-[9px] tracking-[0.25em] opacity-70">HOTEL &amp; RESORT</span></div>
+          {["STAY", "EXPERIENCE", "CUISINE", "GALLERY", "CONTACT"].map((n, i) => <span key={n} className="flex-1 flex items-center justify-center border-r-2 border-[#1B1A17]" style={{ background: navColors[i] }}>{n}</span>)}
+          <span className="flex items-center justify-center px-8" style={{ background: "#E8A93C" }}>BOOK NOW</span>
         </div>
-        <div className="absolute bottom-24 left-16 z-10">
-          <p className="text-sm uppercase tracking-[0.4em] mb-5" style={{ color: "hsl(40,45%,78%)" }}>The hotel that remembers you</p>
-          <h1 className="font-black leading-[0.85] tracking-tight text-[8rem]" style={{ fontFamily: "'Playfair Display',serif" }}>Stories<br />Stay<br />With You</h1>
+        {/* hero split */}
+        <div className="absolute top-[70px] left-0 bottom-0 w-[44%] px-12 py-12" style={{ background: "#E8A93C" }}>
+          <p className="text-xs font-bold uppercase tracking-[0.3em] mb-6 opacity-80">The hotel that remembers you</p>
+          <div className="flex flex-col items-start gap-3 text-7xl" style={sticker}>
+            <span className="inline-block bg-white px-4 py-1 -rotate-2 shadow-[4px_5px_0_rgba(0,0,0,0.12)]">STORIES</span>
+            <span className="inline-block bg-white px-4 py-1 rotate-1 shadow-[4px_5px_0_rgba(0,0,0,0.12)]">STAY</span>
+            <span className="inline-block bg-white px-4 py-1 -rotate-1 shadow-[4px_5px_0_rgba(0,0,0,0.12)]">WITH YOU</span>
+          </div>
+          <p className="mt-8 max-w-xs text-base font-bold uppercase leading-relaxed">Not just a hotel. A part of your story.</p>
+          <span className="mt-7 inline-flex items-center gap-2 px-7 py-3 rounded-full text-base font-bold uppercase" style={{ background: "#ECA9B2" }}>Discover Lumière →</span>
+        </div>
+        <div className="absolute top-[70px] right-0 bottom-0 w-[56%]">
+          <img src="/images/demos/lumiere-hero.jpg" alt="" className="w-full h-full object-cover" />
         </div>
       </div>
     </ScaledPreview>
