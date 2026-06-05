@@ -10,7 +10,7 @@ const translations = {
       templates: "Templates",
       showcase: "Showcase",
       work: "What I've Built",
-      about: "About Project",
+      about: "About Me",
       getStarted: "Get Started",
       searchPlaceholder: "Search templates...",
     },
