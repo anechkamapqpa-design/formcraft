@@ -1016,7 +1016,7 @@ const translations = {
       templates: "Шаблоны",
       showcase: "Витрина",
       work: "Что я строила",
-      about: "О проекте",
+      about: "Обо мне",
       getStarted: "Начать",
       searchPlaceholder: "Поиск шаблонов...",
     },
