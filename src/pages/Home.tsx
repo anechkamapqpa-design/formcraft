@@ -161,6 +161,38 @@ export default function Home() {
             </Button>
           </motion.div>
         </section>
+        <section id="cases" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 sm:py-32">
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-14 sm:mb-16">
+            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-primary mb-4">{t.cases.label}</p>
+            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4">{t.cases.title}</h2>
+            <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">{t.cases.intro}</p>
+          </motion.div>
+          <div className="space-y-5 sm:space-y-6">
+            {t.cases.items.map((c, i) => (
+              <motion.article
+                key={i}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ delay: i * 0.08, duration: 0.5 }}
+                className="rounded-2xl border border-border/50 bg-card/40 p-6 sm:p-8 hover:border-border transition-colors"
+              >
+                <div className="flex items-baseline gap-4 mb-6">
+                  <span className="font-display text-2xl sm:text-3xl font-black text-primary/20">{String(i + 1).padStart(2, "0")}</span>
+                  <h3 className="font-display text-xl sm:text-2xl font-bold text-foreground">{c.title}</h3>
+                </div>
+                <div className="grid md:grid-cols-3 gap-6 md:gap-8">
+                  {([["problem", c.problem], ["approach", c.approach], ["result", c.result]] as const).map(([key, text]) => (
+                    <div key={key}>
+                      <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-primary mb-2">{t.cases[key]}</p>
+                      <p className="text-sm text-muted-foreground leading-relaxed">{text}</p>
+                    </div>
+                  ))}
+                </div>
+              </motion.article>
+            ))}
+          </div>
+        </section>
       </main>
       <AnnaFooter />
     </div>

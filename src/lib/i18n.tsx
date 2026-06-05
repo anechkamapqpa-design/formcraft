@@ -9,6 +9,7 @@ const translations = {
     nav: {
       templates: "Templates",
       showcase: "Showcase",
+      work: "What I've Built",
       about: "About Project",
       getStarted: "Get Started",
       searchPlaceholder: "Search templates...",
@@ -149,6 +150,34 @@ const translations = {
       ] as readonly { num: string; title: string; desc: string }[],
       pricing: "Pricing from $250 · Rush delivery available",
       cta: "Start a Project →",
+    },
+    cases: {
+      label: "Portfolio",
+      title: "What I've Built",
+      intro: "I don't just design pages. I take products all the way to launch — from logic and process to working code.",
+      problem: "Problem",
+      approach: "Approach",
+      result: "Result",
+      items: [
+        {
+          title: "Product Launch Management Platform",
+          problem: "At a manufacturing company — 40+ product launches running at once. Each had its own stages, owners, deadlines and hand-offs between teams. Coordination was manual, status was opaque, and deadlines got lost in messages.",
+          approach: "I conceived, specified and rolled out an internal platform for the entire launch pipeline — stages, owners, deadlines and cross-team hand-offs in one place. Not a task tracker, but a product decision: first I mapped how the process actually worked across sales, procurement, logistics, marketing and finance, then built it.",
+          result: "Transparent status across all launches, far less manual coordination, and a 25–30% speed-up of core processes. The platform became the point every new-product rollout passed through.",
+        },
+        {
+          title: "FormCraft — Launching Landing Pages",
+          problem: "Small businesses need a high-converting landing page — fast, and without agency budgets. Agencies are slow and expensive; site builders give a generic result with no strategy behind it.",
+          approach: "I built a library of premium templates by category and a simple process: choose a style → I adapt it to your product and audience → a finished page in 3–7 days. Every project starts with analysis of the product and its growth points — logic first, visuals after. I ran the full cycle solo: positioning, design in Figma, AI-assisted development, launch and go-to-market.",
+          result: "A live product-service with a storefront, working demos and a clear offer — from idea to a running website, on my own. That's FormCraft, the site you're on now.",
+        },
+        {
+          title: "FormCraft Apply — Job-Application Assistant",
+          problem: "Applying to jobs is repetitive: for every role you tailor the resume, write a cover letter, and answer the same kinds of application questions. I wanted to speed it up — without losing quality or control.",
+          approach: "I designed and built a browser-extension assistant. The key product decision was human-in-the-loop: the tool prepares answers, the cover letter and a role-tailored resume, but the person always makes the final submission. I deliberately chose not to fully automate it — for application quality and honesty toward employers. Under the hood: page parsing, an AI call, local profile storage. AI-assisted development.",
+          result: "A working tool — and, more importantly, a deliberate product decision about the boundary of automation: where to help the user, and where to leave the choice to them.",
+        },
+      ] as readonly { title: string; problem: string; approach: string; result: string }[],
     },
     demos: {
       luxuryArt: {
@@ -987,6 +1016,7 @@ const translations = {
     nav: {
       templates: "Шаблоны",
       showcase: "Витрина",
+      work: "Что я строила",
       about: "О проекте",
       getStarted: "Начать",
       searchPlaceholder: "Поиск шаблонов...",
@@ -1127,6 +1157,34 @@ const translations = {
       ] as readonly { num: string; title: string; desc: string }[],
       pricing: "Стоимость от 25 000 ₽ · Срочная доставка доступна",
       cta: "Начать проект →",
+    },
+    cases: {
+      label: "Портфолио",
+      title: "Что я строила",
+      intro: "Я не только проектирую страницы. Я довожу продукты до запуска — от логики и процессов до работающего кода.",
+      problem: "Проблема",
+      approach: "Подход",
+      result: "Результат",
+      items: [
+        {
+          title: "Платформа управления запуском продуктов",
+          problem: "В производственной компании — 40+ запусков продуктов одновременно. У каждого свои этапы, ответственные, сроки и передачи между отделами. Координация шла вручную, статус был непрозрачен, дедлайны терялись в переписке.",
+          approach: "Я придумала, специфицировала и внедрила внутреннюю платформу для всего пайплайна запусков — этапы, владельцы, сроки и кросс-командные передачи в одном месте. Не таск-трекер, а продуктовое решение: сначала разобрала, как реально устроен процесс между продажами, закупками, логистикой, маркетингом и финансами, и только потом строила.",
+          result: "Прозрачный статус по всем запускам, заметно меньше ручной координации, ускорение ключевых процессов на 25–30%. Платформа стала точкой, через которую проходил весь вывод новых продуктов.",
+        },
+        {
+          title: "FormCraft — продукт для запуска лендингов",
+          problem: "Малому бизнесу нужен конверсионный лендинг — быстро и без агентских бюджетов. Агентства долго и дорого, конструкторы дают шаблонный результат без стратегии.",
+          approach: "Я собрала библиотеку премиум-шаблонов по категориям и выстроила процесс: выбери стиль → я адаптирую под твой продукт и аудиторию → готовая страница за 3–7 дней. Каждый проект начинается с анализа продукта и точки роста — сначала логика, потом визуал. Весь цикл прошла сама: позиционирование, дизайн в Figma, AI-ассистированная разработка, запуск и go-to-market.",
+          result: "Запущенный продукт-сервис с витриной, живыми демо и понятным оффером — от идеи до работающего сайта, в одиночку. Это и есть FormCraft, на котором ты сейчас.",
+        },
+        {
+          title: "FormCraft Apply — ассистент откликов на вакансии",
+          problem: "Отклик на вакансию — рутина: под каждую нужно подогнать резюме, написать сопроводительное, ответить на однотипные вопросы анкеты. Хотелось ускорить — но не потеряв качество и контроль.",
+          approach: "Я спроектировала и собрала браузерное расширение-ассистент. Ключевое продуктовое решение — human-in-the-loop: инструмент готовит ответы, письмо и адаптацию резюме под вакансию, но финальную отправку всегда делает человек. Я сознательно отказалась от полной автоматизации — ради качества откликов и честности к работодателю. Под капотом: чтение страницы, обращение к AI, локальное хранение профиля. AI-ассистированная разработка.",
+          result: "Рабочий инструмент и — что важнее — обоснованное продуктовое решение о границе автоматизации: где помогать пользователю, а где оставить выбор за ним.",
+        },
+      ] as readonly { title: string; problem: string; approach: string; result: string }[],
     },
     demos: {
       luxuryArt: {
