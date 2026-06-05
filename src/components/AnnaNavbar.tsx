@@ -28,6 +28,7 @@ export function AnnaNavbar() {
 
   const navLinks = [
     { label: t.nav.templates, href: lp("/#templates"), hash: "templates" },
+    { label: t.nav.work, href: lp("/#cases"), hash: "cases" },
     { label: t.nav.about, href: lp("/about"), hash: null },
   ];
 
