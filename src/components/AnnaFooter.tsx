@@ -29,7 +29,7 @@ export function AnnaFooter() {
 
   const contactCards = [
     { icon: SiTelegram, label: t.footer.contacts.telegram, desc: t.footer.contacts.telegramDesc, href: "https://t.me/formcrafttech", color: "group-hover:text-[hsl(200,80%,60%)]", glow: "group-hover:shadow-[0_0_20px_hsl(200,80%,60%,0.1)]" },
-    { icon: Mail, label: t.footer.contacts.email, desc: t.footer.contacts.emailDesc, href: "mailto:launch.flow@yandex.ru", color: "group-hover:text-primary", glow: "group-hover:shadow-[0_0_20px_hsl(150,60%,50%,0.1)]" },
+    { icon: Mail, label: t.footer.contacts.email, desc: t.footer.contacts.emailDesc, href: "mailto:G.Anna1@internet.ru", color: "group-hover:text-primary", glow: "group-hover:shadow-[0_0_20px_hsl(150,60%,50%,0.1)]" },
   ];
 
   const isValidContact = (value: string) => {
