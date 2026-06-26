@@ -32,6 +32,13 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://www.formcraft.tech/en/privacy</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.formcraft.tech/en/privacy" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.formcraft.tech/ru/privacy" />
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
     <loc>https://www.formcraft.tech/en/demo/luxury-art</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.formcraft.tech/en/demo/luxury-art" />
     <xhtml:link rel="alternate" hreflang="ru" href="https://www.formcraft.tech/ru/demo/luxury-art" />

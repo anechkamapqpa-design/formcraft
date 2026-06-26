@@ -2093,6 +2093,9 @@ function getPageMeta(lang: Lang, path: string): { title: string; description: st
     description = ru
       ? "О проекте Formcraft: лендинг как система конверсии — сначала логика и структура, затем визуальное направление."
       : "About Formcraft: landing pages built as conversion systems — logic and structure first, visual direction second.";
+  } else if (path === "/privacy") {
+    title = "Privacy Policy — FormCraft Social";
+    description = "How FormCraft Social processes, uses and protects Instagram messages and comments data.";
   } else if (tplMatch) {
     const tpl = getTemplate(Number(tplMatch[1]));
     if (tpl) {
