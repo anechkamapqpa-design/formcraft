@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowRight, LayoutGrid, X } from "lucide-react";
 import { templates } from "@/data/templates";
@@ -7,7 +7,7 @@ import { TemplateCard } from "@/components/TemplateCard";
 import { AnnaNavbar } from "@/components/AnnaNavbar";
 import { AnnaFooter } from "@/components/AnnaFooter";
 import { Button } from "@/components/ui/button";
-import { useLang } from "@/lib/i18n";
+import { useLang, useLangPath } from "@/lib/i18n";
 
 function AnimatedText({ text, className }: { text: string; className?: string }) {
   return (
