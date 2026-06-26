@@ -32,6 +32,7 @@ const StoryBrand = lazy(() => import("./pages/demos/StoryBrand"));
 const Curiosa = lazy(() => import("./pages/demos/Curiosa"));
 const Archive = lazy(() => import("./pages/demos/Archive"));
 const Lumiere = lazy(() => import("./pages/demos/Lumiere"));
+const Privacy = lazy(() => import("./pages/Privacy"));
 
 const queryClient = new QueryClient();
 
