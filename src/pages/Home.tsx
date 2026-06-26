@@ -193,6 +193,11 @@ export default function Home() {
               </motion.article>
             ))}
           </div>
+          <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} className="mt-8 text-center">
+            <Link to={lp("/privacy")} className="text-xs font-medium text-muted-foreground/60 hover:text-primary transition-colors underline underline-offset-4">
+              {t.cases.privacyPolicy}
+            </Link>
+          </motion.div>
         </section>
       </main>
       <AnnaFooter />
