@@ -43,6 +43,7 @@ export default function Home() {
   const [searchParams, setSearchParams] = useSearchParams();
   const { t } = useLang();
 
+  const lp = useLangPath();
   const query = (searchParams.get("q") || "").toLowerCase().trim();
 
   const categories = useMemo(() => {
