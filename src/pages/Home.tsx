@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowRight, LayoutGrid, X } from "lucide-react";
 import { templates } from "@/data/templates";
@@ -7,7 +7,7 @@ import { TemplateCard } from "@/components/TemplateCard";
 import { AnnaNavbar } from "@/components/AnnaNavbar";
 import { AnnaFooter } from "@/components/AnnaFooter";
 import { Button } from "@/components/ui/button";
-import { useLang } from "@/lib/i18n";
+import { useLang, useLangPath } from "@/lib/i18n";
 
 function AnimatedText({ text, className }: { text: string; className?: string }) {
   return (
@@ -43,6 +43,7 @@ export default function Home() {
   const [searchParams, setSearchParams] = useSearchParams();
   const { t } = useLang();
 
+  const lp = useLangPath();
   const query = (searchParams.get("q") || "").toLowerCase().trim();
 
   const categories = useMemo(() => {
@@ -192,6 +193,11 @@ export default function Home() {
               </motion.article>
             ))}
           </div>
+          <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} className="mt-8 text-center">
+            <Link to={lp("/privacy")} className="text-xs font-medium text-muted-foreground/60 hover:text-primary transition-colors underline underline-offset-4">
+              {t.cases.privacyPolicy}
+            </Link>
+          </motion.div>
         </section>
       </main>
       <AnnaFooter />

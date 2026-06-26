@@ -8,7 +8,6 @@ import { LangProvider, LangLayout } from "@/lib/i18n";
 import Home from "./pages/Home";
 import TemplateDetail from "./pages/TemplateDetail";
 import About from "./pages/About";
-import Privacy from "./pages/Privacy";
 import NotFound from "./pages/NotFound";
 
 // Demo pages are heavy and rarely the entry point — load them on demand.
@@ -33,6 +32,7 @@ const StoryBrand = lazy(() => import("./pages/demos/StoryBrand"));
 const Curiosa = lazy(() => import("./pages/demos/Curiosa"));
 const Archive = lazy(() => import("./pages/demos/Archive"));
 const Lumiere = lazy(() => import("./pages/demos/Lumiere"));
+const Privacy = lazy(() => import("./pages/Privacy"));
 
 const queryClient = new QueryClient();
 
