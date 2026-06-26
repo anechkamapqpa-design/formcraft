@@ -176,7 +176,14 @@ const translations = {
           approach: "I designed and built a browser-extension assistant. The key product decision was human-in-the-loop: the tool prepares answers, the cover letter and a role-tailored resume, but the person always makes the final submission. I deliberately chose not to fully automate it — for application quality and honesty toward employers. Under the hood: page parsing, an AI call, local profile storage. AI-assisted development.",
           result: "A working tool — and, more importantly, a deliberate product decision about the boundary of automation: where to help the user, and where to leave the choice to them.",
         },
+        {
+          title: "FormCraft Social — AI Assistant for Instagram Creators",
+          problem: "Instagram creators get hundreds of repetitive comments and DMs daily — emoji reactions, thank-yous, the same FAQ questions — and answering them all manually eats hours that should go into creating content.",
+          approach: "I designed and built an AI agent that triages incoming messages and comments, auto-handles routine interactions in the creator's own voice, and drafts responses for anything non-standard — with the creator always making the final call before anything sensitive goes out. Built with Claude API, a verified knowledge base to prevent the AI from inventing facts, and a Telegram-based review interface.",
+          result: "A working assistant that clears routine engagement automatically while keeping a human in the loop for everything that matters — built and tested end-to-end, from Instagram Graph API integration to the review workflow.",
+        },
       ] as readonly { title: string; problem: string; approach: string; result: string }[],
+      privacyPolicy: "Privacy Policy",
     },
     demos: {
       luxuryArt: {
@@ -1182,7 +1189,14 @@ const translations = {
           approach: "Я спроектировала и собрала браузерное расширение-ассистент. Ключевое продуктовое решение — human-in-the-loop: инструмент готовит ответы, письмо и адаптацию резюме под вакансию, но финальную отправку всегда делает человек. Я сознательно отказалась от полной автоматизации — ради качества откликов и честности к работодателю. Под капотом: чтение страницы, обращение к AI, локальное хранение профиля. AI-ассистированная разработка.",
           result: "Рабочий инструмент и — что важнее — обоснованное продуктовое решение о границе автоматизации: где помогать пользователю, а где оставить выбор за ним.",
         },
+        {
+          title: "FormCraft Social — AI-ассистент для Instagram-креаторов",
+          problem: "Instagram-креаторы ежедневно получают сотни однотипных комментариев и личных сообщений — реакции эмодзи, благодарности, повторяющиеся вопросы FAQ — и отвечать на них вручную отнимает часы, которые стоит тратить на создание контента.",
+          approach: "Я спроектировала и собрала AI-агента, который сортирует входящие сообщения и комментарии, автоматически обрабатывает рутинные взаимодействия в голосе креатора и готовит черновики ответов на нестандартные вопросы — при этом креатор всегда принимает финальное решение, прежде чем что-либо уйдёт в эфир. Построено на Claude API, с верифицированной базой знаний, чтобы AI не выдумывал факты, и Telegram-интерфейсом для ревью.",
+          result: "Рабочий ассистент, который автоматически разбирает рутинное взаимодействие, оставляя человека в контуре контроля там, где это важно — построен и протестирован end-to-end: от интеграции с Instagram Graph API до рабочего процесса ревью.",
+        },
       ] as readonly { title: string; problem: string; approach: string; result: string }[],
+      privacyPolicy: "Политика конфиденциальности",
     },
     demos: {
       luxuryArt: {

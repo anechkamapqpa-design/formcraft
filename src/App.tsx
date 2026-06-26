@@ -32,6 +32,7 @@ const StoryBrand = lazy(() => import("./pages/demos/StoryBrand"));
 const Curiosa = lazy(() => import("./pages/demos/Curiosa"));
 const Archive = lazy(() => import("./pages/demos/Archive"));
 const Lumiere = lazy(() => import("./pages/demos/Lumiere"));
+const Privacy = lazy(() => import("./pages/Privacy"));
 
 const queryClient = new QueryClient();
 
@@ -54,6 +55,7 @@ const langRoutes = (
     <Route index element={<Home />} />
     <Route path="template/:id" element={<TemplateDetail />} />
     <Route path="about" element={<About />} />
+    <Route path="privacy" element={<Privacy />} />
     <Route path="demo/luxury-art" element={<LuxuryArt />} />
     <Route path="demo/saas-clean" element={<SaaSClean />} />
     <Route path="demo/ecom-drop" element={<EcomDrop />} />
