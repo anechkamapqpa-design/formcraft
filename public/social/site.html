@@ -1,0 +1,2258 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FormCraft Social</title>
+<link rel="icon" type="image/png" href="/social/logo.png">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --ink: #2f2838;
+    --ink-soft: rgba(47,40,56,0.6);
+    --ink-faint: rgba(47,40,56,0.45);
+    --violet: #8b7cf6;
+    --pink: #f0a6ce;
+    --glass: rgba(255,255,255,0.09);
+    --glass-strong: rgba(255,255,255,0.14);
+    --glass-border: rgba(255,255,255,0.65);
+    --spring: cubic-bezier(0.16, 1, 0.3, 1);
+    --spring-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  html { background: #d6cec9; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    color: var(--ink);
+    min-height: 100vh;
+    position: relative;
+    background:
+      radial-gradient(650px circle at 8% 92%, rgba(168,85,247,0.30), transparent 70%),
+      radial-gradient(650px circle at 92% 90%, rgba(56,189,248,0.25), transparent 70%),
+      linear-gradient(160deg, #e8ded6, #d6cec9);
+    overflow-x: hidden;
+  }
+
+  .orb { display: none; }
+
+  /* ═══ GLOSSY ORB SPHERES — etalon technique: radial-gradient highlight
+     + colored glow shadow, no blur filter, so they read as solid drifting
+     balls (not soft bokeh smudges) behind the glass panels. ═══ */
+  .bg-blobs { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+  .blob { position: absolute; border-radius: 50%; opacity: 0.85; }
+  .blob.b1 { width: 220px; height: 220px; left: -2%; top: 6%;
+    background: radial-gradient(circle at 32% 30%, #f6c6ff, #c084fc 55%, #8b5cf6);
+    box-shadow: 0 30px 60px rgba(139,92,246,0.35);
+    animation: blobFloat 18s ease-in-out infinite alternate; }
+  .blob.b2 { width: 180px; height: 180px; left: -1%; top: 64%;
+    background: radial-gradient(circle at 30% 30%, #d8f1ff, #7dd3fc 55%, #38bdf8);
+    box-shadow: 0 26px 55px rgba(56,189,248,0.3);
+    animation: blobFloat 22s ease-in-out infinite alternate -7s; }
+  .blob.b3 { width: 240px; height: 240px; left: 35%; top: 2%;
+    background: radial-gradient(circle at 30% 30%, #ffd9ec, #f472b6 60%, #db2777);
+    box-shadow: 0 24px 50px rgba(219,39,119,0.3);
+    animation: blobFloat 16s ease-in-out infinite alternate -3s; }
+  .blob.b4 { width: 220px; height: 220px; left: 47%; top: 40%;
+    background: radial-gradient(circle at 32% 30%, #f6c6ff, #c084fc 55%, #8b5cf6);
+    box-shadow: 0 30px 60px rgba(139,92,246,0.35);
+    animation: blobFloat 20s ease-in-out infinite alternate -11s; }
+  .blob.b5 { width: 200px; height: 200px; left: 88%; top: 36%;
+    background: radial-gradient(circle at 30% 30%, #d8f1ff, #7dd3fc 55%, #38bdf8);
+    box-shadow: 0 26px 55px rgba(56,189,248,0.3);
+    animation: blobFloat 19s ease-in-out infinite alternate -15s; }
+  .blob.b6 { width: 170px; height: 170px; left: 22%; top: 76%;
+    background: radial-gradient(circle at 30% 30%, #ffd9ec, #f472b6 60%, #db2777);
+    box-shadow: 0 24px 50px rgba(219,39,119,0.3);
+    animation: blobFloat 21s ease-in-out infinite alternate -5s; }
+  @keyframes blobFloat {
+    0%   { transform: translate(0, 0); }
+    100% { transform: translate(48px, -36px); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .blob { animation: none !important; }
+  }
+
+  .layout { display: flex; min-height: 100vh; position: relative; z-index: 1; }
+
+  /* ═══ LIQUID GLASS RECIPE — compact ringed wall, not a thick blurred
+     slab: a stack of concentric inset outlines (1.5px bright / 5px soft /
+     6px bright) builds the "edge" instead of a CSS border, plus a top
+     catch-light and bottom core-shadow so the panel reads as thin curved
+     glass rather than frosted plastic. ═══ */
+  .glass {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    background: rgba(255,255,255,0.045);
+    backdrop-filter: blur(6px) saturate(150%);
+    -webkit-backdrop-filter: blur(6px) saturate(150%);
+    border-radius: 26px;
+    box-shadow:
+      0 40px 70px -28px rgba(60,30,100,0.45),
+      0 10px 20px -10px rgba(60,30,100,0.22),
+      inset 0 0 0 0.3px rgba(255,255,255,0.6),
+      inset 0 0 0 0.8px rgba(255,255,255,0.1),
+      inset 0 0 0 1px rgba(255,255,255,0.2),
+      inset 0 4px 6px -2px rgba(255,255,255,0.9),
+      inset 0 -6px 12px -4px rgba(110,80,150,0.28),
+      inset 0 0 36px -14px rgba(255,255,255,0.55);
+  }
+  .glass::before {
+    content: '';
+    position: absolute; inset: -45% -25%;
+    pointer-events: none; z-index: 0;
+    background: linear-gradient(112deg,
+      transparent 40%, rgba(255,255,255,0.3) 46%,
+      rgba(255,255,255,0.06) 55%, transparent 60%);
+  }
+  .glass > * { position: relative; z-index: 1; }
+
+  /* ── SIDEBAR ── */
+  .sidebar {
+    width: 240px; flex-shrink: 0;
+    margin: 14px 0 14px 14px;
+    padding: 8px 10px;
+    display: flex; flex-direction: column;
+    position: sticky; top: 14px;
+    height: calc(100vh - 28px);
+    overflow-y: hidden;
+  }
+
+  .logo { display: flex; align-items: center; gap: 7px; margin-bottom: 4px; padding-left: 6px; line-height: 1.2; }
+  .logo-icon {
+    width: 26px; height: 26px; border-radius: 9px;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+    box-shadow:
+      0 10px 22px -6px rgba(139,124,246,0.6),
+      inset 0 1.5px 1px rgba(255,255,255,0.65);
+  }
+  .logo-icon img { width: 100%; height: 100%; object-fit: cover; }
+  .logo-text { font-size: 14px; font-weight: 700; }
+  .logo-sub { font-size: 10px; color: var(--ink-faint); }
+
+  nav { flex: 0 1 auto; }
+  .nav-item {
+    width: 100%; display: flex; align-items: center; gap: 8px;
+    /* Sidebar only ever shows at desktop widths (hidden under 820px), so vh
+       here tracks real available height, not mobile chrome quirks. Scales
+       nav buttons taller on tall windows, shrinks toward the old compact
+       size on short ones — so it never has to overflow/scroll either way. */
+    padding: clamp(4px, 1.1vh, 9px) 14px;
+    border-radius: 12px;
+    margin-bottom: clamp(0px, 0.3vh, 2px);
+    background: transparent;
+    border: 1px solid transparent;
+    color: var(--ink-soft);
+    cursor: pointer; text-align: left;
+    font-size: 13px; font-weight: 600; font-family: inherit; line-height: 1.2;
+    box-shadow: none;
+    transition: background 0.35s var(--spring), color 0.35s var(--spring), border-color 0.35s var(--spring), box-shadow 0.35s var(--spring);
+  }
+  .nav-item:hover {
+    background: rgba(255,255,255,0.07);
+    backdrop-filter: blur(3px) saturate(160%);
+    -webkit-backdrop-filter: blur(3px) saturate(160%);
+    border-color: rgba(255,255,255,0.5);
+    color: var(--ink);
+    box-shadow:
+      0 10px 20px -10px rgba(60,30,100,0.35),
+      inset 0 0 0 0.3px rgba(255,255,255,0.5),
+      inset 0 6px 10px -6px rgba(255,255,255,0.85);
+  }
+  .nav-item.active {
+    position: relative; isolation: isolate; overflow: hidden;
+    background: linear-gradient(160deg, rgba(167,139,250,0.32), rgba(124,58,237,0.14));
+    border-color: transparent;
+    border-radius: 999px;
+    color: var(--ink); font-weight: 700;
+    box-shadow:
+      0 10px 20px -8px rgba(124,58,237,0.5),
+      inset 0 0 0 0.3px rgba(255,255,255,0.55),
+      inset 0 0 0 0.5px rgba(255,255,255,0.08),
+      inset 0 6px 10px -5px rgba(255,255,255,0.9),
+      inset 0 -8px 12px -6px rgba(88,28,135,0.4);
+  }
+  .nav-item.active::before {
+    content: '';
+    position: absolute; left: 6%; right: 6%; top: 2px; height: 60%;
+    border-radius: 999px; pointer-events: none; z-index: 0;
+    background: linear-gradient(180deg, rgba(255,255,255,0.8), rgba(255,255,255,0));
+  }
+  .nav-item.active > * { position: relative; z-index: 1; }
+  .nav-icon { font-size: 14px; width: 16px; text-align: center; flex-shrink: 0; }
+  .nav-badge {
+    margin-left: auto;
+    background: linear-gradient(135deg, #f68fc0, #ec6aa8);
+    color: #fff; font-size: 10px; font-weight: 700;
+    padding: 3px 8px; border-radius: 12px;
+    box-shadow: 0 4px 10px -3px rgba(236,106,168,0.6), inset 0 1px 1px rgba(255,255,255,0.5);
+  }
+  .nav-item.active .nav-badge { background: rgba(255,255,255,0.28); box-shadow: inset 0 1px 1px rgba(255,255,255,0.4); }
+
+  .status-pill, .user-card {
+    padding: 5px 8px; border-radius: 12px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.60), rgba(255,255,255,0.35));
+    border: 0.3px solid rgba(255,255,255,0.4);
+    backdrop-filter: blur(40px) saturate(180%);
+    -webkit-backdrop-filter: blur(40px) saturate(180%);
+    box-shadow:
+      0 8px 32px rgba(31,38,64,0.12),
+      inset 0 1px 0 rgba(255,255,255,0.8),
+      inset 0 -1px 0 rgba(255,255,255,0.15);
+    display: flex; align-items: center; gap: 7px;
+    margin-bottom: 4px;
+    position: relative;
+    line-height: 1.2;
+  }
+  .status-dot {
+    width: 10px; height: 10px; border-radius: 50%;
+    background: #4ade80;
+    box-shadow: 0 0 0 4px rgba(74,222,128,0.2), 0 0 10px rgba(74,222,128,0.7);
+    animation: pulse 2.2s infinite;
+  }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.55} }
+
+  .user-card { cursor: pointer; transition: transform 0.35s var(--spring), box-shadow 0.35s var(--spring); }
+  .user-card:hover { transform: translateY(-2px); }
+
+  .avatar {
+    width: 24px; height: 24px; border-radius: 50%;
+    background: linear-gradient(145deg, #c1b0ff, #8b7cf6 60%, #ec6aa8 130%);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10px; font-weight: 700; color: #fff; flex-shrink: 0;
+    box-shadow: 0 8px 18px -6px rgba(139,124,246,0.6), inset 0 1.5px 1px rgba(255,255,255,0.6);
+  }
+  .avatar.lg { width: 54px; height: 54px; font-size: 18px; }
+  .avatar img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+
+  /* ── MAIN ── */
+  .main { flex: 1; padding: 22px 24px; overflow-y: auto; max-width: 1160px; margin: 0 auto; }
+  .page-header { margin-bottom: 16px; }
+  .page-title { font-size: 21px; font-weight: 800; letter-spacing: -0.02em; }
+  .page-sub { font-size: 11.5px; color: var(--ink-faint); margin-top: 3px; }
+
+  .card { padding: 22px; margin-bottom: 16px; }
+  .card-title { font-size: 14px; font-weight: 700; margin-bottom: 11px; }
+  .card-label {
+    font-size: 10.5px; color: var(--ink-faint);
+    text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 14px;
+    padding: 18px 20px; margin-bottom: 14px;
+  }
+
+  /* ── STATS ── */
+  .stats-row { display: grid; grid-template-columns: repeat(4,1fr); gap: 11px; margin-bottom: 14px; }
+  .stat-card {
+    position: relative; isolation: isolate; overflow: hidden;
+    padding: 13px 16px; border-radius: 20px;
+    background: rgba(255,255,255,0.07);
+    backdrop-filter: blur(2.5px) saturate(160%);
+    -webkit-backdrop-filter: blur(2.5px) saturate(160%);
+    box-shadow:
+      0 12px 22px -12px rgba(60,30,100,0.4),
+      inset 0 0 0 0.3px rgba(255,255,255,0.5),
+      inset 0 7px 10px -6px rgba(255,255,255,0.85),
+      inset 0 -9px 14px -8px rgba(110,80,150,0.3);
+    transition: transform 0.4s var(--spring), box-shadow 0.4s var(--spring);
+  }
+  .stat-card::before {
+    content: '';
+    position: absolute; left: 8%; right: 8%; top: 2px; height: 46%;
+    border-radius: 20px; pointer-events: none; z-index: 0;
+    background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0));
+  }
+  .stat-card > * { position: relative; z-index: 1; }
+  .stat-card:hover { transform: translateY(-4px); }
+  .stat-value { font-size: 22px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 2px; color: var(--ink); }
+  .stat-label { font-size: 10px; color: var(--ink-soft); }
+  .stat-icon {
+    float: right; width: 29px; height: 29px; border-radius: 10px;
+    background: rgba(255,255,255,0.22);
+    border: 1px solid rgba(255,255,255,0.6);
+    box-shadow: inset 0 1.5px 1px #fff, inset 0 -4px 8px -6px rgba(122,96,180,0.4), 0 10px 18px -8px rgba(122,96,180,0.4);
+    display: flex; align-items: center; justify-content: center; font-size: 13px;
+  }
+
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 11px; }
+
+  /* ── PROGRESS ── */
+  .progress-row { margin-bottom: 15px; }
+  .progress-meta { display: flex; justify-content: space-between; margin-bottom: 7px; }
+  .progress-name { font-size: 13px; color: var(--ink-soft); }
+  .progress-pct { font-size: 13px; font-weight: 700; color: var(--violet); }
+  .progress-track {
+    background: rgba(255,255,255,0.35); border-radius: 999px; height: 6px; overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%; border-radius: 999px;
+    background: linear-gradient(90deg, #a78bfa, #ec4899);
+    transition: width 0.6s var(--spring);
+  }
+
+  /* ── TAGS (lens) ── */
+  .tag {
+    position: relative; isolation: isolate; overflow: hidden;
+    display: inline-block; padding: 8px 17px; border-radius: 999px;
+    font-size: 12.5px; font-weight: 700; cursor: pointer; margin: 0 8px 9px 0;
+    background: rgba(255,255,255,0.07);
+    backdrop-filter: blur(3px) saturate(170%) brightness(1.08);
+    -webkit-backdrop-filter: blur(3px) saturate(170%) brightness(1.08);
+    color: var(--ink);
+    box-shadow:
+      0 14px 26px -14px rgba(60,30,100,0.4),
+      inset 0 0 0 0.3px rgba(255,255,255,0.55),
+      inset 0 0 0 0.5px rgba(255,255,255,0.08),
+      inset 0 8px 12px -6px rgba(255,255,255,0.85),
+      inset 0 -10px 16px -8px rgba(110,80,150,0.3);
+    transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease, color 0.15s ease;
+  }
+  .tag::before {
+    content: '';
+    position: absolute; left: 8%; right: 8%; top: 2px; height: 46%;
+    border-radius: 999px; pointer-events: none; z-index: 0;
+    background: linear-gradient(180deg, rgba(255,255,255,0.65), rgba(255,255,255,0));
+  }
+  .tag::after {
+    content: '';
+    position: absolute; left: 12%; top: 18%; width: 10px; height: 6px;
+    border-radius: 50%; pointer-events: none; z-index: 0;
+    background: rgba(255,255,255,0.9); filter: blur(1.5px);
+  }
+  .tag > * { position: relative; z-index: 1; }
+  .tag:hover { transform: translateY(-2px) scale(1.015); }
+  .tag.active {
+    background: linear-gradient(160deg, rgba(167,139,250,0.55), rgba(124,58,237,0.32));
+    color: #5b21b6; font-weight: 800;
+    box-shadow:
+      0 14px 28px -8px rgba(124,58,237,0.65),
+      0 0 22px rgba(139,92,246,0.5),
+      inset 0 0 0 0.3px rgba(255,255,255,0.7),
+      inset 0 0 0 0.5px rgba(255,255,255,0.15),
+      inset 0 10px 14px -6px rgba(255,255,255,0.95),
+      inset 0 -12px 18px -8px rgba(88,28,135,0.5);
+  }
+
+  /* ── BUTTONS (lens) ── */
+  .btn {
+    position: relative; isolation: isolate; overflow: hidden;
+    cursor: pointer; border: none;
+    padding: 16px 32px; border-radius: 999px;
+    font-size: 14.5px; font-weight: 700; font-family: inherit; color: var(--ink);
+    background: linear-gradient(160deg, rgba(167,139,250,0.32), rgba(124,58,237,0.14));
+    backdrop-filter: blur(3px) saturate(170%) brightness(1.08);
+    -webkit-backdrop-filter: blur(3px) saturate(170%) brightness(1.08);
+    box-shadow:
+      0 14px 26px -10px rgba(124,58,237,0.5),
+      inset 0 0 0 0.3px rgba(255,255,255,0.55),
+      inset 0 0 0 0.5px rgba(255,255,255,0.08),
+      inset 0 10px 14px -6px rgba(255,255,255,0.9),
+      inset 0 -12px 18px -8px rgba(88,28,135,0.45);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .btn::before {
+    content: '';
+    position: absolute; left: 6%; right: 6%; top: 2px; height: 52%;
+    border-radius: 999px; pointer-events: none; z-index: 0;
+    background: linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0));
+    filter: blur(1px);
+  }
+  .btn::after {
+    content: '';
+    position: absolute; left: 14%; top: 16%; width: 14px; height: 8px;
+    border-radius: 50%; pointer-events: none; z-index: 0;
+    background: rgba(255,255,255,0.95); filter: blur(2px);
+  }
+  .btn > * { position: relative; z-index: 1; }
+  .btn:hover { transform: translateY(-2px) scale(1.015); }
+  .btn:active { transform: translateY(0) scale(0.99); }
+  .btn:disabled { opacity: 0.6; cursor: default; transform: none; }
+  .btn:focus-visible { outline: 2px solid #7c3aed; outline-offset: 3px; }
+  .btn.ghost {
+    background: rgba(255,255,255,0.07);
+    backdrop-filter: blur(3px) saturate(170%) brightness(1.08);
+    -webkit-backdrop-filter: blur(3px) saturate(170%) brightness(1.08);
+    box-shadow:
+      0 14px 26px -10px rgba(60,30,100,0.4),
+      inset 0 0 0 0.3px rgba(255,255,255,0.55),
+      inset 0 0 0 3px rgba(255,255,255,0.2),
+      inset 0 10px 14px -6px rgba(255,255,255,0.95),
+      inset 0 -12px 18px -8px rgba(110,80,150,0.35);
+  }
+  .btn.mint {
+    background: linear-gradient(160deg, rgba(94,234,212,0.3), rgba(56,189,248,0.12));
+    box-shadow:
+      0 14px 26px -10px rgba(56,189,248,0.45),
+      inset 0 0 0 0.3px rgba(255,255,255,0.55),
+      inset 0 0 0 0.5px rgba(255,255,255,0.08),
+      inset 0 10px 14px -6px rgba(255,255,255,0.9),
+      inset 0 -12px 18px -8px rgba(8,90,120,0.4);
+  }
+  .btn.danger {
+    background: linear-gradient(160deg, rgba(248,180,200,0.32), rgba(212,85,126,0.14));
+    box-shadow:
+      0 14px 26px -10px rgba(212,85,126,0.45),
+      inset 0 0 0 0.3px rgba(255,255,255,0.55),
+      inset 0 0 0 0.5px rgba(255,255,255,0.08),
+      inset 0 10px 14px -6px rgba(255,255,255,0.9),
+      inset 0 -12px 18px -8px rgba(140,30,60,0.4);
+  }
+  .btn.full { width: 100%; }
+  #bot-btn.mint {
+    background: linear-gradient(160deg, rgba(167,139,250,0.32), rgba(124,58,237,0.14));
+    box-shadow:
+      0 14px 26px -10px rgba(124,58,237,0.5),
+      inset 0 0 0 0.3px rgba(255,255,255,0.55),
+      inset 0 0 0 0.5px rgba(255,255,255,0.08),
+      inset 0 10px 14px -6px rgba(255,255,255,0.9),
+      inset 0 -12px 18px -8px rgba(88,28,135,0.45);
+  }
+
+  /* ── INPUT ── */
+  input, textarea {
+    width: 100%;
+    background: linear-gradient(155deg, rgba(255,255,255,0.26), rgba(255,255,255,0.35));
+    border: 1px solid rgba(255,255,255,0.6);
+    backdrop-filter: blur(26px) saturate(1.6);
+    -webkit-backdrop-filter: blur(26px) saturate(1.6);
+    color: var(--ink);
+    padding: 13px 18px; font-size: 13px; font-family: inherit;
+    outline: none; resize: vertical;
+    box-shadow:
+      inset 0 3px 6px rgba(122,96,180,0.14),
+      inset 0 1.5px 1px rgba(255,255,255,0.85),
+      0 14px 26px -18px rgba(122,96,180,0.35);
+    transition: box-shadow 0.35s var(--spring), border-color 0.35s var(--spring);
+  }
+  input[type="text"], input[type="password"], input[type="email"], input:not([type]) { border-radius: 999px; }
+  textarea { border-radius: 24px; }
+  .password-field { position: relative; }
+  .password-field input { padding-right: 44px; }
+  .password-toggle {
+    position: absolute; right: 4px; top: 50%; transform: translateY(-50%);
+    width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;
+    background: none; border: none; cursor: pointer; font-size: 15px;
+    color: var(--ink-faint); border-radius: 50%; padding: 0;
+  }
+  .password-toggle:hover { color: var(--ink); }
+  input:focus, textarea:focus {
+    border-color: rgba(139,124,246,0.5);
+    box-shadow:
+      inset 0 3px 6px rgba(122,96,180,0.14),
+      inset 0 1.5px 1px rgba(255,255,255,0.85),
+      0 0 0 4px rgba(139,124,246,0.22),
+      0 0 24px rgba(155,132,246,0.3);
+  }
+  input::placeholder, textarea::placeholder { color: var(--ink-faint); }
+  .field { margin-bottom: 15px; }
+  .field-label { font-size: 12px; color: var(--ink-soft); margin-bottom: 7px; font-weight: 500; }
+
+  /* ── EMOJI PICKER ── */
+  .emoji-field-wrap { position: relative; }
+  .emoji-btn {
+    position: absolute; top: 8px; right: 8px; z-index: 5;
+    width: 26px; height: 26px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; line-height: 1; cursor: pointer;
+    background: linear-gradient(155deg, rgba(255,255,255,0.5), rgba(255,255,255,0.22));
+    border: 1px solid rgba(255,255,255,0.7);
+    box-shadow: inset 0 1px 1px rgba(255,255,255,0.9), 0 6px 14px -6px rgba(122,96,180,0.5);
+    transition: transform 0.3s var(--spring), box-shadow 0.3s var(--spring);
+  }
+  .emoji-btn:hover { transform: translateY(-2px) scale(1.08); box-shadow: inset 0 1px 1px rgba(255,255,255,0.9), 0 10px 20px -8px rgba(122,96,180,0.6); }
+  .emoji-picker {
+    display: none;
+    position: fixed; left: 0; top: 0; z-index: 500;
+    width: 392px;
+    padding: 10px; border-radius: 20px;
+    background: linear-gradient(155deg, rgba(255,255,255,0.7), rgba(255,255,255,0.45));
+    backdrop-filter: blur(30px) saturate(1.8);
+    -webkit-backdrop-filter: blur(30px) saturate(1.8);
+    border: 1px solid rgba(255,255,255,0.75);
+    box-shadow: inset 0 1.5px 1px rgba(255,255,255,0.95), 0 26px 48px -18px rgba(90,70,160,0.45), 0 10px 22px -12px rgba(90,70,160,0.3);
+  }
+  .emoji-picker.open { display: block; animation: fadeUp 0.3s var(--spring); }
+  .emoji-tabs {
+    display: flex; gap: 2px; overflow-x: auto;
+    padding-bottom: 7px; margin-bottom: 7px;
+    border-bottom: 1px solid rgba(255,255,255,0.6);
+  }
+  .emoji-tab {
+    flex-shrink: 0; background: none; border: none; cursor: pointer;
+    font-size: 15px; padding: 4px 6px; border-radius: 9px; opacity: 0.5;
+    transition: opacity 0.2s var(--spring), background 0.2s var(--spring);
+  }
+  .emoji-tab.active { opacity: 1; background: rgba(255,255,255,0.55); }
+  .emoji-grid {
+    display: grid; grid-template-columns: repeat(10, 1fr); gap: 1px;
+    max-height: 230px; overflow-y: auto;
+  }
+  .emoji-grid button {
+    background: none; border: none; cursor: pointer;
+    font-size: 18px; padding: 5px; border-radius: 10px;
+    transition: background 0.2s var(--spring), transform 0.2s var(--spring);
+  }
+  .emoji-grid button:hover { background: rgba(255,255,255,0.55); transform: scale(1.15); }
+
+  /* ── RAIN (hero panel only) — condensation living on the inside of the
+     glass: sliding drops plus static still ones, clipped to the card. ── */
+  .rain { position: absolute; inset: 0; pointer-events: none; overflow: hidden; border-radius: inherit; z-index: 0; }
+  .drop {
+    position: absolute;
+    border-radius: 50% 50% 52% 48% / 46% 46% 56% 56%;
+    background: radial-gradient(circle at 34% 30%,
+      rgba(255,255,255,0.95) 0 16%, rgba(255,255,255,0.3) 38%,
+      rgba(180,160,210,0.14) 68%, transparent 74%);
+    box-shadow: inset 0 -1px 2px rgba(110,80,150,0.25), 0 1px 2px rgba(110,80,150,0.15);
+    animation: dropFall linear infinite;
+  }
+  .drop::after {
+    content: ''; position: absolute; left: 12%; right: 12%; bottom: 70%; height: 180%;
+    background: linear-gradient(0deg, rgba(255,255,255,0.28), rgba(255,255,255,0));
+    border-radius: 40%; filter: blur(1px);
+  }
+  .drop.still { animation: none; opacity: 0.55; }
+  .drop.still::after { display: none; }
+  @keyframes dropFall {
+    0%   { transform: translateY(0); opacity: 0; }
+    6%   { opacity: 1; }
+    18%  { transform: translateY(6rem); }
+    34%  { transform: translateY(8rem); }
+    52%  { transform: translateY(24rem); }
+    64%  { transform: translateY(26rem); }
+    92%  { opacity: 0.7; }
+    100% { transform: translateY(54rem); opacity: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .drop { display: none; }
+  }
+
+  /* ── TOGGLE ── */
+  .toggle {
+    width: 46px; height: 26px; border-radius: 13px;
+    cursor: pointer; position: relative; flex-shrink: 0;
+    background: rgba(199,192,222,0.55); border: none;
+    box-shadow: inset 0 2px 5px rgba(122,96,180,0.3);
+    transition: background 0.35s var(--spring);
+  }
+  .toggle.on {
+    background: linear-gradient(145deg, #b7a7ff, #8b7cf6);
+    box-shadow: inset 0 1.5px 3px rgba(90,70,200,0.45), 0 6px 14px -4px rgba(139,124,246,0.6), 0 0 14px rgba(155,132,246,0.4);
+  }
+  .toggle::after {
+    content: ''; position: absolute; top: 3px; left: 3px;
+    width: 20px; height: 20px; border-radius: 50%;
+    background: linear-gradient(180deg, #fff, #f2eefc);
+    box-shadow: 0 3px 7px rgba(90,70,150,0.4), inset 0 -2px 2px rgba(200,190,230,0.4);
+    transition: left 0.35s var(--spring-bounce);
+  }
+  .toggle.on::after { left: 23px; }
+
+  /* ── QUEUE ── */
+  .queue-card { padding: 22px; margin-bottom: 16px; }
+  .queue-meta { display: flex; align-items: center; gap: 10px; margin-bottom: 13px; flex-wrap: wrap; }
+  .queue-user { font-size: 13.5px; font-weight: 700; }
+  .queue-type {
+    padding: 4px 13px; border-radius: 999px; font-size: 11px; font-weight: 600;
+    background: rgba(167,149,248,0.18); color: #7a66e8;
+    box-shadow: inset 0 1px 1px rgba(255,255,255,0.7);
+  }
+  .queue-text {
+    font-size: 13px; color: var(--ink-soft);
+    background: linear-gradient(135deg, rgba(255,255,255,0.60), rgba(255,255,255,0.35));
+    border: 0.3px solid rgba(255,255,255,0.4);
+    backdrop-filter: blur(40px) saturate(180%);
+    -webkit-backdrop-filter: blur(40px) saturate(180%);
+    padding: 14px 18px; border-radius: 20px;
+    line-height: 1.55; margin-bottom: 15px; font-style: italic;
+    box-shadow: 0 8px 32px rgba(31,38,64,0.12), inset 0 1px 0 rgba(255,255,255,0.8), inset 0 -1px 0 rgba(255,255,255,0.15);
+  }
+  .queue-variant-tabs { display: flex; gap: 6px; margin-bottom: 8px; }
+  .queue-variant-tab {
+    padding: 5px 13px; border-radius: 999px; font-size: 12px; font-weight: 700;
+    font-family: inherit; cursor: pointer; border: 1px solid transparent;
+    background: rgba(255,255,255,0.10); color: var(--ink-soft);
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  }
+  .queue-variant-tab.active {
+    background: linear-gradient(160deg, rgba(167,139,250,0.4), rgba(124,58,237,0.2));
+    color: var(--ink); border-color: rgba(255,255,255,0.5);
+  }
+  .queue-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+
+  /* ── IDEA ── */
+  .idea-card {
+    display: flex; align-items: center; gap: 15px;
+    padding: 15px 17px; border-radius: 22px; margin-bottom: 11px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.60), rgba(255,255,255,0.35));
+    border: 0.3px solid rgba(255,255,255,0.4);
+    backdrop-filter: blur(40px) saturate(180%);
+    -webkit-backdrop-filter: blur(40px) saturate(180%);
+    box-shadow: 0 8px 32px rgba(31,38,64,0.12), inset 0 1px 0 rgba(255,255,255,0.8), inset 0 -1px 0 rgba(255,255,255,0.15);
+    transition: transform 0.35s var(--spring);
+  }
+  .idea-card:hover { transform: translateY(-2px); }
+  .idea-score {
+    width: 46px; height: 46px; border-radius: 50%; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 800; color: #fff;
+    background: linear-gradient(145deg, #b7a7ff, #ec8fc4);
+    box-shadow: 0 10px 20px -6px rgba(180,120,220,0.6), inset 0 1.5px 1px rgba(255,255,255,0.6);
+  }
+  .idea-score.dim {
+    background: rgba(255,255,255,0.4); color: var(--ink-soft);
+    box-shadow: inset 0 1px 1px #fff, 0 4px 10px -5px rgba(122,96,180,0.3);
+  }
+  .idea-source { font-size: 11px; color: #7a66e8; font-weight: 600; margin-bottom: 3px; }
+  .idea-text { font-size: 13.5px; line-height: 1.4; }
+
+  /* ── FAQ ── */
+  .faq-card {
+    display: flex; gap: 14px; align-items: flex-start;
+    padding: 16px 18px; border-radius: 20px; margin-bottom: 11px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.60), rgba(255,255,255,0.35));
+    backdrop-filter: blur(40px) saturate(180%);
+    -webkit-backdrop-filter: blur(40px) saturate(180%);
+    border: 0.3px solid rgba(255,255,255,0.4);
+    box-shadow: 0 8px 32px rgba(31,38,64,0.12), inset 0 1px 0 rgba(255,255,255,0.8), inset 0 -1px 0 rgba(255,255,255,0.15);
+  }
+  .faq-q { font-size: 13.5px; font-weight: 700; margin-bottom: 5px; }
+  .faq-a { font-size: 12.5px; color: var(--ink-soft); line-height: 1.55; }
+  .del-btn { background: none; border: none; color: #d4557e; opacity: 0.55; cursor: pointer; font-size: 16px; flex-shrink: 0; transition: opacity 0.25s var(--spring); }
+  .del-btn:hover { opacity: 1; }
+
+  /* ── CHART ── */
+  .bar-chart { display: flex; align-items: flex-end; gap: 12px; height: 130px; margin-bottom: 8px; }
+  .bar-wrap { flex: 1; display: flex; flex-direction: column; align-items: center; height: 100%; }
+  .bar-val { font-size: 10.5px; color: var(--ink-faint); margin-bottom: 5px; }
+  .bar-fill {
+    width: 100%; border-radius: 10px 10px 5px 5px; margin-top: auto;
+    background: rgba(167,149,248,0.35);
+    box-shadow: inset 0 1.5px 1px rgba(255,255,255,0.7);
+    transition: height 0.6s var(--spring);
+  }
+  .bar-fill.today {
+    background: linear-gradient(180deg, #b7a7ff, #ec8fc4);
+    box-shadow: 0 8px 18px -6px rgba(180,120,220,0.55), inset 0 1.5px 1px rgba(255,255,255,0.55), 0 0 16px rgba(180,120,220,0.35);
+  }
+  .bar-days { display: flex; gap: 12px; }
+  .bar-day { flex: 1; text-align: center; font-size: 11px; color: var(--ink-faint); }
+
+  .row-between { display: flex; justify-content: space-between; align-items: center; }
+  .mini-tag { padding: 5px 14px; border-radius: 999px; font-size: 11.5px; font-weight: 700; box-shadow: inset 0 1px 1px rgba(255,255,255,0.7); }
+  .mini-tag.yellow { background: rgba(253,224,171,0.65); color: #b07818; }
+  .mini-tag.green { background: rgba(187,242,213,0.65); color: #1e8f5a; }
+  .mini-tag.purple { background: rgba(214,203,252,0.65); color: #6a55d8; }
+
+  .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; }
+  .info-cell {
+    background: linear-gradient(135deg, rgba(255,255,255,0.60), rgba(255,255,255,0.35)); border-radius: 14px; padding: 9px 12px;
+    border: 0.3px solid rgba(255,255,255,0.4);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.8);
+  }
+  .info-cell-label { font-size: 10px; color: var(--ink-faint); margin-bottom: 3px; }
+  .info-cell-value { font-size: 12px; font-weight: 600; }
+  input.info-cell-value {
+    display: block; width: 100%; border: none; background: transparent; padding: 0;
+    font-family: inherit; color: inherit;
+  }
+  input.info-cell-value::placeholder { color: var(--ink-faint); font-weight: 500; }
+  input.info-cell-value:not([readonly]) {
+    outline: none; border-bottom: 1.5px solid #7a66e8; padding-bottom: 1px;
+  }
+
+  .example-bubble {
+    margin-top: 18px; padding: 18px;
+    border-radius: 22px;
+    background: linear-gradient(150deg, rgba(230,216,252,0.7), rgba(252,224,238,0.7));
+    border: 1px solid rgba(255,255,255,0.6);
+    box-shadow: inset 0 1.5px 1px rgba(255,255,255,0.9), inset 0 -10px 18px -16px rgba(150,100,200,0.35), 0 12px 26px -16px rgba(150,100,200,0.4);
+  }
+
+  .screen { display: none; }
+  .screen.active { display: block; animation: fadeUp 0.5s var(--spring); }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(14px) scale(0.99); } to { opacity: 1; transform: none; } }
+
+  /* ── LOGIN ── */
+  .login-wrap { min-height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; z-index: 1; padding: 20px; }
+  .login-card { width: 100%; max-width: 360px; padding: 34px 30px; text-align: center; animation: floatIn 0.7s var(--spring); }
+  .login-error { color: #d4557e; font-size: 12.5px; margin-top: 12px; min-height: 16px; }
+  @keyframes floatIn { from { opacity: 0; transform: translateY(24px) scale(0.96); } to { opacity: 1; transform: none; } }
+
+  /* ── SKELETON / EMPTY ── */
+  .empty-state { text-align: center; padding: 26px 10px; color: var(--ink-faint); font-size: 13px; }
+
+  /* ── ERROR BANNER ── */
+  .error-banner {
+    padding: 16px 20px; border-radius: 20px;
+    background: linear-gradient(155deg, rgba(255,235,240,0.6), rgba(255,225,235,0.32));
+    border: 1px solid rgba(212,85,126,0.3);
+    box-shadow: inset 0 1.5px 1px rgba(255,255,255,0.7), 0 14px 26px -16px rgba(212,85,126,0.35);
+    color: #b3315a; font-size: 13px; display: flex; align-items: center;
+    justify-content: space-between; gap: 14px; flex-wrap: wrap; margin-bottom: 18px;
+  }
+
+  /* ── TOAST ── */
+  .toast-stack { position: fixed; bottom: 20px; right: 20px; z-index: 1000; display: flex; flex-direction: column; gap: 10px; align-items: flex-end; }
+  .toast {
+    padding: 13px 20px; border-radius: 999px; font-size: 13px; font-weight: 600; color: #fff;
+    background: linear-gradient(150deg, #b7a7ff, #8b7cf6);
+    border: 1px solid rgba(255,255,255,0.4);
+    box-shadow: inset 0 1.5px 1px rgba(255,255,255,0.6), 0 22px 40px -14px rgba(122,96,180,0.55), 0 0 26px rgba(155,132,246,0.35);
+    animation: toast-in 0.5s var(--spring-bounce); max-width: 320px;
+  }
+  .toast.error { background: linear-gradient(150deg, #ec8fa8, #d4557e); }
+  @keyframes toast-in { from { opacity: 0; transform: translateY(16px) scale(0.94); } to { opacity: 1; transform: none; } }
+
+  /* ── MOBILE ── */
+  .mobile-nav {
+    display: none;
+    position: fixed; bottom: 14px; left: 14px; right: 14px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.60), rgba(255,255,255,0.35));
+    backdrop-filter: blur(40px) saturate(180%);
+    -webkit-backdrop-filter: blur(40px) saturate(180%);
+    border: 0.3px solid rgba(255,255,255,0.4);
+    box-shadow: 0 8px 32px rgba(31,38,64,0.12), inset 0 1px 0 rgba(255,255,255,0.8), inset 0 -1px 0 rgba(255,255,255,0.15);
+    border-radius: 28px;
+    padding: 10px 8px;
+    z-index: 100;
+    justify-content: space-around;
+  }
+  .mobile-nav-item {
+    display: flex; flex-direction: column; align-items: center; gap: 3px;
+    background: none; border: none; cursor: pointer;
+    color: var(--ink-faint); font-size: 9.5px; font-family: inherit;
+    padding: 6px 10px; border-radius: 16px; transition: all 0.3s var(--spring); position: relative;
+  }
+  .mobile-nav-item.active {
+    color: #7a66e8; font-weight: 700;
+    background: rgba(167,149,248,0.18);
+    box-shadow: inset 0 1px 1px rgba(255,255,255,0.6), 0 0 14px rgba(155,132,246,0.3);
+  }
+  .mobile-nav-icon { font-size: 20px; }
+  .mobile-badge {
+    position: absolute; top: 2px; right: 8px;
+    width: 9px; height: 9px; border-radius: 50%;
+    background: linear-gradient(145deg,#f68fc0,#ec6aa8);
+    box-shadow: 0 0 0 2px rgba(255,255,255,0.8);
+  }
+
+  .more-sheet-backdrop {
+    display: none; position: fixed; inset: 0; z-index: 149;
+    background: rgba(20,14,32,0.28); backdrop-filter: blur(2px);
+  }
+  .more-sheet-backdrop.open { display: block; }
+  .more-sheet {
+    display: none; position: fixed; left: 14px; right: 14px; bottom: 14px; z-index: 150;
+    padding: 10px 10px 14px; border-radius: 26px;
+    animation: floatIn 0.35s var(--spring);
+  }
+  .more-sheet.open { display: block; }
+  .more-sheet-handle {
+    width: 38px; height: 4px; border-radius: 999px; margin: 2px auto 12px;
+    background: rgba(120,100,160,0.28);
+  }
+  .more-sheet-item {
+    width: 100%; display: flex; align-items: center; gap: 10px;
+    padding: 13px 14px; border-radius: 14px; margin-bottom: 4px;
+    background: transparent; border: 1px solid transparent;
+    color: var(--ink-soft); font-size: 14px; font-weight: 600; font-family: inherit;
+    text-align: left; cursor: pointer;
+  }
+  .more-sheet-item:active { background: rgba(167,149,248,0.18); color: #7a66e8; }
+  .more-sheet-item:last-child { margin-bottom: 0; }
+
+  @media (max-width: 820px) {
+    .sidebar { display: none; }
+    body.logged-in .mobile-nav { display: flex; }
+    .main { padding: 22px 16px 110px; max-width: 100%; }
+    .stats-row { grid-template-columns: 1fr 1fr; gap: 12px; }
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    .page-title { font-size: 22px; }
+    .stat-value { font-size: 24px; }
+    .hero { padding: 22px; }
+    .card { padding: 20px; }
+    .queue-actions .btn { flex: 1; min-width: 90px; padding: 12px 14px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+    body::before, body::after, .orb { animation: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
+<div class="orb orb3"></div>
+
+<div class="bg-blobs">
+  <span class="blob b1"></span>
+  <span class="blob b2"></span>
+  <span class="blob b3"></span>
+  <span class="blob b4"></span>
+  <span class="blob b5"></span>
+  <span class="blob b6"></span>
+</div>
+
+<!-- LOGIN -->
+<div class="login-wrap" id="login-wrap" style="display:none">
+  <div class="card glass login-card">
+    <div class="logo-icon" style="width:52px;height:52px;border-radius:16px;margin:0 auto 18px"><img src="/social/logo.png" alt="FormCraft"></div>
+    <div style="font-size:19px;font-weight:800;margin-bottom:4px">FormCraft Social</div>
+    <div style="font-size:12.5px;color:var(--ink-faint);margin-bottom:22px" data-i18n="login.sub">Вход в панель управления ботом</div>
+    <div class="field" style="text-align:left">
+      <div class="field-label" data-i18n="login.loginLabel">Логин</div>
+      <input type="text" id="login-login" placeholder="Логин (выдан при подключении Instagram)" data-i18n-ph="login.loginPh" autocomplete="username">
+    </div>
+    <div class="field" style="text-align:left">
+      <div class="field-label" data-i18n="login.passLabel">Пароль</div>
+      <div class="password-field">
+        <input type="password" id="login-password" placeholder="Пароль дашборда" data-i18n-ph="login.passPh" autocomplete="current-password">
+        <button type="button" class="password-toggle" onclick="togglePasswordVisibility(this)">👁️</button>
+      </div>
+    </div>
+    <button class="btn full" id="login-btn" data-i18n="login.submit">Войти</button>
+    <div class="login-error" id="login-error"></div>
+  </div>
+</div>
+
+<div class="layout" id="app-layout" style="display:none">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar glass">
+    <div class="logo">
+      <div class="logo-icon"><img src="/social/logo.png" alt="FormCraft"></div>
+      <div>
+        <div class="logo-text">FormCraft Social</div>
+        <div class="logo-sub" data-i18n="sidebar.tagline">AI-ассистент</div>
+      </div>
+    </div>
+
+    <nav>
+      <button class="nav-item active" onclick="showScreen('home', this)"><span class="nav-icon">⌂</span> <span data-i18n="nav.home">Главная</span></button>
+      <button class="nav-item" onclick="showScreen('blogger', this)"><span class="nav-icon">◉</span> <span data-i18n="nav.blogger">О блогере</span></button>
+      <button class="nav-item" onclick="showScreen('style', this)"><span class="nav-icon">✎</span> <span data-i18n="nav.style">Стиль текста</span></button>
+      <button class="nav-item" onclick="showScreen('faq', this)"><span class="nav-icon">💬</span> <span data-i18n="nav.faq">FAQ</span></button>
+      <button class="nav-item" onclick="showScreen('queue', this)"><span class="nav-icon">◈</span> <span data-i18n="nav.queue">На ревью</span> <span class="nav-badge" id="queue-badge" style="display:none">0</span></button>
+      <button class="nav-item" onclick="showScreen('content', this)"><span class="nav-icon">✧</span> <span data-i18n="nav.content">Контент-план</span></button>
+      <button class="nav-item" onclick="showScreen('analytics', this)"><span class="nav-icon">📊</span> <span data-i18n="nav.analytics">Аналитика</span></button>
+      <button class="nav-item" onclick="showScreen('settings', this)"><span class="nav-icon">⚙</span> <span data-i18n="nav.settings">Настройки</span></button>
+    </nav>
+
+    <button id="lang-toggle" onclick="toggleLang()" class="btn ghost" style="margin-top:auto;padding:4px;font-size:10px;font-weight:800;letter-spacing:0.06em">RU / EN</button>
+
+    <div class="status-pill" style="padding:4px 8px;margin-bottom:3px">
+      <div class="status-dot"></div>
+      <div>
+        <div style="font-size:11px;font-weight:700;color:#1e8f5a" id="status-label" data-i18n="status.active">Бот активен</div>
+        <div style="font-size:9px;color:var(--ink-faint)" data-i18n="sidebar.statusSub">Отвечает 24/7</div>
+      </div>
+    </div>
+
+    <div class="user-card" style="padding:4px 8px">
+      <div class="avatar js-avatar" id="avatar-sidebar">··</div>
+      <div>
+        <div style="font-size:11px;font-weight:700" id="sidebar-name">…</div>
+        <div style="font-size:9.5px;color:var(--ink-faint)" id="sidebar-username">…</div>
+      </div>
+    </div>
+    <button class="btn ghost" style="margin-top:2px;padding:4px;font-size:10.5px" onclick="logout()" data-i18n="sidebar.logout">Выйти</button>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <div class="error-banner" id="global-error" style="display:none">
+      <span data-i18n="error.offline">Не удалось связаться с ботом. Проверь, что сервер запущен, и попробуй снова.</span>
+      <button class="btn ghost" style="padding:10px 20px" onclick="loadAll()" data-i18n="error.retry">Повторить</button>
+    </div>
+
+    <!-- HOME -->
+    <div id="screen-home" class="screen active">
+      <div class="page-header">
+        <div class="page-title" data-i18n="home.title">Главная</div>
+        <div class="page-sub" data-i18n="home.sub">FormCraft Social · AI-ассистент для Instagram</div>
+      </div>
+
+      <div class="hero glass">
+        <div style="display:flex;align-items:center;gap:20px">
+          <div class="avatar lg js-avatar" id="avatar-hero">··</div>
+          <div>
+            <div style="font-size:17px;font-weight:800" data-i18n="home.heroTitle">Бот готов к работе ✦</div>
+            <div style="font-size:11.5px;color:var(--ink-faint);margin-top:2px"><span id="hero-username">…</span> <span id="hero-niche"></span></div>
+          </div>
+        </div>
+        <button class="btn" id="bot-btn" onclick="toggleBot()">⏹ <span data-i18n="bot.stop">Остановить бота</span></button>
+      </div>
+
+      <div class="stats-row">
+        <div class="stat-card c1"><div class="stat-icon">💬</div><div class="stat-value" id="stat-answered">…</div><div class="stat-label" data-i18n="home.statAnswered">Ответов сегодня</div></div>
+        <div class="stat-card c2"><div class="stat-icon">⚡</div><div class="stat-value" id="stat-autorate">…</div><div class="stat-label" data-i18n="home.statAuto">Автоматически</div></div>
+        <div class="stat-card c3"><div class="stat-icon">⏱</div><div class="stat-value" id="stat-avgtime">…</div><div class="stat-label" data-i18n="home.statAvgTime">Среднее время</div></div>
+        <div class="stat-card c4"><div class="stat-icon">◈</div><div class="stat-value" id="stat-pending">…</div><div class="stat-label" data-i18n="home.statPending">Ждут ревью</div></div>
+      </div>
+
+      <div class="grid-2">
+        <div class="card glass">
+          <div class="row-between" style="margin-bottom:11px">
+            <div class="card-title" style="margin:0" data-i18n="home.topTopics">Топ тем</div>
+            <span style="font-size:10.5px;color:var(--ink-faint)" data-i18n="home.last7days">за 7 дней</span>
+          </div>
+          <div id="topics-list"><div class="empty-state" data-i18n="common.loading">Загрузка…</div></div>
+        </div>
+
+        <div class="card glass">
+          <div class="row-between" style="margin-bottom:10px">
+            <div class="card-title" style="margin:0" data-i18n="home.postIdeas">Идеи для постов</div>
+            <button onclick="showScreen('content',null)" style="background:none;border:none;color:#7a66e8;font-size:12.5px;cursor:pointer;font-weight:600" data-i18n="home.seeAll">все →</button>
+          </div>
+          <div id="ideas-list-home"><div class="empty-state" data-i18n="common.loading">Загрузка…</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BLOGGER: name/username/avatar come read-only from Instagram (/api/profile).
+         Bio text + niche/location/language/platform stay manually editable. -->
+    <div id="screen-blogger" class="screen">
+      <div class="page-header">
+        <div class="page-title" data-i18n="blogger.title">О блогере</div>
+        <div class="page-sub" data-i18n="blogger.sub">Информация используется ботом для персонализации</div>
+      </div>
+      <div class="card glass">
+        <div class="row-between" style="margin-bottom:12px">
+          <div class="card-title" style="margin:0" data-i18n="blogger.profile">Профиль</div>
+          <button class="btn ghost" style="padding:9px 20px" onclick="toggleEdit(this)" data-i18n="blogger.edit">Изменить</button>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:14px;flex-wrap:wrap">
+          <div class="avatar lg js-avatar" id="avatar-blogger">··</div>
+          <div style="flex:1;min-width:220px">
+            <div style="font-size:17px;font-weight:800" id="blogger-name">…</div>
+            <div style="font-size:11.5px;color:#7a66e8;font-weight:600;margin-bottom:2px" id="blogger-username">…</div>
+            <div style="font-size:10px;color:var(--ink-faint);margin-bottom:10px" data-i18n="blogger.readonlyNote">Имя, ник и аватар — из Instagram, не редактируются здесь</div>
+            <textarea id="bio-field" style="min-height:180px;font-size:12.5px" readonly data-i18n-ph="blogger.bioPh" placeholder="Расскажи о себе подробно: кто ты, о чём блог, твоя история — бот использует этот текст как основу для ответов подписчикам."></textarea>
+            <div class="info-grid">
+              <div class="info-cell"><div class="info-cell-label" data-i18n="blogger.niche">Ниша</div><input class="info-cell-value" id="blogger-niche" readonly data-i18n-ph="blogger.nichePh" placeholder="Например: жизнь в Турции" /></div>
+              <div class="info-cell"><div class="info-cell-label" data-i18n="blogger.location">Локация</div><input class="info-cell-value" id="blogger-location" readonly data-i18n-ph="blogger.locationPh" placeholder="Например: Стамбул, Турция" /></div>
+              <div class="info-cell"><div class="info-cell-label" data-i18n="blogger.language">Язык</div><input class="info-cell-value" id="blogger-language" readonly data-i18n-ph="blogger.languagePh" placeholder="Например: Русский, Английский" /></div>
+              <div class="info-cell"><div class="info-cell-label" data-i18n="blogger.platform">Платформа</div><div class="info-cell-value">Instagram</div></div>
+              <div class="info-cell"><div class="info-cell-label" data-i18n="blogger.followers">Подписчики</div><div class="info-cell-value" id="blogger-followers">…</div></div>
+              <div class="info-cell"><div class="info-cell-label" data-i18n="blogger.posts">Публикации</div><div class="info-cell-value" id="blogger-media-count">…</div></div>
+            </div>
+          </div>
+        </div>
+        <div style="font-size:10.5px;color:var(--ink-faint);margin-top:10px" data-i18n="blogger.usedInPrompts">Ниша, локация, язык и био передаются боту и влияют на все автоматические ответы.</div>
+      </div>
+    </div>
+
+    <!-- STYLE -->
+    <div id="screen-style" class="screen">
+      <div class="page-header">
+        <div class="page-title" data-i18n="style.title">Стиль текста</div>
+        <div class="page-sub" data-i18n="style.sub">Бот будет отвечать в вашем голосе</div>
+      </div>
+      <div class="card glass">
+        <div class="card-title" data-i18n="style.tone">Тон общения</div>
+        <div style="font-size:11.5px;color:var(--ink-faint);margin:-6px 0 12px" data-i18n="style.toneWarning">Можно выбрать сразу несколько — бот постарается выдержать все одновременно. Но если теги противоречат друг другу (например «Официальный» + «Вульгарный»), результат может получиться странным — выбирайте сочетаемые.</div>
+        <div id="style-tags">
+          <span class="tag" data-value="Дружелюбный">Дружелюбный</span>
+          <span class="tag" data-value="Вдохновляющий">Вдохновляющий</span>
+          <span class="tag" data-value="Позитивный">Позитивный</span>
+          <span class="tag" data-value="Разговорный">Разговорный</span>
+          <span class="tag" data-value="Лёгкий">Лёгкий</span>
+          <span class="tag" data-value="Официальный">Официальный</span>
+          <span class="tag" data-value="Тёплый">Тёплый</span>
+          <span class="tag" data-value="Заботливый">Заботливый</span>
+          <span class="tag" data-value="Деловой">Деловой</span>
+          <span class="tag" data-value="Лаконичный">Лаконичный</span>
+          <span class="tag" data-value="Саркастичный">Саркастичный</span>
+          <span class="tag" data-value="Ироничный">Ироничный</span>
+          <span class="tag" data-value="Дерзкий">Дерзкий</span>
+          <span class="tag" data-value="Резкий">Резкий</span>
+          <span class="tag" data-value="Прямолинейный">Прямолинейный</span>
+          <span class="tag" data-value="Строгий">Строгий</span>
+          <span class="tag" data-value="Циничный">Циничный</span>
+          <span class="tag" data-value="Провокационный">Провокационный</span>
+          <span class="tag" data-value="Вульгарный">Вульгарный</span>
+          <span class="tag" data-value="Секси">Секси</span>
+          <span class="tag" data-value="Матерный">Матерный</span>
+          <span class="tag" data-value="Поэтичный">Поэтичный</span>
+        </div>
+        <div class="example-bubble" style="margin-top:20px">
+          <div style="font-size:12px;color:#7a66e8;font-weight:700;margin-bottom:8px" data-i18n="style.previewLabel">Пример ответа бота</div>
+          <div style="font-size:13.5px;line-height:1.6" id="style-preview">Привет! Спасибо за твоё сообщение 💛 Я обязательно отвечу немного позже, обнимаю!</div>
+        </div>
+        <div style="margin-top:20px">
+          <div class="card-label" data-i18n="style.features">Особенности стиля</div>
+          <textarea id="style-description" style="min-height:92px"></textarea>
+        </div>
+      </div>
+      <div class="card glass">
+        <div class="card-title" data-i18n="style.examples">Обучающие примеры</div>
+        <div style="font-size:11.5px;color:var(--ink-faint);margin:-10px 0 16px" data-i18n="style.examplesHint">По одному примеру на строку.</div>
+        <div class="field"><div class="field-label" data-i18n="style.dmLabel">Стиль сообщений в директ</div><textarea id="style-dm" placeholder="Вставьте 3-5 примеров ваших реальных ответов в директ..." data-i18n-ph="style.dmPh" style="min-height:80px"></textarea></div>
+        <div class="field"><div class="field-label" data-i18n="style.commentsLabel">Стиль ответов на комментарии</div><textarea id="style-comments" placeholder="Вставьте примеры ваших ответов на комментарии..." data-i18n-ph="style.commentsPh" style="min-height:80px"></textarea></div>
+        <div class="field"><div class="field-label" data-i18n="style.postsLabel">Стиль подписей к постам</div><textarea id="style-posts" placeholder="Вставьте 3-5 примеров подписей к постам..." data-i18n-ph="style.postsPh" style="min-height:80px"></textarea></div>
+        <button class="btn full" onclick="saveStyle()" data-i18n="style.save">Сохранить стиль</button>
+      </div>
+    </div>
+
+    <!-- FAQ -->
+    <div id="screen-faq" class="screen">
+      <div class="page-header">
+        <div class="page-title">FAQ</div>
+        <div class="page-sub" data-i18n="faq.sub">Бот отвечает на эти вопросы автоматически</div>
+      </div>
+      <div class="card glass">
+        <div class="row-between" style="margin-bottom:16px">
+          <div class="card-title" style="margin:0" data-i18n="faq.qa">Вопросы и ответы</div>
+          <span class="mini-tag purple" id="faq-count-badge">0 вопросов</span>
+        </div>
+        <div id="faq-list"><div class="empty-state" data-i18n="common.loading">Загрузка…</div></div>
+      </div>
+      <div class="card glass">
+        <div class="card-title" data-i18n="faq.addQuestion">+ Добавить вопрос</div>
+        <div class="field"><div class="field-label" data-i18n="faq.question">Вопрос</div><input type="text" id="new-q" placeholder="Например: Сложно ли было адаптироваться?" data-i18n-ph="faq.questionPh"></div>
+        <div class="field"><div class="field-label" data-i18n="faq.answer">Ответ</div><textarea id="new-a" placeholder="Ваш ответ в вашем стиле..." data-i18n-ph="faq.answerPh" style="min-height:80px"></textarea></div>
+        <button class="btn full" onclick="addFaq()" data-i18n="faq.add">Добавить</button>
+      </div>
+    </div>
+
+    <!-- QUEUE -->
+    <div id="screen-queue" class="screen">
+      <div class="page-header">
+        <div class="page-title" data-i18n="queue.title">На ревью</div>
+        <div class="page-sub" data-i18n="queue.sub">Сообщения, требующие вашего одобрения</div>
+      </div>
+      <div class="row-between" style="margin-bottom:18px">
+        <span class="mini-tag yellow" id="queue-count-badge">0 ждут</span>
+        <button class="btn ghost" style="padding:11px 22px;font-size:13px" onclick="approveAll()" data-i18n="queue.approveAll">Одобрить все</button>
+      </div>
+      <div id="queue-list"></div>
+      <div class="empty-state" id="queue-empty" style="display:none" data-i18n="queue.empty">Очередь пуста 🎉</div>
+    </div>
+
+    <!-- CONTENT -->
+    <div id="screen-content" class="screen">
+      <div class="page-header">
+        <div class="page-title" data-i18n="content.title">Контент-план</div>
+        <div class="page-sub" data-i18n="content.sub">Идеи на основе запросов аудитории и трендов</div>
+      </div>
+      <div class="card glass">
+        <div class="card-title" data-i18n="home.postIdeas">Идеи для постов</div>
+        <div id="ideas-list-content"><div class="empty-state" data-i18n="common.loading">Загрузка…</div></div>
+      </div>
+      <div class="card glass">
+        <div class="card-title" data-i18n="content.audienceInterest">Что интересует аудиторию</div>
+        <div id="topics-list-content"><div class="empty-state" data-i18n="common.loading">Загрузка…</div></div>
+      </div>
+    </div>
+
+    <!-- ANALYTICS -->
+    <div id="screen-analytics" class="screen">
+      <div class="page-header">
+        <div class="page-title" data-i18n="analytics.title">Аналитика</div>
+        <div class="page-sub" data-i18n="analytics.sub">Статистика работы бота</div>
+      </div>
+      <div class="card glass">
+        <div class="card-title" style="margin-bottom:16px" data-i18n="analytics.today">Сегодня</div>
+        <div class="grid-3">
+          <div style="text-align:center;padding:10px">
+            <div class="stat-value" id="an-answered">…</div>
+            <div style="font-size:12px;color:var(--ink-soft);margin-top:3px" data-i18n="home.statAnswered">Ответов сегодня</div>
+          </div>
+          <div style="text-align:center;padding:10px">
+            <div class="stat-value" style="color:#7a66e8" id="an-autorate">…</div>
+            <div style="font-size:12px;color:var(--ink-soft);margin-top:3px" data-i18n="analytics.autoReplies">Авто-ответы</div>
+          </div>
+          <div style="text-align:center;padding:10px">
+            <div class="stat-value" style="color:#b07818" id="an-pending">…</div>
+            <div style="font-size:12px;color:var(--ink-soft);margin-top:3px" data-i18n="analytics.pendingNow">На ревью сейчас</div>
+          </div>
+        </div>
+        <div style="font-size:11.5px;color:var(--ink-faint);margin-top:18px" data-i18n="analytics.chartUnavailable">Недельный график пока недоступен — текущий API отдаёт только статистику за сегодня и топ тем за 7 дней.</div>
+      </div>
+      <div class="card glass">
+        <div class="card-title" style="margin-bottom:10px" data-i18n="analytics.cyclePeriod">Текущий период</div>
+        <div style="font-size:14px;color:var(--ink-soft)">
+          <span data-i18n="analytics.processedInCycle">Обработано в текущем периоде</span>:
+          <strong id="an-cycle-count">…</strong> <span data-i18n="analytics.messagesUnit">сообщений</span>
+          (<span id="an-cycle-range">…</span>)
+        </div>
+      </div>
+    </div>
+
+    <!-- SETTINGS -->
+    <div id="screen-settings" class="screen">
+      <div class="page-header">
+        <div class="page-title" data-i18n="settings.title">Настройки</div>
+        <div class="page-sub" data-i18n="settings.sub">Конфигурация бота</div>
+      </div>
+      <div class="grid-2">
+        <div class="card glass" style="margin:0">
+          <div class="card-title" data-i18n="settings.mode">Режим работы</div>
+          <label style="display:flex;align-items:flex-start;gap:12px;margin-bottom:15px;cursor:pointer">
+            <input type="radio" name="mode" id="mode-auto" onchange="setMode('auto')" style="width:auto;margin-top:3px;accent-color:#8b7cf6">
+            <div><div style="font-size:13.5px;font-weight:700" data-i18n="settings.modeAuto">Автоматический</div><div style="font-size:12px;color:var(--ink-faint);margin-top:2px" data-i18n="settings.modeAutoDesc">Зарезервировано на будущее — сейчас бот всегда ставит ответы на ревью, независимо от режима</div></div>
+          </label>
+          <label style="display:flex;align-items:flex-start;gap:12px;cursor:pointer">
+            <input type="radio" name="mode" id="mode-manual" onchange="setMode('manual')" style="width:auto;margin-top:3px;accent-color:#8b7cf6">
+            <div><div style="font-size:13.5px;font-weight:700" data-i18n="settings.modeManual">Ручной</div><div style="font-size:12px;color:var(--ink-faint);margin-top:2px" data-i18n="settings.modeManualDesc">Все сообщения проходят ревью</div></div>
+          </label>
+        </div>
+        <div class="card glass" style="margin:0">
+          <div class="card-title" data-i18n="settings.replyLang">Язык ответов</div>
+          <div style="font-size:11.5px;color:var(--ink-faint);margin:-8px 0 14px" data-i18n="settings.replyLangHint">Бот отвечает на том же языке, на котором написал подписчик — если язык не выбран здесь, сообщение уйдёт на ревью вместо автоответа.</div>
+          <div class="row-between" style="margin-bottom:15px"><span style="font-size:13.5px" data-i18n="settings.langRu">Русский</span><button class="toggle" id="lang-toggle-ru" onclick="toggleReplyLanguage('ru')"></button></div>
+          <div class="row-between" style="margin-bottom:15px"><span style="font-size:13.5px" data-i18n="settings.langEn">Английский</span><button class="toggle" id="lang-toggle-en" onclick="toggleReplyLanguage('en')"></button></div>
+          <div class="row-between"><span style="font-size:13.5px" data-i18n="settings.langOther">Другие языки</span><button class="toggle" id="lang-toggle-any" onclick="toggleReplyLanguage('any')"></button></div>
+        </div>
+      </div>
+      <div class="card glass" style="margin-top:22px">
+        <div class="card-title" data-i18n="settings.ignored">Игнорируемые контакты</div>
+        <div style="font-size:11.5px;color:var(--ink-faint);margin:-8px 0 14px" data-i18n="settings.ignoredHint">Бот вообще не будет реагировать на сообщения от этих аккаунтов — ни черновика, ни карточки на ревью. По одному нику на строку, с @ или без.</div>
+        <textarea id="ignored-senders-field" style="min-height:80px" data-i18n-ph="settings.ignoredPh" placeholder="например:&#10;my_test_account&#10;sister_ig_nick"></textarea>
+        <button class="btn full" style="margin-top:14px" onclick="saveIgnoredSenders()" data-i18n="settings.ignoredSave">Сохранить список</button>
+      </div>
+      <div class="card glass" style="margin-top:22px">
+        <div class="card-title" data-i18n="settings.apiKeys">Ключи API</div>
+        <div style="font-size:12.5px;color:var(--ink-soft);line-height:1.6" data-i18n="settings.apiKeysDesc">
+          Instagram, Anthropic и Telegram токены настраиваются на сервере бота (файл <code>.env</code>) и никогда не передаются
+          в дашборд ни в одном виде — по соображениям безопасности здесь их нельзя ни посмотреть, ни изменить.
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- MOBILE NAV -->
+<nav class="mobile-nav" id="mobile-nav">
+  <button class="mobile-nav-item active" onclick="showScreen('home', this)"><span class="mobile-nav-icon">⌂</span><span data-i18n="nav.home">Главная</span></button>
+  <button class="mobile-nav-item" onclick="showScreen('queue', this)"><span class="mobile-nav-icon">◈</span><span data-i18n="mobile.review">Ревью</span><div class="mobile-badge" id="mobile-queue-badge" style="display:none"></div></button>
+  <button class="mobile-nav-item" onclick="showScreen('content', this)"><span class="mobile-nav-icon">✧</span><span data-i18n="mobile.content">Контент</span></button>
+  <button class="mobile-nav-item" onclick="showScreen('faq', this)"><span class="mobile-nav-icon">💬</span>FAQ</button>
+  <button class="mobile-nav-item" id="mobile-more-btn" onclick="toggleMoreSheet()"><span class="mobile-nav-icon">⋯</span><span data-i18n="mobile.more">Ещё</span></button>
+</nav>
+
+<!-- MOBILE "MORE" SHEET — screens that don't fit in the 5-icon bottom bar -->
+<div class="more-sheet-backdrop" id="more-sheet-backdrop" onclick="toggleMoreSheet(false)"></div>
+<div class="more-sheet glass" id="more-sheet">
+  <div class="more-sheet-handle"></div>
+  <button class="more-sheet-item" onclick="showScreen('blogger', document.getElementById('mobile-more-btn')); toggleMoreSheet(false)"><span class="nav-icon">◉</span> <span data-i18n="nav.blogger">О блогере</span></button>
+  <button class="more-sheet-item" onclick="showScreen('style', document.getElementById('mobile-more-btn')); toggleMoreSheet(false)"><span class="nav-icon">✎</span> <span data-i18n="nav.style">Стиль текста</span></button>
+  <button class="more-sheet-item" onclick="showScreen('analytics', document.getElementById('mobile-more-btn')); toggleMoreSheet(false)"><span class="nav-icon">📊</span> <span data-i18n="nav.analytics">Аналитика</span></button>
+  <button class="more-sheet-item" onclick="showScreen('settings', document.getElementById('mobile-more-btn')); toggleMoreSheet(false)"><span class="nav-icon">⚙</span> <span data-i18n="nav.settings">Настройки</span></button>
+</div>
+
+<div class="toast-stack" id="toast-stack"></div>
+
+<script>
+  // ── API base + session ──────────────────────────────────────────────────
+  var API_URL = new URLSearchParams(location.search).get('api') || 'https://bot-bloger-production.up.railway.app';
+  var SESSION_KEY = 'fcs_token';
+
+  // ── I18N ──────────────────────────────────────────────────────────────────
+  // Covers UI chrome only (labels, buttons, toasts). The blogger's actual
+  // content — FAQ answers, post ideas, bio, style examples — comes from the
+  // API as her real Russian text and is never machine-translated here.
+  var LANG = localStorage.getItem('fcs_lang') || 'ru';
+  var I18N = {
+    ru: {
+      'login.sub': 'Вход в панель управления ботом',
+      'login.loginLabel': 'Логин',
+      'login.loginPh': 'Логин (выдан при подключении Instagram)',
+      'login.passLabel': 'Пароль',
+      'login.passPh': 'Пароль дашборда',
+      'login.submit': 'Войти',
+      'login.checking': 'Проверяю...',
+      'login.badCreds': 'Неверный логин/пароль или бот недоступен',
+      'session.expired': 'Сессия истекла, войдите снова',
+      'sidebar.tagline': 'AI-ассистент',
+      'sidebar.statusSub': 'Отвечает 24/7',
+      'sidebar.logout': 'Выйти',
+      'nav.home': 'Главная', 'nav.blogger': 'О блогере', 'nav.style': 'Стиль текста',
+      'nav.faq': 'FAQ', 'nav.queue': 'На ревью', 'nav.content': 'Контент-план',
+      'nav.analytics': 'Аналитика', 'nav.settings': 'Настройки',
+      'mobile.review': 'Ревью', 'mobile.content': 'Контент', 'mobile.more': 'Ещё',
+      'status.active': 'Бот активен', 'status.stopped': 'Бот остановлен',
+      'bot.stop': 'Остановить бота', 'bot.start': 'Запустить бота',
+      'error.offline': 'Не удалось связаться с ботом. Проверь, что сервер запущен, и попробуй снова.',
+      'error.retry': 'Повторить',
+      'error.genericFetch': 'Не удалось связаться с ботом',
+      'common.loading': 'Загрузка…',
+      'time.sec': 'сек', 'time.min': 'мин',
+      'home.title': 'Главная', 'home.sub': 'FormCraft Social · AI-ассистент для Instagram',
+      'home.heroTitle': 'Бот готов к работе ✦',
+      'home.statAnswered': 'Ответов сегодня', 'home.statAuto': 'Автоматически',
+      'home.statAvgTime': 'Среднее время', 'home.statPending': 'Ждут ревью',
+      'home.topTopics': 'Топ тем', 'home.last7days': 'за 7 дней',
+      'home.postIdeas': 'Идеи для постов', 'home.seeAll': 'все →',
+      'home.noTopicsData': 'Пока недостаточно данных за 7 дней',
+      'home.noIdeasYet': 'Идеи появятся после первого еженедельного дайджеста',
+      'blogger.title': 'О блогере', 'blogger.sub': 'Информация используется ботом для персонализации',
+      'blogger.profile': 'Профиль', 'blogger.edit': 'Изменить', 'edit.done': 'Готово',
+      'blogger.readonlyNote': 'Имя, ник и аватар — из Instagram, не редактируются здесь',
+      'blogger.bioPh': 'Расскажи о себе подробно: кто ты, о чём блог, твоя история — бот использует этот текст как основу для ответов подписчикам.',
+      'blogger.niche': 'Ниша', 'blogger.nichePh': 'Например: жизнь в Турции',
+      'blogger.location': 'Локация', 'blogger.locationPh': 'Например: Стамбул, Турция',
+      'blogger.language': 'Язык', 'blogger.languagePh': 'Например: Русский, Английский',
+      'blogger.platform': 'Платформа', 'blogger.followers': 'Подписчики', 'blogger.posts': 'Публикации',
+      'blogger.usedInPrompts': 'Ниша, локация, язык и био передаются боту и влияют на все автоматические ответы.',
+      'toast.profileSaved': 'Профиль сохранён', 'toast.profileSaveFailed': 'Не удалось сохранить профиль',
+      'style.title': 'Стиль текста', 'style.sub': 'Бот будет отвечать в вашем голосе',
+      'style.tone': 'Тон общения', 'style.features': 'Особенности стиля',
+      'style.toneWarning': 'Можно выбрать сразу несколько — бот постарается выдержать все одновременно. Но если теги противоречат друг другу (например «Официальный» + «Вульгарный»), результат может получиться странным — выбирайте сочетаемые.',
+      'style.previewLabel': 'Пример ответа бота',
+      'style.previewFallback': 'Привет! Спасибо за твоё сообщение 💛 Я обязательно отвечу немного позже, обнимаю!',
+      'style.examples': 'Обучающие примеры', 'style.examplesHint': 'По одному примеру на строку.',
+      'style.dmLabel': 'Стиль сообщений в директ', 'style.dmPh': 'Вставьте 3-5 примеров ваших реальных ответов в директ...',
+      'style.commentsLabel': 'Стиль ответов на комментарии', 'style.commentsPh': 'Вставьте примеры ваших ответов на комментарии...',
+      'style.postsLabel': 'Стиль подписей к постам', 'style.postsPh': 'Вставьте 3-5 примеров подписей к постам...',
+      'style.save': 'Сохранить стиль',
+      'toast.styleSaved': 'Стиль сохранён', 'toast.styleSaveFailed': 'Не удалось сохранить стиль',
+      'faq.sub': 'Бот отвечает на эти вопросы автоматически', 'faq.qa': 'Вопросы и ответы',
+      'faq.addQuestion': '+ Добавить вопрос', 'faq.question': 'Вопрос',
+      'faq.questionPh': 'Например: Сложно ли было адаптироваться?',
+      'faq.answer': 'Ответ', 'faq.answerPh': 'Ваш ответ в вашем стиле...', 'faq.add': 'Добавить',
+      'faq.noAnswerYet': '(ответ пока не заполнен)', 'faq.noneYet': 'Пока нет добавленных вопросов',
+      'faq.countOne': 'вопрос', 'faq.countMany': 'вопросов',
+      'toast.fillBoth': 'Заполните вопрос и ответ', 'toast.faqAdded': 'Вопрос добавлен',
+      'toast.faqAddFailed': 'Не удалось добавить вопрос',
+      'toast.deleted': 'Удалено', 'toast.deleteFailed': 'Не удалось удалить',
+      'queue.title': 'На ревью', 'queue.sub': 'Сообщения, требующие вашего одобрения',
+      'queue.approveAll': 'Одобрить все', 'queue.empty': 'Очередь пуста 🎉',
+      'queue.draftLabel': 'Черновик ответа', 'queue.send': 'Отправить', 'queue.skip': 'Пропустить',
+      'queue.waitingSuffix': 'ждут',
+      'queue.type.reaction': 'Реакция', 'queue.type.compliment': 'Комплимент', 'queue.type.faq': 'Частый вопрос',
+      'queue.type.nonstandard': 'Нестандартный вопрос', 'queue.type.keyword_dm': 'Ключевое слово', 'queue.type.post_draft': 'Черновик поста',
+      'queue.type.needs_attention': 'Требует внимания',
+      'toast.emptyDraft': 'Введите текст ответа', 'toast.sent': 'Отправлено', 'toast.sendFailed': 'Не удалось отправить: ',
+      'toast.skipped': 'Пропущено', 'toast.skipFailed': 'Не удалось пропустить: ',
+      'content.title': 'Контент-план', 'content.sub': 'Идеи на основе запросов аудитории и трендов',
+      'content.audienceInterest': 'Что интересует аудиторию',
+      'analytics.title': 'Аналитика', 'analytics.sub': 'Статистика работы бота', 'analytics.today': 'Сегодня',
+      'analytics.autoReplies': 'Авто-ответы', 'analytics.pendingNow': 'На ревью сейчас',
+      'analytics.chartUnavailable': 'Недельный график пока недоступен — текущий API отдаёт только статистику за сегодня и топ тем за 7 дней.',
+      'analytics.cyclePeriod': 'Текущий период', 'analytics.processedInCycle': 'Обработано в текущем периоде',
+      'analytics.messagesUnit': 'сообщений',
+      'settings.title': 'Настройки', 'settings.sub': 'Конфигурация бота', 'settings.mode': 'Режим работы',
+      'settings.modeAuto': 'Автоматический',
+      'settings.modeAutoDesc': 'Зарезервировано на будущее — сейчас бот всегда ставит ответы на ревью, независимо от режима',
+      'settings.modeManual': 'Ручной', 'settings.modeManualDesc': 'Все сообщения проходят ревью',
+      'settings.replyLang': 'Язык ответов', 'settings.langRu': 'Русский', 'settings.langEn': 'Английский', 'settings.langOther': 'Другие языки',
+      'settings.replyLangHint': 'Бот отвечает на том же языке, на котором написал подписчик — если язык не выбран здесь, сообщение уйдёт на ревью вместо автоответа.',
+      'toast.langSaved': 'Язык ответов сохранён', 'toast.langSaveFailed': 'Не удалось сохранить язык ответов',
+      'settings.ignored': 'Игнорируемые контакты',
+      'settings.ignoredHint': 'Бот вообще не будет реагировать на сообщения от этих аккаунтов — ни черновика, ни карточки на ревью. По одному нику на строку, с @ или без.',
+      'settings.ignoredPh': 'например:\nmy_test_account\nsister_ig_nick',
+      'settings.ignoredSave': 'Сохранить список',
+      'toast.ignoredSaved': 'Список сохранён', 'toast.ignoredSaveFailed': 'Не удалось сохранить список',
+      'settings.apiKeys': 'Ключи API',
+      'settings.apiKeysDesc': 'Instagram, Anthropic и Telegram токены настраиваются на сервере бота (файл <code>.env</code>) и никогда не передаются в дашборд ни в одном виде — по соображениям безопасности здесь их нельзя ни посмотреть, ни изменить.',
+      'toast.botStarted': 'Бот запущен', 'toast.botStopped': 'Бот остановлен',
+      'toast.botToggleFailed': 'Не удалось изменить статус бота',
+      'toast.modeSaved': 'Режим сохранён', 'toast.modeSaveFailed': 'Не удалось сохранить режим',
+    },
+    en: {
+      'login.sub': 'Sign in to the bot dashboard',
+      'login.loginLabel': 'Login',
+      'login.loginPh': 'Login (issued when Instagram was connected)',
+      'login.passLabel': 'Password',
+      'login.passPh': 'Dashboard password',
+      'login.submit': 'Sign in',
+      'login.checking': 'Checking...',
+      'login.badCreds': 'Wrong login/password, or the bot is unreachable',
+      'session.expired': 'Session expired, please sign in again',
+      'sidebar.tagline': 'AI assistant',
+      'sidebar.statusSub': 'Replying 24/7',
+      'sidebar.logout': 'Sign out',
+      'nav.home': 'Home', 'nav.blogger': 'Blogger', 'nav.style': 'Writing style',
+      'nav.faq': 'FAQ', 'nav.queue': 'Review', 'nav.content': 'Content plan',
+      'nav.analytics': 'Analytics', 'nav.settings': 'Settings',
+      'mobile.review': 'Review', 'mobile.content': 'Content', 'mobile.more': 'More',
+      'status.active': 'Bot active', 'status.stopped': 'Bot stopped',
+      'bot.stop': 'Stop bot', 'bot.start': 'Start bot',
+      'error.offline': "Couldn't reach the bot. Check that the server is running and try again.",
+      'error.retry': 'Retry',
+      'error.genericFetch': "Couldn't reach the bot",
+      'common.loading': 'Loading…',
+      'time.sec': 'sec', 'time.min': 'min',
+      'home.title': 'Home', 'home.sub': 'FormCraft Social · AI assistant for Instagram',
+      'home.heroTitle': 'Bot ready to work ✦',
+      'home.statAnswered': 'Replies today', 'home.statAuto': 'Automated',
+      'home.statAvgTime': 'Avg. response time', 'home.statPending': 'Awaiting review',
+      'home.topTopics': 'Top topics', 'home.last7days': 'last 7 days',
+      'home.postIdeas': 'Post ideas', 'home.seeAll': 'all →',
+      'home.noTopicsData': 'Not enough data for the last 7 days yet',
+      'home.noIdeasYet': 'Ideas will appear after the first weekly digest',
+      'blogger.title': 'Blogger', 'blogger.sub': 'This information is used by the bot for personalization',
+      'blogger.profile': 'Profile', 'blogger.edit': 'Edit', 'edit.done': 'Done',
+      'blogger.readonlyNote': 'Name, handle and avatar come from Instagram and can’t be edited here',
+      'blogger.bioPh': 'Tell us about yourself in detail: who you are, what the blog is about, your story — the bot uses this text as the basis for replying to followers.',
+      'blogger.niche': 'Niche', 'blogger.nichePh': 'E.g. life in Turkey',
+      'blogger.location': 'Location', 'blogger.locationPh': 'E.g. Istanbul, Turkey',
+      'blogger.language': 'Language', 'blogger.languagePh': 'E.g. Russian, English',
+      'blogger.platform': 'Platform', 'blogger.followers': 'Followers', 'blogger.posts': 'Posts',
+      'blogger.usedInPrompts': 'Niche, location, language and bio are sent to the bot and shape every automated reply.',
+      'toast.profileSaved': 'Profile saved', 'toast.profileSaveFailed': 'Could not save profile',
+      'style.title': 'Writing style', 'style.sub': 'The bot will reply in your voice',
+      'style.tone': 'Tone of voice', 'style.features': 'Style notes',
+      'style.toneWarning': 'You can pick several at once — the bot will try to hold all of them at the same time. But if tags contradict each other (e.g. "Formal" + "Vulgar"), the result can come out inconsistent — pick ones that work together.',
+      'style.previewLabel': 'Example bot reply',
+      'style.previewFallback': "Hi! Thanks for your message 💛 I'll definitely reply a bit later, hugs!",
+      'style.examples': 'Training examples', 'style.examplesHint': 'One example per line.',
+      'style.dmLabel': 'DM reply style', 'style.dmPh': 'Paste 3-5 examples of your real DM replies...',
+      'style.commentsLabel': 'Comment reply style', 'style.commentsPh': 'Paste examples of your comment replies...',
+      'style.postsLabel': 'Caption style', 'style.postsPh': 'Paste 3-5 examples of your post captions...',
+      'style.save': 'Save style',
+      'toast.styleSaved': 'Style saved', 'toast.styleSaveFailed': "Couldn't save style",
+      'faq.sub': 'The bot answers these questions automatically', 'faq.qa': 'Questions & answers',
+      'faq.addQuestion': '+ Add question', 'faq.question': 'Question',
+      'faq.questionPh': 'E.g.: Was it hard to adapt?',
+      'faq.answer': 'Answer', 'faq.answerPh': 'Your answer, in your voice...', 'faq.add': 'Add',
+      'faq.noAnswerYet': '(no answer yet)', 'faq.noneYet': 'No questions added yet',
+      'faq.countOne': 'question', 'faq.countMany': 'questions',
+      'toast.fillBoth': 'Fill in both the question and the answer', 'toast.faqAdded': 'Question added',
+      'toast.faqAddFailed': "Couldn't add the question",
+      'toast.deleted': 'Deleted', 'toast.deleteFailed': "Couldn't delete",
+      'queue.title': 'Review', 'queue.sub': 'Messages waiting for your approval',
+      'queue.approveAll': 'Approve all', 'queue.empty': 'Queue is empty 🎉',
+      'queue.draftLabel': 'Draft reply', 'queue.send': 'Send', 'queue.skip': 'Skip',
+      'queue.waitingSuffix': 'waiting',
+      'queue.type.reaction': 'Reaction', 'queue.type.compliment': 'Compliment', 'queue.type.faq': 'Common question',
+      'queue.type.nonstandard': 'Unusual question', 'queue.type.keyword_dm': 'Keyword', 'queue.type.post_draft': 'Post draft',
+      'queue.type.needs_attention': 'Needs attention',
+      'toast.emptyDraft': 'Enter a reply first', 'toast.sent': 'Sent', 'toast.sendFailed': "Couldn't send: ",
+      'toast.skipped': 'Skipped', 'toast.skipFailed': "Couldn't skip: ",
+      'content.title': 'Content plan', 'content.sub': 'Ideas based on audience questions and trends',
+      'content.audienceInterest': 'What the audience is asking about',
+      'analytics.title': 'Analytics', 'analytics.sub': 'Bot performance stats', 'analytics.today': 'Today',
+      'analytics.autoReplies': 'Auto replies', 'analytics.pendingNow': 'In review now',
+      'analytics.chartUnavailable': "Weekly chart isn't available yet — the current API only returns today's stats and the 7-day topic breakdown.",
+      'analytics.cyclePeriod': 'Current period', 'analytics.processedInCycle': 'Processed this period',
+      'analytics.messagesUnit': 'messages',
+      'settings.title': 'Settings', 'settings.sub': 'Bot configuration', 'settings.mode': 'Operating mode',
+      'settings.modeAuto': 'Automatic',
+      'settings.modeAutoDesc': "Reserved for later — right now the bot always queues replies for review, regardless of mode",
+      'settings.modeManual': 'Manual', 'settings.modeManualDesc': 'Every message goes through review',
+      'settings.replyLang': 'Reply language', 'settings.langRu': 'Russian', 'settings.langEn': 'English', 'settings.langOther': 'Other languages',
+      'settings.replyLangHint': 'The bot replies in the same language the follower wrote in — if that language isn’t enabled here, the message goes to review instead of an auto-reply.',
+      'toast.langSaved': 'Reply language saved', 'toast.langSaveFailed': 'Could not save reply language',
+      'settings.ignored': 'Ignored contacts',
+      'settings.ignoredHint': 'The bot won’t react to messages from these accounts at all — no draft, no review card. One handle per line, with or without @.',
+      'settings.ignoredPh': 'e.g.:\nmy_test_account\nsister_ig_nick',
+      'settings.ignoredSave': 'Save list',
+      'toast.ignoredSaved': 'List saved', 'toast.ignoredSaveFailed': 'Could not save list',
+      'settings.apiKeys': 'API keys',
+      'settings.apiKeysDesc': 'Instagram, Anthropic, and Telegram tokens are configured on the bot server (<code>.env</code> file) and are never sent to the dashboard in any form — for security they can’t be viewed or changed here.',
+      'toast.botStarted': 'Bot started', 'toast.botStopped': 'Bot stopped',
+      'toast.botToggleFailed': "Couldn't change the bot status",
+      'toast.modeSaved': 'Mode saved', 'toast.modeSaveFailed': "Couldn't save the mode",
+    },
+  };
+  var TONE_EN = {
+    'Дружелюбный': 'Friendly', 'Вдохновляющий': 'Inspiring', 'Позитивный': 'Positive',
+    'Разговорный': 'Conversational', 'Лёгкий': 'Casual', 'Официальный': 'Formal',
+    'Тёплый': 'Warm', 'Заботливый': 'Caring', 'Деловой': 'Business-like', 'Лаконичный': 'Concise',
+    'Саркастичный': 'Sarcastic', 'Ироничный': 'Ironic', 'Дерзкий': 'Bold', 'Резкий': 'Blunt',
+    'Прямолинейный': 'Straightforward', 'Строгий': 'Strict', 'Циничный': 'Cynical', 'Провокационный': 'Provocative',
+    'Вульгарный': 'Vulgar', 'Секси': 'Sexy', 'Матерный': 'Foul-mouthed', 'Поэтичный': 'Poetic',
+  };
+
+  function t(key) {
+    var dict = I18N[LANG] || I18N.ru;
+    return Object.prototype.hasOwnProperty.call(dict, key) ? dict[key] : key;
+  }
+
+  function applyI18N() {
+    document.documentElement.lang = LANG;
+    document.querySelectorAll('[data-i18n]').forEach(function (el) {
+      var val = t(el.getAttribute('data-i18n'));
+      if (el.tagName === 'TEXTAREA') el.value = val;
+      else if (/</.test(val)) el.innerHTML = val;
+      else el.textContent = val;
+    });
+    document.querySelectorAll('[data-i18n-ph]').forEach(function (el) {
+      el.setAttribute('placeholder', t(el.getAttribute('data-i18n-ph')));
+    });
+    document.querySelectorAll('#style-tags .tag').forEach(function (tag) {
+      var val = tag.getAttribute('data-value');
+      tag.textContent = LANG === 'en' ? (TONE_EN[val] || val) : val;
+    });
+    var langBtn = document.getElementById('lang-toggle');
+    if (langBtn) langBtn.textContent = LANG === 'ru' ? 'RU / EN' : 'EN / RU';
+    if (document.body.classList.contains('logged-in')) {
+      loadSection(loadBotStatus, null);
+      loadSection(loadStats, null);
+      loadSection(loadTopics, 'topics-list');
+      loadSection(loadIdeas, 'ideas-list-home');
+      loadSection(loadQueue, 'queue-list');
+      loadSection(loadFaq, 'faq-list');
+    }
+  }
+
+  function toggleLang() {
+    LANG = LANG === 'ru' ? 'en' : 'ru';
+    localStorage.setItem('fcs_lang', LANG);
+    applyI18N();
+  }
+
+  function getToken() { return sessionStorage.getItem(SESSION_KEY); }
+  function setToken(t) { sessionStorage.setItem(SESSION_KEY, t); }
+  function clearToken() { sessionStorage.removeItem(SESSION_KEY); }
+
+  function showToast(message, isError) {
+    var stack = document.getElementById('toast-stack');
+    var el = document.createElement('div');
+    el.className = 'toast' + (isError ? ' error' : '');
+    el.textContent = message;
+    stack.appendChild(el);
+    setTimeout(function () { el.remove(); }, 3200);
+  }
+
+  function escapeHtml(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+
+  function apiFetch(path, options) {
+    options = options || {};
+    var headers = Object.assign({ 'Content-Type': 'application/json' }, options.headers || {});
+    var token = getToken();
+    if (token) headers['Authorization'] = 'Bearer ' + token;
+    return fetch(API_URL + path, Object.assign({}, options, { headers }))
+      .catch(function () { throw new Error('network'); })
+      .then(function (resp) {
+        if (resp.status === 401) {
+          clearToken();
+          showLogin(t('session.expired'));
+          throw new Error('unauthorized');
+        }
+        if (!resp.ok) {
+          return resp.json().catch(function () { return {}; }).then(function (body) {
+            throw new Error(body.detail || ('http_' + resp.status));
+          });
+        }
+        if (resp.status === 204) return null;
+        return resp.json();
+      });
+  }
+
+  // ── Login / session ──────────────────────────────────────────────────────
+  function showLogin(message) {
+    document.getElementById('app-layout').style.display = 'none';
+    document.body.classList.remove('logged-in');
+    document.getElementById('login-wrap').style.display = 'flex';
+    document.getElementById('login-error').textContent = message || '';
+  }
+
+  function showApp() {
+    document.getElementById('login-wrap').style.display = 'none';
+    document.getElementById('app-layout').style.display = 'flex';
+    document.body.classList.add('logged-in');
+    loadAll();
+  }
+
+  function togglePasswordVisibility(btn) {
+    var input = btn.previousElementSibling;
+    var showing = input.type === 'text';
+    input.type = showing ? 'password' : 'text';
+    btn.textContent = showing ? '👁️' : '🙈';
+  }
+
+  function doLogin() {
+    var loginInput = document.getElementById('login-login');
+    var pwInput = document.getElementById('login-password');
+    var btn = document.getElementById('login-btn');
+    var login = loginInput.value.trim();
+    var password = pwInput.value;
+    if (!login || !password) return;
+    btn.disabled = true; btn.textContent = t('login.checking');
+    fetch(API_URL + '/api/auth', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ login: login, password: password }),
+    })
+      .then(function (resp) {
+        if (!resp.ok) {
+          return resp.json().catch(function () { return {}; }).then(function (b) {
+            throw new Error(b.detail || 'bad_password');
+          });
+        }
+        return resp.json();
+      })
+      .then(function (data) {
+        setToken(data.token);
+        pwInput.value = '';
+        showApp();
+      })
+      .catch(function (e) {
+        document.getElementById('login-error').textContent = e.message === 'bad_password' ? t('login.badCreds') : e.message;
+      })
+      .finally(function () { btn.disabled = false; btn.textContent = t('login.submit'); });
+  }
+
+  function logout() { clearToken(); showLogin(''); }
+
+  document.getElementById('login-btn').addEventListener('click', doLogin);
+  document.getElementById('login-login').addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') doLogin();
+  });
+  document.getElementById('login-password').addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') doLogin();
+  });
+
+  // ── Screens ───────────────────────────────────────────────────────────────
+  var SCREEN_LOADERS = {
+    queue: function () { loadSection(loadQueue, 'queue-list'); },
+    faq: function () { loadSection(loadFaq, 'faq-list'); },
+    style: function () { loadSection(loadStyle, null); },
+    blogger: function () {
+      loadSection(loadProfile, null);
+      loadSection(loadBloggerProfile, null);
+    },
+    content: function () {
+      loadSection(loadIdeas, 'ideas-list-home');
+      loadSection(loadTopics, 'topics-list');
+    },
+    analytics: function () { loadSection(loadStats, null); loadSection(loadUsageCycle, null); },
+    settings: function () { loadSection(loadBotStatus, null); },
+  };
+
+  function showScreen(id, btn) {
+    document.querySelectorAll('.screen').forEach(function (s) { s.classList.remove('active'); });
+    document.getElementById('screen-' + id).classList.add('active');
+    document.querySelectorAll('.nav-item, .mobile-nav-item').forEach(function (n) { n.classList.remove('active'); });
+    if (btn) btn.classList.add('active');
+    document.querySelectorAll('.nav-item, .mobile-nav-item').forEach(function (n) {
+      var oc = n.getAttribute('onclick') || '';
+      if (oc.indexOf("'" + id + "'") !== -1) n.classList.add('active');
+    });
+    window.scrollTo({ top: 0 });
+    if (SCREEN_LOADERS[id]) SCREEN_LOADERS[id]();
+  }
+
+  function toggleMoreSheet(open) {
+    var sheet = document.getElementById('more-sheet');
+    var backdrop = document.getElementById('more-sheet-backdrop');
+    var show = open === undefined ? !sheet.classList.contains('open') : open;
+    sheet.classList.toggle('open', show);
+    backdrop.classList.toggle('open', show);
+  }
+
+  var BLOGGER_EDIT_FIELD_IDS = ['bio-field', 'blogger-niche', 'blogger-location', 'blogger-language'];
+
+  function toggleEdit(btn) {
+    var fields = BLOGGER_EDIT_FIELD_IDS.map(function (id) { return document.getElementById(id); });
+    var editing = !fields[0].hasAttribute('readonly');
+    if (!editing) {
+      fields.forEach(function (el) { el.removeAttribute('readonly'); });
+      fields[0].focus();
+      btn.textContent = t('edit.done');
+    } else {
+      fields.forEach(function (el) { el.setAttribute('readonly', true); });
+      btn.textContent = t('blogger.edit');
+      saveBloggerProfile();
+    }
+  }
+
+  function saveBloggerProfile() {
+    var body = {
+      niche: document.getElementById('blogger-niche').value.trim(),
+      location: document.getElementById('blogger-location').value.trim(),
+      language: document.getElementById('blogger-language').value.trim(),
+      bio: document.getElementById('bio-field').value.trim(),
+    };
+    apiFetch('/api/blogger-profile', { method: 'POST', body: JSON.stringify(body) }).then(function () {
+      showToast(t('toast.profileSaved'));
+    }).catch(function () { showToast(t('toast.profileSaveFailed'), true); });
+  }
+
+  function loadBloggerProfile() {
+    return apiFetch('/api/blogger-profile').then(function (profile) {
+      document.getElementById('blogger-niche').value = profile.niche || '';
+      document.getElementById('blogger-location').value = profile.location || '';
+      document.getElementById('blogger-language').value = profile.language || '';
+      document.getElementById('bio-field').value = profile.bio || '';
+      document.getElementById('hero-niche').textContent = profile.niche ? ('· ' + profile.niche) : '';
+    });
+  }
+
+  // ── Loader with error handling ──────────────────────────────────────────
+  function loadSection(loaderFn, containerId) {
+    return loaderFn().catch(function (e) {
+      if (e.message === 'unauthorized') return;
+      var container = containerId ? document.getElementById(containerId) : null;
+      if (container) {
+        container.innerHTML = '<div class="error-banner"><span>' + escapeHtml(t('error.genericFetch')) + '</span></div>';
+      }
+    });
+  }
+
+  // ── HOME / stats ─────────────────────────────────────────────────────────
+  function formatSeconds(s) {
+    if (!s) return '0 ' + t('time.sec');
+    if (s < 60) return s + ' ' + t('time.sec');
+    return Math.round(s / 60) + ' ' + t('time.min');
+  }
+
+  function updateQueueBadge(count) {
+    var badge = document.getElementById('queue-badge');
+    var mobileBadge = document.getElementById('mobile-queue-badge');
+    if (count > 0) { badge.style.display = ''; badge.textContent = count; mobileBadge.style.display = 'block'; }
+    else { badge.style.display = 'none'; mobileBadge.style.display = 'none'; }
+  }
+
+  function loadStats() {
+    return apiFetch('/api/stats').then(function (s) {
+      document.getElementById('stat-answered').textContent = s.answered_today;
+      document.getElementById('stat-autorate').textContent = s.auto_rate + '%';
+      document.getElementById('stat-avgtime').textContent = formatSeconds(s.avg_response_time);
+      document.getElementById('stat-pending').textContent = s.pending_review_count;
+      document.getElementById('an-answered').textContent = s.answered_today;
+      document.getElementById('an-autorate').textContent = s.auto_rate + '%';
+      document.getElementById('an-pending').textContent = s.pending_review_count;
+      updateQueueBadge(s.pending_review_count);
+    });
+  }
+
+  function formatShortDate(iso) {
+    // "2026-06-20" -> "20.06"
+    var parts = String(iso || '').split('-');
+    return parts.length === 3 ? parts[2] + '.' + parts[1] : (iso || '—');
+  }
+
+  function loadUsageCycle() {
+    // No limits/blocking shown here on purpose — pilot phase, this is a
+    // plain informational counter, not a quota (see CLAUDE.md / billing.py).
+    return apiFetch('/api/usage').then(function (u) {
+      document.getElementById('an-cycle-count').textContent = u.messages_processed;
+      document.getElementById('an-cycle-range').textContent =
+        formatShortDate(u.cycle_start) + ' – ' + formatShortDate(u.cycle_end);
+    }).catch(function () {
+      document.getElementById('an-cycle-count').textContent = '—';
+      document.getElementById('an-cycle-range').textContent = '—';
+    });
+  }
+
+  function loadTopics() {
+    return apiFetch('/api/topics').then(function (topics) {
+      var html = topics.length
+        ? topics.map(function (t) {
+            return '<div class="progress-row"><div class="progress-meta"><span class="progress-name">' +
+              escapeHtml(t.name) + '</span><span class="progress-pct">' + t.pct + '%</span></div>' +
+              '<div class="progress-track"><div class="progress-fill" style="width:' + t.pct + '%"></div></div></div>';
+          }).join('')
+        : '<div class="empty-state">' + escapeHtml(t('home.noTopicsData')) + '</div>';
+      document.getElementById('topics-list').innerHTML = html;
+      document.getElementById('topics-list-content').innerHTML = html;
+    });
+  }
+
+  // ── PROFILE (read-only, sourced from Instagram via /api/profile) ─────────
+  function initials(name) {
+    var parts = String(name || '').trim().split(/\s+/).filter(Boolean);
+    if (!parts.length) return '··';
+    return (parts[0][0] + (parts[1] ? parts[1][0] : '')).toUpperCase();
+  }
+
+  function setAvatar(el, url, fallbackInitials) {
+    if (!url) { el.textContent = fallbackInitials; return; }
+    var img = new Image();
+    img.onload = function () {
+      el.innerHTML = '';
+      var tag = document.createElement('img');
+      tag.src = url;
+      tag.alt = '';
+      el.appendChild(tag);
+    };
+    img.onerror = function () { el.textContent = fallbackInitials; };
+    img.src = url;
+  }
+
+  function applyProfile(profile) {
+    var fallback = initials(profile.name || profile.username);
+    document.querySelectorAll('.js-avatar').forEach(function (el) {
+      setAvatar(el, profile.profile_picture_url, fallback);
+    });
+    document.getElementById('sidebar-name').textContent = profile.name || profile.username || '—';
+    document.getElementById('sidebar-username').textContent = profile.username ? '@' + profile.username : '';
+    document.getElementById('hero-username').textContent = profile.username ? '@' + profile.username : '—';
+    document.getElementById('blogger-name').textContent = profile.name || profile.username || '—';
+    document.getElementById('blogger-username').textContent = profile.username ? '@' + profile.username : '';
+    var numLocale = LANG === 'en' ? 'en-US' : 'ru-RU';
+    document.getElementById('blogger-followers').textContent = profile.followers_count != null ? profile.followers_count.toLocaleString(numLocale) : '—';
+    document.getElementById('blogger-media-count').textContent = profile.media_count != null ? profile.media_count.toLocaleString(numLocale) : '—';
+  }
+
+  function loadProfile() {
+    // Non-critical enrichment — a failure (e.g. Instagram token issue) just
+    // leaves the placeholders/initials in place instead of breaking the page.
+    return apiFetch('/api/profile').then(applyProfile).catch(function (e) {
+      if (e.message === 'unauthorized') return;
+      console.warn('Profile load failed:', e.message);
+    });
+  }
+
+  function ideaCardHtml(idea, dim) {
+    return '<div class="idea-card"><div class="idea-score' + (dim ? ' dim' : '') + '">' +
+      Math.round(idea.score) + '</div><div style="flex:1"><div class="idea-source">' +
+      escapeHtml(idea.source) + '</div><div class="idea-text">' + escapeHtml(idea.idea) + '</div></div></div>';
+  }
+
+  function loadIdeas() {
+    return apiFetch('/api/ideas').then(function (ideas) {
+      var sorted = ideas.slice().sort(function (a, b) { return b.score - a.score; });
+      var empty = '<div class="empty-state">' + escapeHtml(t('home.noIdeasYet')) + '</div>';
+      document.getElementById('ideas-list-home').innerHTML = sorted.length
+        ? sorted.slice(0, 3).map(function (idea, i) { return ideaCardHtml(idea, i >= 1); }).join('')
+        : empty;
+      document.getElementById('ideas-list-content').innerHTML = sorted.length
+        ? sorted.map(function (idea, i) { return ideaCardHtml(idea, i >= 2); }).join('')
+        : empty;
+    });
+  }
+
+  function applyBotStatus(status) {
+    var btn = document.getElementById('bot-btn');
+    var dot = document.querySelector('.status-dot');
+    var statusLabel = document.getElementById('status-label');
+    if (status.running) {
+      btn.textContent = '⏹ ' + t('bot.stop');
+      btn.classList.remove('mint');
+      if (dot) { dot.style.background = '#4ade80'; dot.style.boxShadow = '0 0 0 4px rgba(74,222,128,0.2), 0 0 10px rgba(74,222,128,0.7)'; dot.style.animation = ''; }
+      if (statusLabel) statusLabel.textContent = t('status.active');
+    } else {
+      btn.textContent = '▶ ' + t('bot.start');
+      btn.classList.add('mint');
+      if (dot) { dot.style.background = '#9ca3af'; dot.style.boxShadow = 'none'; dot.style.animation = 'none'; }
+      if (statusLabel) statusLabel.textContent = t('status.stopped');
+    }
+    document.getElementById('mode-auto').checked = status.mode === 'auto';
+    document.getElementById('mode-manual').checked = status.mode === 'manual';
+
+    var langs = status.reply_languages || ['ru'];
+    var anyOn = langs.indexOf('any') !== -1;
+    document.getElementById('lang-toggle-any').classList.toggle('on', anyOn);
+    document.getElementById('lang-toggle-ru').classList.toggle('on', !anyOn && langs.indexOf('ru') !== -1);
+    document.getElementById('lang-toggle-en').classList.toggle('on', !anyOn && langs.indexOf('en') !== -1);
+
+    document.getElementById('ignored-senders-field').value = (status.ignored_senders || []).join('\n');
+  }
+
+  function saveIgnoredSenders() {
+    var list = document.getElementById('ignored-senders-field').value
+      .split('\n').map(function (s) { return s.trim(); }).filter(Boolean);
+    apiFetch('/api/bot/ignored-senders', { method: 'POST', body: JSON.stringify({ ignored_senders: list }) })
+      .then(function (status) {
+        document.getElementById('ignored-senders-field').value = (status.ignored_senders || []).join('\n');
+        showToast(t('toast.ignoredSaved'));
+      })
+      .catch(function () { showToast(t('toast.ignoredSaveFailed'), true); });
+  }
+
+  function loadBotStatus() {
+    return apiFetch('/api/bot/status').then(applyBotStatus);
+  }
+
+  function toggleBot() {
+    return apiFetch('/api/bot/toggle', { method: 'POST' }).then(function (status) {
+      applyBotStatus(status);
+      showToast(status.running ? t('toast.botStarted') : t('toast.botStopped'));
+    }).catch(function () { showToast(t('toast.botToggleFailed'), true); });
+  }
+
+  function setMode(mode) {
+    return apiFetch('/api/bot/mode', { method: 'POST', body: JSON.stringify({ mode: mode }) }).then(function (status) {
+      applyBotStatus(status);
+      showToast(t('toast.modeSaved'));
+    }).catch(function () { showToast(t('toast.modeSaveFailed'), true); });
+  }
+
+  function toggleReplyLanguage(code) {
+    var anyBtn = document.getElementById('lang-toggle-any');
+    var ruBtn = document.getElementById('lang-toggle-ru');
+    var enBtn = document.getElementById('lang-toggle-en');
+    if (code === 'any') {
+      var turningOn = !anyBtn.classList.contains('on');
+      anyBtn.classList.toggle('on', turningOn);
+      if (turningOn) { ruBtn.classList.remove('on'); enBtn.classList.remove('on'); }
+    } else {
+      document.getElementById('lang-toggle-' + code).classList.toggle('on');
+      anyBtn.classList.remove('on');
+    }
+    var codes = [];
+    if (anyBtn.classList.contains('on')) {
+      codes = ['any'];
+    } else {
+      if (ruBtn.classList.contains('on')) codes.push('ru');
+      if (enBtn.classList.contains('on')) codes.push('en');
+    }
+    if (!codes.length) {
+      // Guard against saving an empty scope (nothing would ever auto-reply).
+      codes = ['ru'];
+      ruBtn.classList.add('on');
+    }
+    apiFetch('/api/bot/reply-languages', { method: 'POST', body: JSON.stringify({ reply_languages: codes }) })
+      .then(function () { showToast(t('toast.langSaved')); })
+      .catch(function () { showToast(t('toast.langSaveFailed'), true); });
+  }
+
+  // ── QUEUE ────────────────────────────────────────────────────────────────
+  function queueTypeLabel(type) {
+    var key = 'queue.type.' + type;
+    var dict = I18N[LANG] || I18N.ru;
+    return Object.prototype.hasOwnProperty.call(dict, key) ? dict[key] : type;
+  }
+
+  var VARIANT_LETTERS = ['A', 'Б', 'В'];
+
+  function renderQueueCard(item) {
+    var typeLabel = queueTypeLabel(item.type);
+    var drafts = item.drafts && item.drafts.length ? item.drafts : [''];
+    var variantTabs = drafts.length > 1
+      ? '<div class="queue-variant-tabs">' + drafts.map(function (_, i) {
+          return '<button type="button" class="queue-variant-tab' + (i === 0 ? ' active' : '') + '" ' +
+            'onclick="selectQueueVariant(this, ' + i + ')">' + escapeHtml(VARIANT_LETTERS[i] || String(i + 1)) + '</button>';
+        }).join('') + '</div>'
+      : '';
+    return (
+      '<div class="queue-card glass" data-id="' + escapeHtml(item.id) + '" data-drafts=\'' + escapeHtml(JSON.stringify(drafts)) + '\'>' +
+      '<div class="queue-meta"><span class="queue-user">@' + escapeHtml(item.user) + '</span>' +
+      '<span class="queue-type">' + escapeHtml(typeLabel) + '</span></div>' +
+      (item.text ? '<div class="queue-text">"' + escapeHtml(item.text) + '"</div>' : '') +
+      '<div class="field"><div class="field-label">' + escapeHtml(t('queue.draftLabel')) + '</div>' +
+      variantTabs +
+      '<textarea class="queue-draft-field" style="min-height:70px">' + escapeHtml(drafts[0] || '') + '</textarea></div>' +
+      '<div class="queue-actions">' +
+      '<button class="btn mint" onclick="approveQueueItem(this)">✓ ' + escapeHtml(t('queue.send')) + '</button>' +
+      '<button class="btn ghost" onclick="skipQueueItem(this)">⏭ ' + escapeHtml(t('queue.skip')) + '</button>' +
+      '</div></div>'
+    );
+  }
+
+  function selectQueueVariant(btn, index) {
+    var card = btn.closest('.queue-card');
+    var drafts = JSON.parse(card.getAttribute('data-drafts') || '[]');
+    card.querySelectorAll('.queue-variant-tab').forEach(function (tab) { tab.classList.remove('active'); });
+    btn.classList.add('active');
+    card.querySelector('.queue-draft-field').value = drafts[index] || '';
+  }
+
+  function loadQueue() {
+    return apiFetch('/api/queue').then(function (items) {
+      var list = document.getElementById('queue-list');
+      var empty = document.getElementById('queue-empty');
+      document.getElementById('queue-count-badge').textContent = items.length + ' ' + t('queue.waitingSuffix');
+      updateQueueBadge(items.length);
+      if (!items.length) {
+        list.innerHTML = '';
+        empty.style.display = 'block';
+        return;
+      }
+      empty.style.display = 'none';
+      list.innerHTML = items.map(renderQueueCard).join('');
+      list.querySelectorAll('.queue-draft-field').forEach(attachEmojiPicker);
+      seedAllRain();
+    });
+  }
+
+  function refreshQueueCounters() {
+    var remaining = document.querySelectorAll('#queue-list .queue-card').length;
+    document.getElementById('queue-count-badge').textContent = remaining + ' ' + t('queue.waitingSuffix');
+    updateQueueBadge(remaining);
+    if (!remaining) document.getElementById('queue-empty').style.display = 'block';
+    loadStats();
+  }
+
+  function approveQueueItem(btn) {
+    var card = btn.closest('.queue-card');
+    var id = card.getAttribute('data-id');
+    var text = card.querySelector('.queue-draft-field').value.trim();
+    if (!text) { showToast(t('toast.emptyDraft'), true); return Promise.resolve(); }
+    btn.disabled = true;
+    return apiFetch('/api/queue/' + encodeURIComponent(id) + '/approve', {
+      method: 'POST', body: JSON.stringify({ text: text }),
+    }).then(function () {
+      card.remove();
+      showToast(t('toast.sent'));
+      refreshQueueCounters();
+    }).catch(function (e) {
+      showToast(t('toast.sendFailed') + e.message, true);
+      btn.disabled = false;
+    });
+  }
+
+  function skipQueueItem(btn) {
+    var card = btn.closest('.queue-card');
+    var id = card.getAttribute('data-id');
+    btn.disabled = true;
+    return apiFetch('/api/queue/' + encodeURIComponent(id) + '/skip', { method: 'POST' }).then(function () {
+      card.remove();
+      showToast(t('toast.skipped'));
+      refreshQueueCounters();
+    }).catch(function (e) {
+      showToast(t('toast.skipFailed') + e.message, true);
+      btn.disabled = false;
+    });
+  }
+
+  function approveAll() {
+    var cards = Array.prototype.slice.call(document.querySelectorAll('#queue-list .queue-card'));
+    var chain = Promise.resolve();
+    cards.forEach(function (card) {
+      var btn = card.querySelector('.btn.mint');
+      if (btn) chain = chain.then(function () { return approveQueueItem(btn); });
+    });
+    return chain;
+  }
+
+  // ── FAQ ──────────────────────────────────────────────────────────────────
+  function faqCountLabel(n) {
+    return n + ' ' + (n === 1 ? t('faq.countOne') : t('faq.countMany'));
+  }
+
+  function renderFaqCard(item) {
+    return (
+      '<div class="faq-card" data-id="' + escapeHtml(item.id) + '">' +
+      '<div style="flex:1"><div class="faq-q">' + escapeHtml(item.question) + '</div>' +
+      '<div class="faq-a">' + escapeHtml(item.answer || t('faq.noAnswerYet')) + '</div></div>' +
+      '<button class="del-btn" onclick="deleteFaq(this)">✕</button></div>'
+    );
+  }
+
+  function loadFaq() {
+    return apiFetch('/api/faq').then(function (items) {
+      document.getElementById('faq-count-badge').textContent = faqCountLabel(items.length);
+      document.getElementById('faq-list').innerHTML = items.length
+        ? items.map(renderFaqCard).join('')
+        : '<div class="empty-state">' + escapeHtml(t('faq.noneYet')) + '</div>';
+    });
+  }
+
+  function addFaq() {
+    var qEl = document.getElementById('new-q');
+    var aEl = document.getElementById('new-a');
+    var q = qEl.value.trim();
+    var a = aEl.value.trim();
+    if (!q || !a) { showToast(t('toast.fillBoth'), true); return; }
+    apiFetch('/api/faq', { method: 'POST', body: JSON.stringify({ question: q, answer: a }) }).then(function () {
+      qEl.value = ''; aEl.value = '';
+      showToast(t('toast.faqAdded'));
+      loadSection(loadFaq, 'faq-list');
+    }).catch(function () { showToast(t('toast.faqAddFailed'), true); });
+  }
+
+  function deleteFaq(btn) {
+    var card = btn.closest('.faq-card');
+    var id = card.getAttribute('data-id');
+    apiFetch('/api/faq/' + encodeURIComponent(id), { method: 'DELETE' }).then(function () {
+      card.remove();
+      showToast(t('toast.deleted'));
+      var remaining = document.querySelectorAll('#faq-list .faq-card').length;
+      document.getElementById('faq-count-badge').textContent = faqCountLabel(remaining);
+    }).catch(function () { showToast(t('toast.deleteFailed'), true); });
+  }
+
+  // ── STYLE ────────────────────────────────────────────────────────────────
+  function linesToList(text) {
+    return text.split('\n').map(function (s) { return s.trim(); }).filter(Boolean);
+  }
+
+  // Same base scenario (a follower's compliment) reworded per tone, so
+  // picking a tag shows concretely how it changes the bot's reply — not
+  // just its name. Canned, not LLM-generated: instant, no API cost, and
+  // fine since it's illustrative rather than a real generated draft.
+  var TONE_EXAMPLES = {
+    'Дружелюбный': 'Ты меня прямо согрела, спасибо! 🥰',
+    'Вдохновляющий': 'Твои слова — то, что нужно было услышать сегодня! Продолжаем вместе 💪',
+    'Позитивный': 'Ура, обожаю такие сообщения! День сразу стал лучше 🌟',
+    'Разговорный': 'Ахах, ну спасибо, зая, растрогала',
+    'Лёгкий': 'Спасибо! Прямо приятно, чесслово 😊',
+    'Официальный': 'Благодарю за тёплые слова, очень приятно это слышать.',
+    'Тёплый': 'Спасибо тебе, родная, ты не представляешь, как это важно для меня ❤️',
+    'Заботливый': 'Спасибо! А у тебя как дела, всё хорошо?',
+    'Деловой': 'Спасибо за отзыв, ценю это.',
+    'Лаконичный': 'Спасибо! ❤️',
+    'Саркастичный': 'Ну надо же, кто-то меня оценил 😏 спасибо',
+    'Ироничный': 'Ахах, ну всё, теперь я точно звезда 😂 спасибо',
+    'Дерзкий': 'Конечно лучшая, а ты как думала 😏',
+    'Резкий': 'Спасибо, но это и так очевидно',
+    'Прямолинейный': 'Спасибо, приятно это слышать',
+    'Строгий': 'Благодарю за комментарий.',
+    'Циничный': 'Ну спасибо, конечно... кто бы сомневался',
+    'Провокационный': 'Оо, а вот и мои любимые преувеличения, спасибо 😏',
+    'Вульгарный': 'Бля, спасибо, приятно так!',
+    'Секси': 'М-м, обожаю, когда мне такое пишут 😘',
+    'Матерный': 'Бля, спасибо, ты меня реально растрогала!',
+    'Поэтичный': 'Твои слова — как тёплый свет, что согревает даже самый серый день',
+  };
+
+  function updateStylePreview() {
+    var lines = linesToList(document.getElementById('style-dm').value);
+    document.getElementById('style-preview').textContent = lines[0] || t('style.previewFallback');
+  }
+
+  function showTonePreview(clickedTag) {
+    var value = clickedTag.getAttribute('data-value');
+    if (clickedTag.classList.contains('active') && TONE_EXAMPLES[value]) {
+      document.getElementById('style-preview').textContent = TONE_EXAMPLES[value];
+      return;
+    }
+    // Tag just turned off (or has no canned example) — fall back to
+    // another still-active tag's example, else the DM-typed preview.
+    var activeTags = Array.prototype.slice.call(document.querySelectorAll('#style-tags .tag.active'));
+    for (var i = 0; i < activeTags.length; i++) {
+      var val = activeTags[i].getAttribute('data-value');
+      if (TONE_EXAMPLES[val]) {
+        document.getElementById('style-preview').textContent = TONE_EXAMPLES[val];
+        return;
+      }
+    }
+    updateStylePreview();
+  }
+
+  document.getElementById('style-dm').addEventListener('input', updateStylePreview);
+
+  function loadStyle() {
+    return apiFetch('/api/style').then(function (profile) {
+      document.querySelectorAll('#style-tags .tag').forEach(function (tag) {
+        var value = (tag.getAttribute('data-value') || '').toLowerCase();
+        var active = (profile.tones || []).some(function (tone) { return tone.toLowerCase() === value; });
+        tag.classList.toggle('active', active);
+      });
+      document.getElementById('style-description').value = profile.description || '';
+      document.getElementById('style-dm').value = (profile.examples_dm || []).join('\n');
+      document.getElementById('style-comments').value = (profile.examples_comments || []).join('\n');
+      document.getElementById('style-posts').value = (profile.examples_posts || []).join('\n');
+      updateStylePreview();
+    });
+  }
+
+  function saveStyle() {
+    var tones = Array.prototype.slice.call(document.querySelectorAll('#style-tags .tag.active'))
+      .map(function (tag) { return tag.getAttribute('data-value'); });
+    var body = {
+      tones: tones,
+      description: document.getElementById('style-description').value.trim(),
+      examples_dm: linesToList(document.getElementById('style-dm').value),
+      examples_comments: linesToList(document.getElementById('style-comments').value),
+      examples_posts: linesToList(document.getElementById('style-posts').value),
+    };
+    apiFetch('/api/style', { method: 'POST', body: JSON.stringify(body) }).then(function () {
+      showToast(t('toast.styleSaved'));
+    }).catch(function () { showToast(t('toast.styleSaveFailed'), true); });
+  }
+
+  document.querySelectorAll('#style-tags .tag').forEach(function (tag) {
+    tag.addEventListener('click', function () { tag.classList.toggle('active'); showTonePreview(tag); });
+  });
+
+  // ── EMOJI PICKER ─────────────────────────────────────────────────────────
+  // Full Apple-style categorized set (the same groups as the iOS/macOS emoji
+  // keyboard), minus skin-tone/gender long-press variants — those are a
+  // press-and-hold detail on real keyboards, not separate grid entries.
+  var EMOJI_CATEGORIES = [
+    { icon: '😀', list: '😀😃😄😁😆😅🤣😂🙂🙃😉😊😇🥰😍🤩😘😗☺️😚😙🥲😋😛😜🤪😝🤑🤗🤭🫢🫣🤫🤔🫡🤐🤨😐😑😶🫥😏😒🙄😬🤥😌😔😪🤤😴😷🤒🤕🤢🤮🤧🥵🥶🥴😵🤯🤠🥳🥸😎🤓🧐😕🫤😟🙁☹️😮😯😲😳🥺🥹😦😧😨😰😥😢😭😱😖😣😞😓😩😫🥱😤😡😠🤬😈👿💀☠️💩🤡👹👺👻👽👾🤖😺😸😹😻😼😽🙀😿😾'.match(/\p{Emoji}️?(‍\p{Emoji}️?)*/gu) },
+    { icon: '👋', list: '👋🤚🖐️✋🖖👌🤌🤏✌️🤞🫰🤟🤘👈👉👆🖕👇☝️👍👎✊👊🤛🤜👏🙌🫶👐🤲🙏✍️💅🤳💪🦾🦵🦿🦶👣👂🦻👃🫀🫁🧠🦷🦴👀👁️👅👄🫦👶🧒👦👧🧑👱👨👩🧔👴👵🙍🙎🙅🙆💁🙋🧏🙇🤦🤷👮🕵️💂🥷👷🤴👸👳👲🧕🤵👰🤰🤱👼🎅🤶🦸🦹🧙🧚🧛🧜🧝🧞🧟💆💇🚶🧍🧎🏃💃🕺👯🧖👭👫👬💑💏👪🗣️👤👥🫂'.match(/\p{Emoji}️?(‍\p{Emoji}️?)*/gu) },
+    { icon: '🐻', list: '🐶🐱🐭🐹🐰🦊🐻🐼🐻‍❄️🐨🐯🦁🐮🐷🐽🐸🐵🙈🙉🙊🐒🐔🐧🐦🐤🐣🐥🦆🦅🦉🦇🐺🐗🐴🦄🐝🪱🐛🦋🐌🐞🐜🪰🪲🪳🦟🦗🕷️🕸️🦂🐢🐍🦎🦖🦕🐙🦑🦐🦞🦀🪸🐡🐠🐟🐬🐳🐋🦈🐊🐅🐆🦓🦍🦧🦣🐘🦛🦏🐪🐫🦒🦘🦬🐃🐂🐄🐎🐖🐏🐑🦙🐐🦌🐕🐩🦮🐈🐈‍⬛🪶🐓🦃🦤🦚🦜🦢🦩🕊️🐇🦝🦨🦡🦫🦦🦥🐁🐀🐿️🦔🐾🐉🐲'.match(/\p{Emoji}️?(‍\p{Emoji}️?)*/gu) },
+    { icon: '🍎', list: '🍏🍎🍐🍊🍋🍌🍉🍇🍓🫐🍈🍒🍑🥭🍍🥥🥝🍅🍆🥑🥦🥬🥒🌶️🫑🌽🥕🫒🧄🧅🥔🍠🥐🥯🍞🥖🥨🧀🥚🍳🧈🥞🧇🥓🥩🍗🍖🌭🍔🍟🍕🫓🥪🥙🧆🌮🌯🫔🥗🥘🫕🥫🍝🍜🍲🍛🍣🍱🥟🦪🍤🍙🍚🍘🍥🥠🥮🍢🍡🍧🍨🍦🥧🧁🍰🎂🍮🍭🍬🍫🍿🍩🍪🌰🥜🍯🥛🍼🫖☕🍵🧃🥤🧋🍶🍺🍻🥂🍷🥃🍸🍹🧉🍾🧊'.match(/\p{Emoji}️?(‍\p{Emoji}️?)*/gu) },
+    { icon: '⚽', list: '⚽🏀🏈⚾🥎🎾🏐🏉🥏🎱🪀🏓🏸🏒🏑🥍🏏🪃🥅⛳🪁🏹🎣🤿🥊🥋🎽🛹🛼🛷⛸️🥌🎿⛷️🏂🪂🏋️🤸🤺🤾🏌️🏇🧘🏄🏊🤽🚣🧗🚵🚴🏆🥇🥈🥉🏅🎖️🏵️🎗️🎫🎟️🎪🤹🎭🩰🎨🎬🎤🎧🎼🎹🥁🪘🎷🎺🪗🎸🪕🎻🎲♟️🎯🎳🎮🎰🧩🪄🎊🎉🎈🎁🎀🪅🪩'.match(/\p{Emoji}️?(‍\p{Emoji}️?)*/gu) },
+    { icon: '✈️', list: '🚗🚕🚙🚌🚎🏎️🚓🚑🚒🚐🛻🚚🚛🚜🛴🚲🛵🏍️🛺🚨🚔🚍🚘🚖🚡🚠🚟🚃🚋🚞🚝🚄🚅🚈🚂🚆🚇🚊🚉✈️🛫🛬🛩️💺🛰️🚀🛸🚁🛶⛵🚤🛥️🛳️⛴️🚢⚓🚧🚦🚥🚏🗺️🗽🗼🏰🏯🏟️🎡🎢🎠⛲⛱️🏖️🏝️🏜️🌋⛰️🏔️🗻🏕️⛺🏠🏡🏘️🏚️🏗️🏭🏢🏬🏣🏤🏥🏦🏨🏪🏫🏩💒🏛️⛪🕌🕍🛕🕋⛩️🌅🌄🌠🎇🎆🌇🌆🏙️🌃🌌🌉🌁'.match(/\p{Emoji}️?(‍\p{Emoji}️?)*/gu) },
+    { icon: '💡', list: '⌚📱📲💻⌨️🖥️🖨️🖱️🖲️🕹️🗜️💽💾💿📀📼📷📸📹🎥📞☎️📟📠📺📻🎙️🎚️🎛️🧭⏱️⏲️⏰🕰️⌛⏳📡🔋🪫🔌💡🔦🕯️🪔🧯💵💴💶💷💰💳💎⚖️🧰🔧🔨⚒️🛠️⛏️🔩⚙️🧱⛓️🧲🔫🧨🪓🔪🗡️⚔️🛡️🚬⚰️⚱️🏺🔮📿💈⚗️🔭🔬🩹🩺💊💉🩸🧬🧫🧪🌡️🧹🧻🚽🚰🚿🛁🧼🪥🪒🧽🧴🔑🗝️🚪🪑🛋️🛏️🖼️🪞🛍️🛒🎁✉️📩📨📧💌📥📤📦🏷️📪📫📬📭📮📯📜📃📄📑🧾📊📈📉🗒️🗓️📆📅🗑️📁📂🗂️📰📓📔📒📕📗📘📙📚📖🔖🔗📎✂️📌📍🔍🔎🔒🔓'.match(/\p{Emoji}️?(‍\p{Emoji}️?)*/gu) },
+    { icon: '❤️', list: '❤️🧡💛💚💙💜🖤🤍🤎💔❣️💕💞💓💗💖💘💝💟☮️✝️☪️🕉️☸️✡️🔯☯️🛐⚛️♻️✅❌⭕🛑⛔❗❓❕❔‼️⁉️〽️⚠️♾️💯💢💤💨💦💧🌟⭐✨🎵🎶➕➖➗✖️🟰™️©️®️🔟🔢#️⃣*️⃣▶️⏸️⏹️⏭️⏮️⏩⏪🔀🔁🔂◀️🔼🔽➡️⬅️⬆️⬇️↗️↘️↙️↖️↕️↔️🔄✔️☑️🔴🟠🟡🟢🔵🟣⚫⚪🟤🔺🔻🔶🔷🔳🔲◼️◻️▪️▫️'.match(/\p{Emoji}️?(‍\p{Emoji}️?)*/gu) },
+    { icon: '🇹🇷', list: '🏁🚩🎌🏴🏳️🏳️‍🌈🏴‍☠️🇹🇷🇷🇺🇺🇸🇬🇧🇩🇪🇫🇷🇮🇹🇪🇸🇵🇹🇳🇱🇧🇪🇦🇹🇨🇭🇸🇪🇳🇴🇩🇰🇫🇮🇵🇱🇬🇷🇺🇦🇨🇾🇮🇱🇦🇪🇪🇬🇲🇦🇹🇳🇯🇵🇰🇷🇨🇳🇮🇳🇧🇷🇨🇦🇦🇺🇲🇽'.match(/\p{Emoji}️?(‍\p{Emoji}️?)*/gu) }
+  ];
+
+  var emojiPickerEl = null;
+  var emojiCurrentField = null;
+
+  function insertEmojiAtCursor(el, emoji) {
+    var start = el.selectionStart != null ? el.selectionStart : el.value.length;
+    var end = el.selectionEnd != null ? el.selectionEnd : el.value.length;
+    el.value = el.value.slice(0, start) + emoji + el.value.slice(end);
+    var pos = start + emoji.length;
+    el.focus();
+    el.setSelectionRange(pos, pos);
+  }
+
+  function renderEmojiCategory(index) {
+    var grid = emojiPickerEl.querySelector('.emoji-grid');
+    grid.innerHTML = '';
+    emojiPickerEl.querySelectorAll('.emoji-tab').forEach(function (t, i) {
+      t.classList.toggle('active', i === index);
+    });
+    EMOJI_CATEGORIES[index].list.forEach(function (emoji) {
+      var eb = document.createElement('button');
+      eb.type = 'button';
+      eb.textContent = emoji;
+      eb.addEventListener('click', function (e) {
+        e.preventDefault();
+        if (emojiCurrentField) insertEmojiAtCursor(emojiCurrentField, emoji);
+      });
+      grid.appendChild(eb);
+    });
+  }
+
+  function ensureEmojiPicker() {
+    if (emojiPickerEl) return emojiPickerEl;
+    var picker = document.createElement('div');
+    picker.className = 'emoji-picker';
+
+    var tabs = document.createElement('div');
+    tabs.className = 'emoji-tabs';
+    EMOJI_CATEGORIES.forEach(function (cat, i) {
+      var tab = document.createElement('button');
+      tab.type = 'button';
+      tab.className = 'emoji-tab';
+      tab.textContent = cat.icon;
+      tab.addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); renderEmojiCategory(i); });
+      tabs.appendChild(tab);
+    });
+    picker.appendChild(tabs);
+
+    var grid = document.createElement('div');
+    grid.className = 'emoji-grid';
+    picker.appendChild(grid);
+
+    document.body.appendChild(picker);
+    emojiPickerEl = picker;
+    renderEmojiCategory(0);
+    return picker;
+  }
+
+  function closeEmojiPicker() {
+    if (emojiPickerEl) emojiPickerEl.classList.remove('open');
+  }
+
+  function openEmojiPickerFor(field, btn) {
+    var picker = ensureEmojiPicker();
+    emojiCurrentField = field;
+    picker.classList.add('open');
+
+    var rect = btn.getBoundingClientRect();
+    var pw = picker.offsetWidth, ph = picker.offsetHeight;
+    var left = Math.min(Math.max(8, rect.right - pw), window.innerWidth - pw - 8);
+    var top = rect.bottom + 6;
+    if (top + ph > window.innerHeight - 8) top = rect.top - ph - 6;
+    picker.style.left = left + 'px';
+    picker.style.top = Math.max(8, top) + 'px';
+  }
+
+  function attachEmojiPicker(field) {
+    if (!field || field.dataset.emojiAttached) return;
+    field.dataset.emojiAttached = '1';
+
+    var wrap = document.createElement('div');
+    wrap.className = 'emoji-field-wrap';
+    field.parentNode.insertBefore(wrap, field);
+    wrap.appendChild(field);
+
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'emoji-btn';
+    btn.textContent = '😊';
+    btn.setAttribute('aria-label', 'Вставить эмодзи');
+    wrap.appendChild(btn);
+
+    btn.addEventListener('click', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      var isOpenForThis = emojiPickerEl && emojiPickerEl.classList.contains('open') && emojiCurrentField === field;
+      closeEmojiPicker();
+      if (!isOpenForThis) openEmojiPickerFor(field, btn);
+    });
+  }
+
+  document.addEventListener('click', function (e) {
+    if (!e.target.closest('.emoji-picker') && !e.target.classList.contains('emoji-btn')) closeEmojiPicker();
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeEmojiPicker();
+  });
+  document.addEventListener('scroll', function (e) {
+    if (e.target instanceof Element && e.target.closest('.emoji-picker')) return;
+    closeEmojiPicker();
+  }, true);
+
+  ['bio-field', 'style-description', 'style-dm', 'style-comments', 'style-posts', 'new-a']
+    .forEach(function (id) { attachEmojiPicker(document.getElementById(id)); });
+
+  // ── Boot ─────────────────────────────────────────────────────────────────
+  function loadAll() {
+    document.getElementById('global-error').style.display = 'none';
+    return loadBotStatus().catch(function (e) {
+      if (e.message === 'network') {
+        document.getElementById('global-error').style.display = 'flex';
+        return Promise.reject(e);
+      }
+    }).then(function () {
+      loadSection(loadStats, null);
+      loadSection(loadTopics, 'topics-list');
+      loadSection(loadIdeas, 'ideas-list-home');
+      loadSection(loadQueue, 'queue-list');
+      loadSection(loadFaq, 'faq-list');
+      loadSection(loadStyle, null);
+      loadSection(loadProfile, null);
+      loadSection(loadBloggerProfile, null);
+    }).catch(function () { /* already showed global-error */ });
+  }
+
+  (function init() {
+    applyI18N();
+    if (getToken()) showApp();
+    else showLogin('');
+  })();
+
+  // ── RAIN: condensation drops on every glass panel, not just the hero ──────
+  var RAIN_REDUCED_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function seedRain(el) {
+    if (!el || el.querySelector(':scope > .rain')) return;
+    var rain = document.createElement('div');
+    rain.className = 'rain';
+    rain.setAttribute('aria-hidden', 'true');
+    el.insertBefore(rain, el.firstChild);
+    if (RAIN_REDUCED_MOTION) return;
+    for (var i = 0; i < 7; i++) {
+      var d = document.createElement('div');
+      d.className = 'drop';
+      var s = 6 + Math.random() * 10;
+      d.style.width = s + 'px';
+      d.style.height = (s * 1.08) + 'px';
+      d.style.left = (2 + Math.random() * 94) + '%';
+      d.style.top = '-3%';
+      d.style.animationDuration = (10 + Math.random() * 12) + 's';
+      d.style.animationDelay = (-Math.random() * 20) + 's';
+      d.style.opacity = 0.5 + Math.random() * 0.5;
+      rain.appendChild(d);
+    }
+    for (var k = 0; k < 9; k++) {
+      var c = document.createElement('div');
+      c.className = 'drop still';
+      var cs = 2.5 + Math.random() * 5;
+      c.style.width = cs + 'px';
+      c.style.height = (cs * 1.05) + 'px';
+      c.style.left = (2 + Math.random() * 95) + '%';
+      c.style.top = (4 + Math.random() * 90) + '%';
+      rain.appendChild(c);
+    }
+  }
+  function seedAllRain() { document.querySelectorAll('.glass').forEach(seedRain); }
+  seedAllRain();
+</script>
+</body>
+</html>

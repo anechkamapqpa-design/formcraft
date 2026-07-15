@@ -1,5 +1,8 @@
 {
   "rewrites": [
+    { "source": "/social", "destination": "/social/landing.html" },
+    { "source": "/social/app", "destination": "/social/site.html" },
+    { "source": "/social/admin", "destination": "/social/admin.html" },
     { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
