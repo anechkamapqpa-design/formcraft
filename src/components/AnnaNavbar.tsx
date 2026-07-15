@@ -27,9 +27,13 @@ export function AnnaNavbar() {
   }, [searchQuery, navigate, lp]);
 
   const navLinks = [
-    { label: t.nav.templates, href: lp("/#templates"), hash: "templates" },
-    { label: t.nav.work, href: lp("/#cases"), hash: "cases" },
-    { label: t.nav.about, href: lp("/about"), hash: null },
+    { label: t.nav.templates, href: lp("/#templates"), hash: "templates", external: false },
+    { label: t.nav.work, href: lp("/#cases"), hash: "cases", external: false },
+    { label: t.nav.about, href: lp("/about"), hash: null, external: false },
+    // /social is a separate static site (the Instagram bot product) served via a
+    // Vercel rewrite, not a route in this SPA — needs a real page load, not
+    // React Router's client-side navigation, or it'd hit our own 404 instead.
+    { label: t.nav.social, href: "/social", hash: null, external: true },
   ];
 
   const handleNavClick = useCallback((e: React.MouseEvent, link: { href: string; hash: string | null }) => {
@@ -72,6 +76,10 @@ export function AnnaNavbar() {
                         className="text-muted-foreground"
                         onClick={(e) => handleNavClick(e, link)}
                       >
+                        {link.label}
+                      </a>
+                    ) : link.external ? (
+                      <a href={link.href} className="text-muted-foreground">
                         {link.label}
                       </a>
                     ) : (
@@ -140,6 +148,8 @@ export function AnnaNavbar() {
                 <motion.div key={link.label} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }}>
                   {link.hash ? (
                     <a href={link.href} onClick={(e) => handleNavClick(e, link)} className="font-display text-3xl font-bold text-foreground">{link.label}</a>
+                  ) : link.external ? (
+                    <a href={link.href} className="font-display text-3xl font-bold text-foreground">{link.label}</a>
                   ) : (
                     <Link to={link.href} onClick={() => setMobileMenuOpen(false)} className="font-display text-3xl font-bold text-foreground">{link.label}</Link>
                   )}
