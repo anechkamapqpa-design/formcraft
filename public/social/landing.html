@@ -379,6 +379,8 @@ section { padding: 64px 0; }
 footer {
   padding: 28px 0 50px; text-align: center; font-size: 12px; color: var(--ink-faint);
 }
+footer a { color: var(--ink-faint); text-decoration: underline; }
+footer a:hover { color: var(--ink-soft); }
 
 /* ── Responsive ───────────────────────────────────────────────────────── */
 @media (max-width: 900px) {
@@ -708,7 +710,7 @@ footer {
     <a class="btn-primary" href="https://t.me/formcrafttech" target="_blank" rel="noopener" data-i18n="ctaFinal.btn">Написать в Telegram</a>
   </section>
 
-  <footer>FormCraft © 2026 · formcraft.tech</footer>
+  <footer>FormCraft © 2026 · formcraft.tech · <a href="/social/guide" data-i18n="footer.guideLink">Инструкция по подключению</a></footer>
 
 </div>
 
@@ -807,6 +809,7 @@ footer {
       'ctaFinal.title': 'Хотите попробовать?',
       'ctaFinal.lead': 'Сейчас — пилотный набор блогеров, места ограничены. Напишите мне, расскажу и подключу.',
       'ctaFinal.btn': 'Написать в Telegram',
+      'footer.guideLink': 'Инструкция по подключению',
     },
     en: {
       'nav.login': 'Log in', 'nav.cta': 'Contact',
@@ -899,6 +902,7 @@ Through an agent I know, but I looked into it myself too — sending you a check
       'ctaFinal.title': 'Want to try it?',
       'ctaFinal.lead': "Currently onboarding a pilot group, spots are limited. Message me and I'll get you set up.",
       'ctaFinal.btn': 'Message me on Telegram',
+      'footer.guideLink': 'Setup guide',
     },
   };
 
